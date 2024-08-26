@@ -1,23 +1,19 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/filter-status.pug
+include ../../mixins/form-search.pug
+include ../../mixins/pagination.pug
 block main 
     h2 Trang sản phẩm
 
     .card.mb-3 
         .card-header Bộ lọc và tìm kiếm 
         .card-body 
-            button(
-                class="btn btn-sm ml-1 btn-outline-success active"
-                button-status= ""
-            ) Tất cả 
-            button(
-                class="btn btn-sm ml-1 btn-outline-success "
-                button-status= "active"
-            )  Hoạt động 
-            button(
-                class="btn btn-sm ml-1 btn-outline-success "
-                button-status= "inactive"
-            ) Dừng hoạt động 
+            .row 
+                .col-6
+                    +filter-status(filterStatus)
+                .col-6 
+                    +form-search(keyword)
+            
 
     .card.mb-3 
         .card-header Danh sách sản phẩm 
@@ -48,3 +44,6 @@ block main
                             td 
                                 button(class="btn btn-warning btn-sm") Sửa
                                 button(class="btn btn-danger btn-sm ml-1") Xóa 
+
+            +pagination(totalPage,currentPage)         
+                        

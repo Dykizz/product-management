@@ -16,3 +16,31 @@ if (buttonStatus.length > 0){
     })
 }
 // End Button Status
+// Form Search
+const formSearch =  document.querySelector("#formSearch");
+if (formSearch){
+    let url = new URL(window.location.href);
+    formSearch.addEventListener("submit",(e) => {
+        e.preventDefault();
+        const keyword = (e.target.elements.keyword.value);
+        if (keyword){
+            url.searchParams.set("keyword",keyword);
+        }else url.searchParams.delete("keyword");
+        window.location.href = url.href;
+    })
+}
+
+//End Form Search
+//Pagination
+const buttonPages = document.querySelectorAll("[direction-page]");
+if (buttonPages.length > 0){
+    let url = new URL(window.location.href);
+    buttonPages.forEach(button =>{
+        button.addEventListener("click", ()=>{
+            const directionPage = parseInt(button.getAttribute("direction-page"));
+            url.searchParams.set("page",directionPage );
+            window.location.href = url;
+        })
+    })
+}
+// End Pagination

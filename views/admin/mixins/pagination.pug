@@ -1,0 +1,16 @@
+mixin pagination(totalPage,currentPage)
+    nav
+        ul(class="pagination" id="buttons-page")  
+            li.page-item 
+                if (currentPage == 1)
+                    button(class="page-link" direction-page=1) Trang trước
+                else 
+                    button(class="page-link" direction-page = currentPage - 1) Trang trước
+            - for(let i = 1; i <= totalPage ;i++)
+                li(class=`page-item ${currentPage == i ? "active" : ""}`)
+                    button(class="page-link" direction-page = i) #{i}
+            li.page-item 
+                if (currentPage == totalPage)
+                    button(class="page-link" direction-page=totalPage) Trang trước
+                else 
+                    button(class="page-link" direction-page = currentPage + 1) Trang tiếp
