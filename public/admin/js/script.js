@@ -44,3 +44,44 @@ if (buttonPages.length > 0){
     })
 }
 // End Pagination
+// Check Box
+const tableCheckBox = document.querySelector("[table-check-box]");
+if (tableCheckBox){
+    const checkAll = tableCheckBox.querySelector("input[name='checkall']");
+    const checkBoxs = tableCheckBox.querySelectorAll("input[name='id']");
+    checkAll.addEventListener("click",() => {
+        checkBoxs?.forEach(checkbox => checkbox.checked = checkAll.checked);
+    })
+    checkBoxs?.forEach(checkbox =>{
+        checkbox.addEventListener("click", ()=>{
+            if (checkbox.checked){
+                const countCheck = tableCheckBox.querySelectorAll("input[name='id']:checked").length;
+                if (countCheck == checkBoxs.length) checkAll.checked = true;
+            }else{
+                checkAll.checked = false;
+            }
+        })
+    })
+}
+//End Check Box
+//Form Change Multi
+const formChangeMulti = document.querySelector("[form-change-multi]");
+if (formChangeMulti){
+    formChangeMulti.addEventListener("submit",(e) =>{
+        e.preventDefault();
+        const boxCheckeds = tableCheckBox.querySelectorAll("input[name='id']:checked");
+        if (boxCheckeds.length == 0){
+            alert("Bạn chọn sản phẩm để thực hiện!");
+            return;
+        }
+        let ids = [];
+        boxCheckeds.forEach(item =>{
+            ids.push(item.value)
+        });
+        const inputIds = document.querySelector("input[name='ids']");
+        inputIds.value = ids.join(", ");
+        formChangeMulti.submit();
+    })
+}
+
+//End Form Change Multi

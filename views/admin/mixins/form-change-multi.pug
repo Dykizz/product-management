@@ -1,0 +1,21 @@
+mixin form-change-multi(path,arrObjectValue_Label)
+    form(
+            action=path 
+            method="post"
+            form-change-multi
+            class= "mb-4"
+        ) 
+            .d-flex.align-items-start
+                .input-group 
+                    select(name="type" class="form-control")
+                        each item in arrObjectValue_Label
+                            option(value= item.value) #{item.label}
+                    .input-group-append
+                        button(type = "submit" class = "btn btn-primary") Áp dụng
+                .form-group
+                    input(
+                        type="text"
+                        name="ids"
+                        value=""
+                        class="form-control d-none"
+                    )

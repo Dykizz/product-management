@@ -37,3 +37,28 @@ module.exports.changeStatus = async (req,res) => {
     await Product.updateOne({ _id : id},{status : currentStatus});
     res.redirect("back");
 }
+// [PATCH] /admin/prodcuts/change-multi
+module.exports.changeMulti = async (req,res) => {
+    const info = req.body ;
+    const type = info.type ;
+    const ids = info.ids.split(", ");
+    switch(type){
+        case "active" : 
+            await Product.updateMany(
+                { _id : { $in : ids} },
+                { $set : { status : "active" }}
+            );
+            break;
+        case "inactive" :
+            await Product.updateMany(
+                { _id : { $in : ids} },
+                { $set : { status : "inactive" }}
+            )
+            break;
+        default :
+            break;
+        
+    }
+    res.redirect("back")
+
+}
