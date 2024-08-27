@@ -55,6 +55,12 @@ module.exports.changeMulti = async (req,res) => {
                 { $set : { status : "inactive" }}
             )
             break;
+        case "delete-all" :
+            const deleteAt = new Date();
+            await Product.updateMany(
+                { _id : { $in : ids} },
+                { $set : { deleteAt : deleteAt.toLocaleString() }}
+            )
         default :
             break;
         
@@ -64,7 +70,8 @@ module.exports.changeMulti = async (req,res) => {
 // [DELETE] /admin/products/delete/:id
 module.exports.deleteItem = async (req,res) => {
     const id = req.params.id;
-    await Product.updateOne({_id : id} , {deleted : true});
+    const time = new Date();
+    await Product.updateOne({_id : id} , {deleted : true , deleteAt : time.toLocaleString()});
 
     res.redirect("back");
     

@@ -69,11 +69,23 @@ const formChangeMulti = document.querySelector("[form-change-multi]");
 if (formChangeMulti){
     formChangeMulti.addEventListener("submit",(e) =>{
         e.preventDefault();
+
         const boxCheckeds = tableCheckBox.querySelectorAll("input[name='id']:checked");
         if (boxCheckeds.length == 0){
-            alert("Bạn chọn sản phẩm để thực hiện!");
+            alert("Bạn vui lòng chọn ít nhất 1 sản phẩm để thực hiện!");
             return;
         }
+
+        const typeChange = e.target.elements.type.value ;
+        if (typeChange == "") {
+            alert("Vui lòng chọn hoạt động!");
+            return;
+        }
+        if (typeChange == "delete-all"){
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa những sản phẩm này?");
+            if (!isConfirm) return;
+        }
+        
         let ids = [];
         boxCheckeds.forEach(item =>{
             ids.push(item.value)

@@ -8,6 +8,7 @@ mixin form-change-multi(path,arrObjectValue_Label)
             .d-flex.align-items-start
                 .input-group 
                     select(name="type" class="form-control")
+                        option(value="" disable selected)  -- Chọn hành động --
                         each item in arrObjectValue_Label
                             option(value= item.value) #{item.label}
                     .input-group-append

@@ -22,7 +22,7 @@ block main
                 .col-6
                     +form-change-multi(
                         `${prefixAdmin}/products/change-multi?_method=PATCH`,
-                        [
+                        [   
                             {
                                 value : 'active',
                                 label : 'Hoạt động'
@@ -30,6 +30,10 @@ block main
                             {
                                 value : 'inactive',
                                 label : 'Dừng hoạt động'
+                            },
+                            {
+                                value : 'delete-all',
+                                label : 'Xóa tất cả'
                             }
                         ])
             table(
