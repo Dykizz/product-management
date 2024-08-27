@@ -74,15 +74,24 @@ block main
                                     ) Dừng hoạt động 
                             td 
                                 button(class="btn btn-warning btn-sm") Sửa
-                                button(class="btn btn-danger btn-sm ml-1") Xóa 
+                                button(
+                                    button-delete-item
+                                    class="btn btn-danger btn-sm ml-1"
+                                    data-id = item._id
+                                ) Xóa 
 
             +pagination(totalPage,currentPage)         
     form(
         id = "formChangeStatus"
-        action="javascript:;", 
+        action="javascript:;"
         method="post"
         data-path = `${prefixAdmin}/products/changeStatus`
-
     ) 
+    form(
+        id ="formDeleteItem"
+        action="javascript:;"
+        method="post"
+        data-path = `${prefixAdmin}/products/delete`
+    )
 
     script(src="/admin/js/products.js") 
