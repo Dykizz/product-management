@@ -28,3 +28,12 @@ module.exports.index = async (req,res) => {
         currentPage : objectPagination.currentPage
     })
 }
+
+// [PACTH] /admin/products/changeStatus/:status/:id
+module.exports.changeStatus = async (req,res) => {
+    const status = req.params.status;
+    const id = req.params.id ;
+    const currentStatus = status == "active" ? "inactive" : "active";
+    await Product.updateOne({ _id : id},{status : currentStatus});
+    res.redirect("back");
+}

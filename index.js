@@ -1,5 +1,5 @@
 const express = require('express');
-
+const methodOverride = require('method-override')
 
 require('dotenv').config();
 
@@ -15,7 +15,7 @@ const port = process.env.PORT ;
 app.set('views','./views');
 app.set('view engine','pug');
 app.use(express.static('public'));
-
+app.use(methodOverride('_method'))
 // App Locals Variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
