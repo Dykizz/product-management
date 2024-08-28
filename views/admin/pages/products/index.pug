@@ -3,9 +3,10 @@ include ../../mixins/filter-status.pug
 include ../../mixins/form-search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/notification.pug
 block main 
+    +notification()   
     h2 Trang sản phẩm
-
     .card.mb-3 
         .card-header Bộ lọc và tìm kiếm 
         .card-body 
@@ -34,8 +35,17 @@ block main
                             {
                                 value : 'delete-all',
                                 label : 'Xóa tất cả'
+                            },
+                            {
+                                value : 'change-position',
+                                label : 'Thay đổi vị trí'
                             }
                         ])
+                .col-6 
+                    a(
+                        class="btn btn-outline-success"
+                        href =`${prefixAdmin}/products/create`
+                    ) + Thêm sản phẩm
             table(
                     class="table table-hover table-sm "
                     table-check-box
@@ -47,6 +57,7 @@ block main
                         th STT 
                         th Hình ảnh 
                         th Tiêu đề  
+                        th Vị trí
                         th Giá  
                         th Trạng thái   
                         th Hành động    
@@ -60,6 +71,14 @@ block main
                             td  
                                 img(src= item.thumbnail, alt="sản phẩm", srcset="", width="100px" , height="auto")
                             td  #{item.title}
+                            td 
+                                input(
+                                    type="number" 
+                                    name="position"
+                                    style ="width : 70px"
+                                    value = item.position
+                                    min = 1
+                                )
                             td #{item.price}$
                             td 
                                 if(item.status === "active")

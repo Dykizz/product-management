@@ -1,0 +1,8 @@
+mixin notification(timeShow = 3000)
+    while message = flash.shift()
+        .alert(
+                class=('alert-' + message.type)
+                show-alert
+                time-show = timeShow
+            )   #{message.message}
+            span(class="button-close") x

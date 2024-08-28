@@ -10,9 +10,12 @@ const productSchema = new mongoose.Schema(
         thumbnail: String,
         status: String,
         position: Number,
-        deleted: Boolean,
+        deleted: {
+            type : Boolean,
+            default : false
+        },
         deleteAt : String
-    }
+    }, { timestamps: true }
 )
 const Product = mongoose.model("Product",productSchema,"products");
 

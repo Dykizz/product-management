@@ -87,9 +87,17 @@ if (formChangeMulti){
         }
         
         let ids = [];
-        boxCheckeds.forEach(item =>{
-            ids.push(item.value)
-        });
+        if (typeChange == "change-position"){
+            boxCheckeds.forEach(item =>{
+                const position = item.closest("tr").querySelector("input[name='position']").value;
+                ids.push(`${item.value}-${position}`);
+            })
+        }else{
+            boxCheckeds.forEach(item =>{
+                ids.push(item.value)
+            });
+        }
+        
         const inputIds = document.querySelector("input[name='ids']");
         inputIds.value = ids.join(", ");
         formChangeMulti.submit();
@@ -97,3 +105,21 @@ if (formChangeMulti){
 }
 
 //End Form Change Multi
+
+// Notification 
+const NotificationAlert = document.querySelector("[show-alert]");
+if (NotificationAlert){
+    const buttonClose = NotificationAlert.querySelector(".button-close");
+    const timeShow = NotificationAlert.getAttribute("time-show") ;
+    buttonClose.addEventListener("click", ()=>{
+        NotificationAlert.classList.add("alert-hidden");
+    })
+    
+    NotificationAlert.classList.add("show");
+   
+    setTimeout(()=>{
+        NotificationAlert.classList.add("alert-hidden");
+    },timeShow);
+}
+
+// End Notification

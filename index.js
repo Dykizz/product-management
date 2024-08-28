@@ -1,6 +1,7 @@
 const express = require('express');
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 require('dotenv').config();
 
 const database = require('./config/database');
@@ -17,6 +18,11 @@ app.set('view engine','pug');
 app.use(express.static('public'));
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({
+    secret : 'JDIW7BSBD9QU3QZ',
+    cookie : {maxAge : 60000}
+}));
+app.use(require('flash')());
 // App Locals Variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 

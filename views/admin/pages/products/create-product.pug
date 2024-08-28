@@ -1,0 +1,106 @@
+extends ../../layouts/default.pug
+
+block main 
+    h1 Tạo sản phẩm
+    form(
+            action=`${prefixAdmin}/products/create`
+            method="post"
+        ) 
+        .form-group
+            label(for="title") Tên sản phẩm
+            input(
+                class="form-control"
+                type="text"
+                id="title"
+                name="title"
+                required
+            )
+        .form-group
+            label(for="description") Mô tả sản phẩm
+            textarea(
+                class="form-control"
+                type="text"
+                id="description"
+                name="description"
+                rows="5"
+            )
+        .row 
+            .col-4
+                .form-group
+                    label(for="price") Giá ($)
+                    input(
+                        class="form-control"
+                        type="number"
+                        id="price"
+                        name="price"
+                        step="0.01"
+                        min="0"
+                        required
+                    )
+            .col-4
+                .form-group
+                    label(for="discountPercentage") Giảm giá (%)
+                    input(
+                        class="form-control"
+                        type="number"
+                        id="discountPercentage"
+                        name="discountPercentage"
+                        step="0.01"
+                        min="0"
+                        value=0
+                    )
+            .col-4
+                .form-group
+                    label(for="stock") Số lượng
+                    input(
+                        class="form-control"
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        min="1"
+                        value=1
+                    )
+        .form-group
+            label(for="thumbnail") Link ảnh
+            textarea(
+                class="form-control"
+                type="text"
+                id="thumbnail"
+                name="thumbnail"
+                rows="2"
+                required
+            )
+        .row
+            .col-4.form-group 
+                p Trạng thái 
+                .d-flex.align-items-center
+                    .form-check.mr-3 
+                        input(
+                            class="form-check-input"
+                            type="radio"
+                            value="active"
+                            name="status"
+                            id="option1"
+                            checked
+                        )
+                        label(class="form-check-label" for="option1") Hoạt động
+                    .form-check.mr-3 
+                        input(
+                            class="form-check-input"
+                            type="radio"
+                            value="inactive"
+                            name="status"
+                            id="option2"
+                        )
+                        label(class="form-check-label" for="option2") Dừng hoạt động
+            .col-4.form-group 
+                label(for="position") Vị trí
+                input(
+                    class="form-control"
+                    type="number"
+                    id="position"
+                    name="position"
+                    min="0"
+                    placeholder="Tự động tăng"
+                )
+        button(type="submit" class="btn btn-primary") Tạo sản phẩm 
