@@ -1,0 +1,15 @@
+mixin upload-file-preview(id,name)
+    div(class="form-group" upload-image)
+        label(for= id) File ảnh
+        input(
+            class="form-control-file"
+            accept="image/*"
+            type="file"
+            id= id
+            name= id
+            upload-image-input
+            required
+        )
+        .inner-image-preview.hidden
+            span(class="button-close") x
+            img(class="image-preview" src="" upload-image-preview)

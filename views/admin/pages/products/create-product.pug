@@ -1,9 +1,11 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/upload-file-preview.pug
 block main 
     h1 Tạo sản phẩm
     form(
             action=`${prefixAdmin}/products/create`
+            
+            enctype="multipart/form-data"  
             method="post"
         ) 
         .form-group
@@ -60,16 +62,7 @@ block main
                         min="1"
                         value=1
                     )
-        .form-group
-            label(for="thumbnail") Link ảnh
-            textarea(
-                class="form-control"
-                type="text"
-                id="thumbnail"
-                name="thumbnail"
-                rows="2"
-                required
-            )
+        +upload-file-preview("thumbnail","thumbnail")
         .row
             .col-4.form-group 
                 p Trạng thái 
