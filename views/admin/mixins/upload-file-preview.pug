@@ -1,4 +1,4 @@
-mixin upload-file-preview(id,name)
+mixin upload-file-preview(id,name,srcImage )
     div(class="form-group" upload-image)
         label(for= id) File ảnh
         input(
@@ -8,8 +8,10 @@ mixin upload-file-preview(id,name)
             id= id
             name= id
             upload-image-input
-            required
         )
-        .inner-image-preview.hidden
+        div(class=("inner-image-preview " +  (srcImage ? "" : "hidden" ) ))
             span(class="button-close") x
-            img(class="image-preview" src="" upload-image-preview)
+            img(
+                class="image-preview" 
+                src= srcImage 
+                upload-image-preview)

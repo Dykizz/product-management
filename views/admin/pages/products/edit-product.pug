@@ -3,9 +3,9 @@ include ../../mixins/upload-file-preview.pug
 include ../../mixins/notification.pug
 block main 
     +notification(4000)
-    h1 Tạo sản phẩm
+    h1 Sửa sản phẩm 
     form(
-            action=`${prefixAdmin}/products/create`
+            action=`${prefixAdmin}/products/edit/${product._id}?_method=PATCH`
             enctype="multipart/form-data"  
             method="post"
         ) 
@@ -15,7 +15,8 @@ block main
                 class="form-control"
                 type="text"
                 id="title"
-                name="title"
+                name="title",
+                value = product.title
                 required
             )
         .form-group
@@ -26,7 +27,7 @@ block main
                 id="description"
                 name="description"
                 rows="5"
-            )
+            ) #{product.description}
         .row 
             .col-4
                 .form-group
@@ -34,6 +35,7 @@ block main
                     input(
                         class="form-control"
                         type="number"
+                        value= product.price
                         id="price"
                         name="price"
                         step="0.01"
@@ -47,10 +49,11 @@ block main
                         class="form-control"
                         type="number"
                         id="discountPercentage"
+                        value = product.discountPercentage
                         name="discountPercentage"
                         step="0.01"
                         min="0"
-                        value=0
+                        
                     )
             .col-4
                 .form-group
@@ -61,9 +64,10 @@ block main
                         id="stock"
                         name="stock"
                         min="1"
-                        value=1
+                        value=product.stock
+                        requied
                     )
-        +upload-file-preview("thumbnail","thumbnail")
+        +upload-file-preview("thumbnail","thumbnail",product.thumbnail)
         .row
             .col-4.form-group 
                 p Trạng thái 
@@ -75,7 +79,7 @@ block main
                             value="active"
                             name="status"
                             id="option1"
-                            checked
+                            checked = (product.status == "active" ? true : false)
                         )
                         label(class="form-check-label" for="option1") Hoạt động
                     .form-check.mr-3 
@@ -85,6 +89,7 @@ block main
                             value="inactive"
                             name="status"
                             id="option2"
+                            checked = (product.status == "inactive" ? true : false)
                         )
                         label(class="form-check-label" for="option2") Dừng hoạt động
             .col-4.form-group 
@@ -95,6 +100,7 @@ block main
                     id="position"
                     name="position"
                     min="0"
-                    placeholder="Tự động tăng"
+                    value = product.position
+                    requied
                 )
-        button(type="submit" class="btn btn-primary") Tạo sản phẩm 
+        button(type="submit" class="btn btn-primary") Sửa sản phẩm 

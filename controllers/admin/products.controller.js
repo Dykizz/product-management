@@ -2,7 +2,8 @@ const Product = require('../../models/product.model')
 const filterStatusHelper = require('../../helpers/filteStatusHelper');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper')
-const configSystem = require('../../config/system')
+const configSystem = require('../../config/system');
+
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
     let find = {
@@ -19,7 +20,7 @@ module.exports.index = async (req, res) => {
 
     const objectPagination = await paginationHelper(Product, find, req.query);
     const products = await Product.find(find)
-        .sort({position : "desc"})
+        .sort({ position: "desc" })
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skipItems);
 
@@ -93,26 +94,72 @@ module.exports.deleteItem = async (req, res) => {
 
 }
 // [GET] /admin/products/create
-module.exports.create = (req,res) =>{
-    res.render("admin/pages/products/create-product",{
-        pageTitle : "Tạo sản phẩm"
+module.exports.create = (req, res) => {
+    res.render("admin/pages/products/create-product", {
+        pageTitle: "Tạo sản phẩm",
+        valueForm: {}
     });
 }
 // [POST] /admin/products/create
-module.exports.createPost =async (req,res) =>{
-    const body = req.body;
+module.exports.createPost = async (req, res) => {
     req.body.price = parseInt(req.body.price);
     req.body.stock = parseInt(req.body.stock);
     req.body.discountPercentage = parseFloat(req.body.discountPercentage);
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-    if (req.body.position == ""){
+    if (req.file) req.body.thumbnail = `/uploads/${req.file.filename}`;
+    if (req.body.position == "") {
         const cnt = await Product.countDocuments({});
         req.body.position = cnt + 1;
-    }else {
+    } else {
         req.body.position = parseInt(req.body.position);
     }
     const prodcut = new Product(req.body);
     prodcut.save();
     req.flash('success', `Tạo mới sản phẩm thành công!`);
     res.redirect(`${configSystem.prefixAdmin}/products`);
+}
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+    const id = req.params.id;
+    const product = await Product.findOne({ _id: id });
+    res.render("admin/pages/products/edit-product.pug", {
+        pageTitle: "Chỉnh sửa sản phẩm",
+        product: product
+    });
+}
+// [GET] /admin/products/edit/:id
+module.exports.eidtPatch= async (req, res) => {
+    const id = req.params.id;
+    let updateData = {};
+
+    // Danh sách các trường cần kiểm tra
+    const fieldsToUpdate = ['title', 'description', 'price', 'stock', 'status', 'discountPercentage', 'position'];
+
+    // Lặp qua từng trường và gán giá trị tương ứng nếu tồn tại trong req.body
+    fieldsToUpdate.forEach(field => {
+        if (req.body[field]) {
+            updateData[field] = field === 'price' || field === 'stock' || field === 'position'
+                ? parseInt(req.body[field])
+                : field === 'discountPercentage'
+                    ? parseFloat(req.body[field])
+                    : req.body[field];
+        }
+    });
+
+    // Xử lý trường hợp có file upload
+    if (req.file) {
+        updateData.thumbnail = `/uploads/${req.file.filename}`;
+    }
+    try {
+        await Product.updateOne({ _id: id }, updateData);
+    
+        // Nếu cập nhật thành công, hiển thị thông báo và chuyển hướng
+        req.flash('success', 'Cập nhật sản phẩm thành công!');
+        res.redirect(`${configSystem.prefixAdmin}/products`);
+    } catch (error) {
+        console.error('Lỗi khi cập nhật sản phẩm:', error);
+        // Nếu có lỗi, hiển thị thông báo lỗi và chuyển hướng
+        req.flash('danger', 'Có lỗi xảy ra khi cập nhật sản phẩm!');
+        res.redirect(`${configSystem.prefixAdmin}/products/edit/${id}`);
+    }
+
 }

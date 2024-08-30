@@ -3,7 +3,7 @@ const multer  = require('multer');// Thư viện upload file
 const router = express.Router(); 
 
 const controller = require('../../controllers/admin/products.controller')
-
+const validate = require('../../validates/admin/product.validate');
 
 
 router.get('/',controller.index);
@@ -14,5 +14,16 @@ router.get('/create',controller.create);
 
 const fileUploadHelper = require('../../helpers/fileUploadHelper');// Hàm cấu hình đường dẫn upload và tên file
 const upload = multer({ storage: fileUploadHelper() });
-router.post('/create',upload.single('thumbnail'),controller.createPost)
+router.post('/create',
+    upload.single('thumbnail'),
+    validate.createPost,
+    controller.createPost);
+
+
+router.get('/edit/:id',controller.edit);
+router.patch('/edit/:id',
+    upload.single('thumbnail'),
+    validate.createPost,
+    controller.eidtPatch
+);
 module.exports = router;
