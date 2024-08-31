@@ -3,7 +3,7 @@ const filterStatusHelper = require('../../helpers/filteStatusHelper');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper')
 const configSystem = require('../../config/system');
-
+const uploadImage = require('../../middleware/uploadImage');
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
     let find = {
@@ -102,20 +102,26 @@ module.exports.create = (req, res) => {
 }
 // [POST] /admin/products/create
 module.exports.createPost = async (req, res) => {
-    req.body.price = parseInt(req.body.price);
-    req.body.stock = parseInt(req.body.stock);
-    req.body.discountPercentage = parseFloat(req.body.discountPercentage);
-    if (req.file) req.body.thumbnail = `/uploads/${req.file.filename}`;
-    if (req.body.position == "") {
-        const cnt = await Product.countDocuments({});
-        req.body.position = cnt + 1;
-    } else {
-        req.body.position = parseInt(req.body.position);
+    try {
+        req.body.price = parseInt(req.body.price);
+        req.body.stock = parseInt(req.body.stock);
+        req.body.discountPercentage = parseFloat(req.body.discountPercentage);
+        if (req.body.position == "") {
+            const cnt = await Product.countDocuments({});
+            req.body.position = cnt + 1;
+        } else {
+            req.body.position = parseInt(req.body.position);
+        }
+        const prodcut = new Product(req.body);
+        prodcut.save();
+        req.flash('success', `Tạo mới sản phẩm thành công!`);
+        res.redirect(`${configSystem.prefixAdmin}/products`);
+
+    } catch (error) {
+        req.flash('danger', `Lỗi tạo sản phẩm!`);
+        res.redirect("back");
     }
-    const prodcut = new Product(req.body);
-    prodcut.save();
-    req.flash('success', `Tạo mới sản phẩm thành công!`);
-    res.redirect(`${configSystem.prefixAdmin}/products`);
+
 }
 // [GET] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
@@ -127,12 +133,12 @@ module.exports.edit = async (req, res) => {
     });
 }
 // [GET] /admin/products/edit/:id
-module.exports.editPatch= async (req, res) => {
+module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
     let updateData = {};
 
     // Danh sách các trường cần kiểm tra
-    const fieldsToUpdate = ['title', 'description', 'price', 'stock', 'status', 'discountPercentage', 'position'];
+    const fieldsToUpdate = ['title', 'description', 'price', 'stock', 'status', 'discountPercentage', 'position','thumbnail'];
 
     // Lặp qua từng trường và gán giá trị tương ứng nếu tồn tại trong req.body
     fieldsToUpdate.forEach(field => {
@@ -145,13 +151,10 @@ module.exports.editPatch= async (req, res) => {
         }
     });
 
-    // Xử lý trường hợp có file upload
-    if (req.file) {
-        updateData.thumbnail = `/uploads/${req.file.filename}`;
-    }
+    
     try {
         await Product.updateOne({ _id: id }, updateData);
-    
+
         // Nếu cập nhật thành công, hiển thị thông báo và chuyển hướng
         req.flash('success', 'Cập nhật sản phẩm thành công!');
         res.redirect(`${configSystem.prefixAdmin}/products`);
@@ -164,18 +167,18 @@ module.exports.editPatch= async (req, res) => {
 
 }
 
-module.exports.detail = async (req,res) =>{
-    const id = req.params.id ;
-    let product = await Product.findOne({_id : id});
-    if (product.createdAt){
+module.exports.detail = async (req, res) => {
+    const id = req.params.id;
+    let product = await Product.findOne({ _id: id });
+    if (product.createdAt) {
         product.timeCreate = product.createdAt.toLocaleString();
-    } 
-    if (product.updatedAt){
+    }
+    if (product.updatedAt) {
         product.timeLastUpdate = product.updatedAt.toLocaleString();
-    } 
-    console.log(product.timeCreate,product);
-    res.render('admin/pages/products/detail-product.pug',{
-        pageTitle : 'Thông tin chi tiết',
-        product : product
+    }
+    console.log(product.timeCreate, product);
+    res.render('admin/pages/products/detail-product.pug', {
+        pageTitle: 'Thông tin chi tiết',
+        product: product
     })
 }
