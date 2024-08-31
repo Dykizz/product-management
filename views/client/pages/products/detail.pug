@@ -1,0 +1,27 @@
+extends ../../layouts/default.pug
+
+block main 
+    h2 Thông tin chi tiết sản phẩm
+    .card  
+        .card-header.d-flex.align-items-center 
+            h3 #{product.title} 
+        .card-body
+            .form-group 
+                label Mô tả
+                textarea(class="form-control" readonly) #{product.description} 
+                p.mt-3  Giá gốc:
+                    strong  #{product.price}$
+                p Giảm giá : 
+                    strong  #{product.discountPercentage}%
+                p Giá hiện tại :
+                    strong  #{product.priceNew}$
+                p Số lượng : 
+                    strong  #{product.stock}   
+            .row 
+                .col-6 
+                    p Hình ảnh sản phẩm
+                    img(
+                        style = "width : 90% ; height : auto ; margin-left : auto ; margin-right : auto ; display : block ; border-radius : 8px" src=product.thumbnail)
+                
+
+                

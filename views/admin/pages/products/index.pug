@@ -97,7 +97,11 @@ block main
                                     ) Dừng hoạt động 
                             td 
                                 a(
-                                    class="btn btn-warning btn-sm"
+                                    class="btn btn-secondary btn-sm"
+                                    href = `${prefixAdmin}/products/detail/${item._id}`
+                                ) Chi tiết
+                                a(
+                                    class="btn btn-warning btn-sm ml-1"
                                     href =`${prefixAdmin}/products/edit/${item._id}`
                                 ) Sửa
                                 button(

@@ -127,7 +127,7 @@ module.exports.edit = async (req, res) => {
     });
 }
 // [GET] /admin/products/edit/:id
-module.exports.eidtPatch= async (req, res) => {
+module.exports.editPatch= async (req, res) => {
     const id = req.params.id;
     let updateData = {};
 
@@ -162,4 +162,20 @@ module.exports.eidtPatch= async (req, res) => {
         res.redirect(`${configSystem.prefixAdmin}/products/edit/${id}`);
     }
 
+}
+
+module.exports.detail = async (req,res) =>{
+    const id = req.params.id ;
+    let product = await Product.findOne({_id : id});
+    if (product.createdAt){
+        product.timeCreate = product.createdAt.toLocaleString();
+    } 
+    if (product.updatedAt){
+        product.timeLastUpdate = product.updatedAt.toLocaleString();
+    } 
+    console.log(product.timeCreate,product);
+    res.render('admin/pages/products/detail-product.pug',{
+        pageTitle : 'Thông tin chi tiết',
+        product : product
+    })
 }

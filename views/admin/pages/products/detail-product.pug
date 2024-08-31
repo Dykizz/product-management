@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+
+block main 
+    h2 Thông tin chi tiết sản phẩm
+    .card 
+        .card-header.d-flex.align-items-center 
+            h3.d-inline #{product.title} 
+            if product.status == "active"
+                span(class="badge badge-success ml-3") Hoạt động
+            else
+                span(class="badge badge-danger ml-3") Dừng hoạt động
+        .card-body
+            .form-group 
+                label Mô tả
+                textarea(class="form-control" readonly) #{product.description} 
+            .row
+                .col-3
+                    .form-group 
+                        label Giá ($)
+                        input(class="form-control" type="number" readonly value=product.price)
+                .col-3
+                    .form-group 
+                        label Giảm giá (%)
+                        input(class="form-control" type="number" step ="0.01" readonly value=product.discountPercentage)
+                .col-3
+                    .form-group 
+                        label  Số lượng
+                        input(class="form-control" type="number"  readonly value=product.stock)
+                .col-3
+                    .form-group 
+                        label  Vị trí
+                        input(class="form-control" type="number"  readonly value=product.position)
+            .row 
+                .col-6 
+                    img(
+                        style = "width : 90% ; height : auto ; margin-left : auto ; margin-right : auto ; display : block ; border-radius : 8px" src=product.thumbnail)
+                .col-6.mt-3
+                    div
+                        label Ngày tạo :
+                        strong  #{product.timeCreate ? product.timeCreate : "Không có thông tin!"}
+                    div
+                        label Cập nhật lần cuối :
+                        strong  #{product.timeLastUpdate ? product.timeLastUpdate : "Không có thông tin!"}
+            a(
+                class= "btn btn-warning btn-sm mt-3"
+                href =`${prefixAdmin}/products/edit/${product._id}`
+            ) Sửa thông tin 
+
+                
