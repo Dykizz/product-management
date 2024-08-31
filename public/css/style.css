@@ -71,3 +71,53 @@
     text-align: center;
     width: 70px;
 }
+/* End Product Item */
+/* Show Alert  */
+[show-alert] {
+    transform: translateX(100%); /* Đặt div ra khỏi màn hình về phía bên phải */
+    transition: transform 0.5s ease-in-out; /* Hiệu ứng chuyển đổi kéo dài 1 giây */
+    opacity: 0; /* Đặt độ mờ ban đầu */
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    z-index: 999;
+}
+[show-alert].show{
+    transform: translateX(0); /* Di chuyển div về vị trí ban đầu */
+    opacity: 1; /* Hiển thị div */
+}
+[show-alert] .button-close{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    opacity: 60%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+}
+[show-alert] .button-close:hover{
+    cursor: pointer;
+}
+[show-alert].alert-hidden {
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+@keyframes alert-hidden {
+    from {
+        right: 15px;
+    }
+    to {
+        right: -100%;
+        display: none;
+    }
+}
+
+/* End Show Alert */
