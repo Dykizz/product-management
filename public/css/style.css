@@ -1,8 +1,12 @@
 /* Header */
 
 .header{
+    position: sticky;
+    top: 0;
     border-bottom: 2px solid #ddd;
+    background: white;
     padding: 10px 0;
+    z-index: 999;
 }
 .header .inner-logo img{
     max-height: 50px;
@@ -21,9 +25,20 @@
     margin-left: 20px;
 }
 /* End Header */
+/* Body */
+
+
+.body {
+    margin-top: 30px;
+    position: relative;
+    
+}
+
+/* End Body */
 
 /* Footer */
 .footer{
+    position: relative;
     color: #fff;
     background: #333;
     text-align: center;
@@ -78,7 +93,7 @@
     transition: transform 0.5s ease-in-out; /* Hiệu ứng chuyển đổi kéo dài 1 giây */
     opacity: 0; /* Đặt độ mờ ban đầu */
     position: fixed;
-    top: 70px;
+    top: 80px;
     right: 15px;
     z-index: 999;
 }
