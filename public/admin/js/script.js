@@ -31,6 +31,40 @@ if (formSearch) {
 }
 
 //End Form Search
+
+// Sort Item 
+const formSort = document.querySelector("[sort]");
+if (formSort){
+    const select = formSort.querySelector("[sort-select]");
+
+    const clear = formSort.querySelector("[sort-clear]");
+    let url = new URL(window.location.href);
+    const currentKeySort = url.searchParams.get("keySort");
+    const currentValueSort = url.searchParams.get("valueSort");
+    if (currentKeySort){
+        select.value = (currentKeySort + '-' + currentValueSort);
+    }else select.value = "";
+    if (select)
+        select.addEventListener("change",()=>{
+            if (select.value){
+                const [key,value] = select.value.split("-");
+                url.searchParams.set("keySort",key);
+                url.searchParams.set("valueSort",value);
+                window.location.href = url;
+            }
+        })
+    if (clear)
+        clear.addEventListener("click",()=>{
+            url.searchParams.delete("keySort");
+            url.searchParams.delete("valueSort");
+            window.location.href = url;
+        })
+
+}
+
+// End Sort Item
+
+
 //Pagination
 const buttonPages = document.querySelectorAll("[direction-page]");
 if (buttonPages.length > 0) {

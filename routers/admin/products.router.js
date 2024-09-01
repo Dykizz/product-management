@@ -12,9 +12,12 @@ router.patch('/change-multi', controller.changeMulti);
 router.delete('/delete/:id',controller.deleteItem);
 router.get('/create',controller.create);
 
+// Upload
 const fileUploadHelper = require('../../helpers/fileUploadHelper');// Hàm cấu hình đường dẫn upload và tên file cho local
 const storage = multer.memoryStorage();
 const upload = multer({ storage : storage});
+//End Upload
+
 router.post('/create',
     upload.single('thumbnail'),
     validate.createPost,

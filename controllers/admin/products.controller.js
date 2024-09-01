@@ -9,8 +9,14 @@ module.exports.index = async (req, res) => {
     let find = {
         deleted: false
     }
+    let sort = {};
+    if (req.query.keySort){
+        sort[req.query.keySort] = req.query.valueSort == 'asc' ? 1 : -1;
+    }
+
     const filterStatus = filterStatusHelper(req.query);
     const objectSearch = searchHelper(req.query);
+    
     if (objectSearch.regex) {
         find.title = objectSearch.regex;
     }
@@ -20,7 +26,7 @@ module.exports.index = async (req, res) => {
 
     const objectPagination = await paginationHelper(Product, find, req.query);
     const products = await Product.find(find)
-        .sort({ position: "desc" })
+        .sort(sort)
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skipItems);
 
