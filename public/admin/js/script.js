@@ -32,18 +32,19 @@ if (formSearch) {
 
 //End Form Search
 
-// Sort Item 
+// Filter Sort 
 const formSort = document.querySelector("[sort]");
 if (formSort){
     const select = formSort.querySelector("[sort-select]");
-
     const clear = formSort.querySelector("[sort-clear]");
     let url = new URL(window.location.href);
+    // Xét giá trị cho select 
     const currentKeySort = url.searchParams.get("keySort");
     const currentValueSort = url.searchParams.get("valueSort");
     if (currentKeySort){
         select.value = (currentKeySort + '-' + currentValueSort);
     }else select.value = "";
+    
     if (select)
         select.addEventListener("change",()=>{
             if (select.value){
@@ -62,7 +63,7 @@ if (formSort){
 
 }
 
-// End Sort Item
+// End Filter Sort 
 
 
 //Pagination

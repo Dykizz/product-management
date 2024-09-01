@@ -1,0 +1,15 @@
+//- options là 1 mảng obj có thuộc tính label , value
+mixin filter-sort(options) 
+    div(sort)
+        .input-group
+            select(class="form-control" name="sort" sort-select)  
+                option(value="") -- Mặc định -- 
+                each item in options   
+                    option(value=item.value) #{item.label}
+            .input-group-append  
+                button(
+                    class ="btn btn-danger "
+                    sort-clear
+                )  Clear
+
+

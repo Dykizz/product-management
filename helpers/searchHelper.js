@@ -1,4 +1,5 @@
 module.exports = (query) => {
+    //Trả về keyword , regex của keyword , status
     let objectSearch = {
         keyword : ""
     }

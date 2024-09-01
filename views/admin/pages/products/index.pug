@@ -4,6 +4,7 @@ include ../../mixins/form-search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/notification.pug
+include ../../mixins/filter-sort.pug
 block main 
     +notification()   
     h2 Trang sản phẩm
@@ -21,21 +22,32 @@ block main
         .card-body 
             .row 
                 .col-6 
-                    div(sort)
-                        .input-group
-                            select(class="form-control" name="sort" sort-select)  
-                                option(value="") -- Mặc định -- 
-                                option(value="price-asc") Giá tăng dần
-                                option(value="price-desc") Giá giảm dần
-                                option(value="position-asc") Vị trí tăng dần
-                                option(value="position-desc") Vị trí giảm dần 
-                                option(value="title-asc") Tiêu đề A-Z
-                                option(value="title-desc") Tiêu đề Z-A   
-                            .input-group-append  
-                                button(
-                                    class ="btn btn-danger "
-                                    sort-clear
-                                )  Clear
+                    +filter-sort([
+                        {
+                            label : "Giá tăng dần",
+                            value : "price-asc"
+                        },
+                        {
+                            label : "Giá giảm dần",
+                            value : "price-desc"
+                        },
+                        {
+                            label : "Vị trí tăng dần",
+                            value : "position-asc"
+                        },
+                        {
+                            label : "Vị trí giảm dần",
+                            value : "position-desc"
+                        },
+                        {
+                            label : "Tiêu đề A-Z",
+                            value : "title-asc"
+                        },
+                        {
+                            label : "Tiêu đề Z-A",
+                            value : "title-desc"
+                        }
+                    ])
     .card.mb-3 
         .card-header Danh sách sản phẩm 
         .card-body 
