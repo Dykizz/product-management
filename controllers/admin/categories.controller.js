@@ -38,12 +38,17 @@ module.exports.index = async (req,res) => {
 
 // [PACTH] /admin/categories/changeStatus/:status/:id
 module.exports.changeStatus = async (req, res) => {
-    const status = req.params.status;
-    const id = req.params.id;
-    const currentStatus = status == "active" ? "inactive" : "active";
-    await Categories.updateOne({ _id: id }, { status: currentStatus });
-    req.flash('success', 'Cập nhật trạng thái sản phẩm thành công!');
-    res.redirect("back");
+    try {
+        const status = req.params.status;
+        const id = req.params.id;
+        const currentStatus = status == "active" ? "inactive" : "active";
+        await Categories.updateOne({ _id: id }, { status: currentStatus });
+        req.flash('success', 'Cập nhật trạng thái sản phẩm thành công!');
+        res.redirect("back");
+    } catch (error) {
+        res.redirect("back");
+    }
+    
 }
 
 // [PATCH] /admin/categories/change-multi
