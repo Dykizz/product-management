@@ -24,7 +24,7 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session({
     secret : 'JDIW7BSBD9QU3QZ',
-    cookie : {maxAge : 60000}
+    cookie : {maxAge : 1000}
 }));
 app.use(require('flash')());
 // App Locals Variable

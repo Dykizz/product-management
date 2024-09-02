@@ -96,6 +96,7 @@
     top: 80px;
     right: 15px;
     z-index: 999;
+    
 }
 [show-alert].show{
     transform: translateX(0); /* Di chuyển div về vị trí ban đầu */

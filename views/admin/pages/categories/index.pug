@@ -6,8 +6,8 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/notification.pug
 include ../../mixins/filter-sort.pug
 block main 
-    +notification()   
-    h2 Trang sản phẩm
+    +notification(4000)   
+    h2 Danh mục sản phẩm
     .card.mb-3 
         .card-header Bộ lọc và tìm kiếm 
         .card-body 
@@ -23,14 +23,6 @@ block main
             .row 
                 .col-6 
                     +filter-sort([
-                        {
-                            label : "Giá tăng dần",
-                            value : "price-asc"
-                        },
-                        {
-                            label : "Giá giảm dần",
-                            value : "price-desc"
-                        },
                         {
                             label : "Vị trí tăng dần",
                             value : "position-asc"
@@ -49,12 +41,12 @@ block main
                         }
                     ])
     .card.mb-3 
-        .card-header Danh sách sản phẩm 
+        .card-header Danh sách 
         .card-body 
             .row 
                 .col-6
                     +form-change-multi(
-                        `${prefixAdmin}/products/change-multi?_method=PATCH`,
+                        `${prefixAdmin}/categories/change-multi?_method=PATCH`,
                         [   
                             {
                                 value : 'active',
@@ -76,8 +68,8 @@ block main
                 .col-6 
                     a(
                         class="btn btn-outline-success"
-                        href =`${prefixAdmin}/products/create`
-                    ) + Thêm sản phẩm
+                        href =`${prefixAdmin}/categories/create`
+                    ) + Thêm danh mục
             table(
                     class="table table-hover table-sm "
                     table-check-box
@@ -90,12 +82,11 @@ block main
                         th Hình ảnh 
                         th Tiêu đề  
                         th Vị trí
-                        th Giá  
                         th Trạng thái   
                         th Hành động    
 
                 tbody   
-                    each item, index in products
+                    each item, index in categories
                         tr  
                             td 
                                 input(type="checkbox", name="id", value = item._id)
@@ -111,7 +102,6 @@ block main
                                     value = item.position
                                     min = 1
                                 )
-                            td #{item.price}$
                             td 
                                 if(item.status === "active")
                                     button(
@@ -130,11 +120,11 @@ block main
                             td 
                                 a(
                                     class="btn btn-secondary btn-sm"
-                                    href = `${prefixAdmin}/products/detail/${item._id}`
+                                    href = `${prefixAdmin}/categories/detail/${item._id}`
                                 ) Chi tiết
                                 a(
                                     class="btn btn-warning btn-sm ml-1"
-                                    href =`${prefixAdmin}/products/edit/${item._id}`
+                                    href =`${prefixAdmin}/categories/edit/${item._id}`
                                 ) Sửa
                                 button(
                                     button-delete-item
@@ -147,13 +137,13 @@ block main
         formChangeStatus
         action="javascript:;"
         method="post"
-        data-path = `${prefixAdmin}/products/changeStatus`
+        data-path = `${prefixAdmin}/categories/changeStatus`
     ) 
     form(
         id ="formDeleteItem"
         action="javascript:;"
         method="post"
-        data-path = `${prefixAdmin}/products/delete`
+        data-path = `${prefixAdmin}/categories/delete`
     )
 
-    script(src="/admin/js/products.js") 
+    script(src="/admin/js/categories.js") 

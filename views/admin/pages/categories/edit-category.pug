@@ -1,0 +1,64 @@
+extends ../../layouts/default.pug
+include ../../mixins/upload-file-preview.pug
+include ../../mixins/notification.pug
+
+block main 
+    +notification(4000)
+    h2 Chỉnh sửa thông tin danh mục
+    .card 
+        .card-header.d-flex.align-items-center 
+            h3.d-inline #{category.title} 
+        .card-body
+            form(
+                action=`${prefixAdmin}/categories/edit/${category._id}?_method=PATCH`
+                enctype="multipart/form-data"  
+                method="post"
+            )
+                .form-group
+                    label(for="description") Mô tả sản phẩm
+                    textarea(
+                        class="form-control tinymce"
+                        type="text"
+                        id="description"
+                        name="description"
+                        rows="5"
+                    ) #{category.description}
+                +upload-file-preview("thumbnail","thumbnail",category.thumbnail)
+                .row
+                    .col-4.form-group 
+                        p Trạng thái 
+                        .d-flex.align-items-center
+                            .form-check.mr-3 
+                                input(
+                                    class="form-check-input"
+                                    type="radio"
+                                    value="active"
+                                    name="status"
+                                    id="option1"
+                                    checked = (category.status == "active" ? true : false)
+                                )
+                                label(class="form-check-label" for="option1") Hoạt động
+                            .form-check.mr-3 
+                                input(
+                                    class="form-check-input"
+                                    type="radio"
+                                    value="inactive"
+                                    name="status"
+                                    id="option2"
+                                    checked = (category.status == "inactive" ? true : false)
+                                )
+                                label(class="form-check-label" for="option2") Dừng hoạt động
+                    .col-4.form-group 
+                        label(for="position") Vị trí
+                        input(
+                            class="form-control"
+                            type="number"
+                            id="position"
+                            name="position"
+                            min="0"
+                            value = category.position
+                            requied
+                        )
+                button(type="submit" class="btn btn-primary") Lưu
+
+                

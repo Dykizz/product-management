@@ -3,7 +3,7 @@ const filterStatusHelper = require('../../helpers/filteStatusHelper');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper')
 const configSystem = require('../../config/system');
-const uploadImage = require('../../middleware/uploadImage');
+
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
     let find = {
@@ -102,8 +102,7 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/products/create
 module.exports.create = (req, res) => {
     res.render("admin/pages/products/create-product", {
-        pageTitle: "Tạo sản phẩm",
-        valueForm: {}
+        pageTitle: "Tạo sản phẩm"
     });
 }
 // [POST] /admin/products/create

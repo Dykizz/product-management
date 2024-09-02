@@ -1,6 +1,6 @@
-// Button Status
-const buttonStatus = document.querySelectorAll("[button-status]");
 
+// Button Status thuộc phần bộ lọc tìm kiếm
+const buttonStatus = document.querySelectorAll("[button-status]");
 if (buttonStatus.length > 0) {
     let url = new URL(window.location.href)
     buttonStatus.forEach(button => {
@@ -107,7 +107,7 @@ if (formChangeMulti) {
 
         const boxCheckeds = tableCheckBox.querySelectorAll("input[name='id']:checked");
         if (boxCheckeds.length == 0) {
-            alert("Bạn vui lòng chọn ít nhất 1 sản phẩm để thực hiện!");
+            alert("Bạn vui lòng chọn ít nhất 1 danh mục để thực hiện!");
             return;
         }
 
@@ -117,7 +117,7 @@ if (formChangeMulti) {
             return;
         }
         if (typeChange == "delete-all") {
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa những sản phẩm này?");
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa những danh mục này?");
             if (!isConfirm) return;
         }
 

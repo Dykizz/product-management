@@ -22,7 +22,7 @@ const buttonDeletes = document.querySelectorAll("[button-delete-item]");
 if (buttonDeletes.length > 0){
     buttonDeletes.forEach(button => {
         button.addEventListener("click", ()=>{
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa sản phẩm này ?");
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa danh mục này ?");
             if (!isConfirm) return;
             const id = button.getAttribute("data-id");
             const path = formDeleteItem.getAttribute("data-path");
@@ -34,4 +34,3 @@ if (buttonDeletes.length > 0){
 }
 
 // End Delete Item
-

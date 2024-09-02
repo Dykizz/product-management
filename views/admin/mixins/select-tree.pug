@@ -1,0 +1,13 @@
+//- Tạo cấu trúc cây cho select. Lưu ý cần thêm select trước nó
+mixin select-tree(tree = [])
+    each item in tree 
+        option(value=item._id)= `${'-'.repeat(item.level * 2)} ${item.title}`
+        if item.children.length > 0
+            +select-tree(item.children)
+
+
+
+
+
+
+
