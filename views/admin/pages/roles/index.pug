@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+block main 
+    +notification(4000)
+    h2 Nhóm quyền
+    .card 
+        .card-header.d-flex.align-items-center 
+            div Danh sách
+        .card-body 
+            table(
+                class= "table table-hover"
+            )
+                thead 
+                    tr  
+                        a(
+                            class = "btn btn-outline-success mb-3"
+                        ) Thêm nhóm quyền
+                    tr 
+                        th STT 
+                        th Nhóm quyền   
+                        th Mô tả ngắn
+                        th Hành động
+                tbody   
+                    each item,index in roles 
+                        tr 
+                            td #{index + 1}
+                            td #{item.title} 
+                            td #{item.description}
+                            td 
+                                a(
+                                    class="btn btn-secondary btn-sm"
+                                    href = `${prefixAdmin}/roles/detail/${item._id}`
+                                ) Chi tiết
+                                a(
+                                    class="btn btn-warning btn-sm ml-1"
+                                    href =`${prefixAdmin}/roles/edit/${item._id}`
+                                ) Sửa
+                                button(
+                                    button-delete-item
+                                    class="btn btn-danger btn-sm ml-1"
+                                    data-id = item._id
+                                ) Xóa 
+    form(
+            id ="formDeleteItem"
+            action="javascript:;"
+            method="post"
+            data-path = `${prefixAdmin}/roles/delete`
+        )
+    script(src="/admin/js/roles.js") 
