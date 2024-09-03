@@ -53,11 +53,48 @@ module.exports.editPatch = async (req,res) =>{
 module.exports.delete = async (req,res) => {
     try {
         const id = req.params.id;
-        await Roles.updateOne({_id : id}, {deleted : true});
+        await Roles.updateOne({_id : id}, {deleted : true , deleteAt : new Date()});
         res.flash('success','Xóa thông tin thành công!');
         res.redirect(`${configSystem.prefixAdmin}/roles`);
     } catch (error) {
         res.flash('danger','Xóa thông tin không thành công!');
         res.redirect('back');
     }
+}
+// [GET] admin/roles/create
+module.exports.create = (req,res) => {
+    res.render('admin/pages/roles/create.pug',{
+        pageTitle : "Tạo danh mục"
+    })
+}
+
+// [POST] admin/roles/create
+
+module.exports.createPost = async (req,res) => {
+    try{
+        const id = req.params.id;
+        if (req.body.title == ""){
+            res.flash('waring','Hãy nhập tên danh mục!');
+            res.redirect('back');
+            return;
+        }
+        const role = new Roles(req.body);
+        role.save();
+        res.flash('success','Tạo danh mục thành công!');
+        res.redirect(`${configSystem.prefixAdmin}/roles`);
+    }catch(error){
+        res.flash('danger','Tạo danh mục không thành công!');
+        res.redirect('back');
+    }
+}
+
+// [GET] admin/roles/permission 
+module.exports.permission = async (req,res) => {
+    const roles = await Roles.find({deleted : false})
+    res.render('admin/pages/roles/permission.pug',
+        {
+            pageTitle : "Trang phân quyền",
+            roles : roles
+        }
+    );
 }

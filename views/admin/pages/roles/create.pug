@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug 
+block main  
+    +notification(4000)
+    h2.mb-3 Thêm nhóm quyền 
+    form(
+        action=`${prefixAdmin}/roles/create?_method=POST`, 
+        method="post"
+    ) 
+        .form-group
+            label(for="title") Tên nhóm quyền
+            input(type="text" class="form-control" id="title" name="title" required) 
+        .form-group 
+            label(for="description") Mô tả chi tiết 
+            textarea(
+                class="form-control"
+                id="description"
+                name="description"
+            )
+        button(type ="submit" class="btn btn-primary") Tạo
+        
