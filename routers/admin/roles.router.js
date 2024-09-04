@@ -10,4 +10,6 @@ router.delete('/delete/:id',controller.delete);
 router.get('/create',controller.create);
 router.post('/create',controller.createPost);
 router.get('/permission',controller.permission);
+
+router.patch('/permission',controller.permissionPatch);
 module.exports = router;
