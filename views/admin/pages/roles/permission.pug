@@ -7,7 +7,7 @@ block main
         .card-header.d-flex.align-items-center 
             div Danh sách
         .card-body 
-            div(record=roles) #{roles}
+            div(record=roles)
             table(
                 table-permission
                 class= "table table-hover"
@@ -22,7 +22,7 @@ block main
                         th Tính năng 
                         each item in roles 
                             th.text-center #{item.title}
-                    tr(data-name="id") 
+                    tr(data-name="id" class ="d-none") 
                         th 
                         each item in roles
                             th.text-center 
@@ -74,7 +74,8 @@ block main
                         each item in roles 
                             td.text-center  
                                 input(type="checkbox")
-    form(
+    form(   
+            class="d-none"
             id ="formPermissions"
             action=`${prefixAdmin}/roles/permission?_method=PATCH`
             method="post"      
