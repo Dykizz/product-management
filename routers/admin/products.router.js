@@ -10,7 +10,7 @@ router.get('/',controller.index);
 router.patch('/changeStatus/:status/:id', controller.changeStatus);
 router.patch('/change-multi', controller.changeMulti);
 router.delete('/delete/:id',controller.deleteItem);
-router.get('/create',controller.create);
+router.get('/create',controller.create); 
 
 // Upload
 const fileUploadHelper = require('../../helpers/fileUploadHelper');// Hàm cấu hình đường dẫn upload và tên file cho local

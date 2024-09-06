@@ -2,7 +2,7 @@ const Categories = require('../../models/categories.model');
 const filterStatusHelper = require('../../helpers/filteStatusHelper');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper');
-const configSystem = require('../../config/system');;
+const configSystem = require('../../config/system');
 // [GET] /admin/categories
 module.exports.index = async (req,res) => {
     let find = {

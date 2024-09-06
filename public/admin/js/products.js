@@ -1,6 +1,7 @@
+// Change Status
 const formChangeStatus = document.querySelector("[formChangeStatus]");
 const path = formChangeStatus.getAttribute("data-path");
-// Change Status
+
 const buttonsChangeStatus = document.querySelectorAll("[buttonChangeStatus]");
 if (buttonsChangeStatus.length > 0){
     buttonsChangeStatus.forEach(button =>{
