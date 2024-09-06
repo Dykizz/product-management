@@ -1,6 +1,6 @@
 module.exports.createAccount = (req,res,next) =>{
     if (!req.body.fullName){
-        res.flash('warning','Thông tin họ và tên còn thiếu!');
+        req.flash('warning','Thông tin họ và tên còn thiếu!');
         res.redirect('back');
         return;
     }
@@ -14,7 +14,7 @@ module.exports.createAccount = (req,res,next) =>{
     }
     
     if (!req.body.phone){
-        res.flash('warning','Thông tin số điên thoại còn thiếu!');
+        req.flash('warning','Thông tin số điên thoại còn thiếu!');
         res.redirect('back');
         return;
     }
@@ -28,12 +28,12 @@ module.exports.createAccount = (req,res,next) =>{
     
 
     if (!req.body.email){
-        res.flash('warning','Thông tin email còn thiếu!');
+        req.flash('warning','Thông tin email còn thiếu!');
         res.redirect('back');
         return;
     }
     if (!req.body.password){
-        res.flash('warning','Password còn thiếu!');
+        req.flash('warning','Password còn thiếu!');
         res.redirect('back');
         return;
     }
@@ -43,7 +43,7 @@ module.exports.createAccount = (req,res,next) =>{
 
 module.exports.editAccount = (req,res,next) =>{
     if (!req.body.fullName){
-        res.flash('warning','Thông tin họ và tên còn thiếu!');
+        req.flash('warning','Thông tin họ và tên còn thiếu!');
         res.redirect('back');
         return;
     }
@@ -57,7 +57,7 @@ module.exports.editAccount = (req,res,next) =>{
     }
     
     if (!req.body.phone){
-        res.flash('warning','Thông tin số điên thoại còn thiếu!');
+        req.flash('warning','Thông tin số điên thoại còn thiếu!');
         res.redirect('back');
         return;
     }
@@ -71,7 +71,7 @@ module.exports.editAccount = (req,res,next) =>{
     
 
     if (!req.body.email){
-        res.flash('warning','Thông tin email còn thiếu!');
+        req.flash('warning','Thông tin email còn thiếu!');
         res.redirect('back');
         return;
     }

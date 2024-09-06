@@ -11,7 +11,7 @@ module.exports.index = async (req,res) => {
             accounts : accounts
         });
     } catch (error) {
-        res.flash('danger','Lỗi truy cập!');
+        req.flash('danger','Lỗi truy cập!');
         res.redirect('back');
     }
     
@@ -26,7 +26,7 @@ module.exports.create = async (req,res) => {
             roles : roles
         });
     } catch (error) {
-        res.flash('danger','Lỗi truy cập!');
+        req.flash('danger','Lỗi truy cập!');
         res.redirect('back');
     }
 }
@@ -37,23 +37,23 @@ module.exports.createPost = async (req,res) =>{
         const existEmail = await Account.findOne({email : req.body.email});
         if (!!existEmail){
             console.log(existEmail)
-            res.flash('warning','Email này đã tồn tại');
+            req.flash('warning','Email này đã tồn tại');
             res.redirect('back');
             return;
         }
         const existPhone = await Account.findOne({ phone : req.body.phone });
         if (!!existPhone){
-            res.flash('warning','Số điện thoại này đã tồn tại');
+            req.flash('warning','Số điện thoại này đã tồn tại');
             res.redirect('back');
             return;
         }
         req.body.password = md5(req.body.password);
         const account = new Account(req.body);
         account.save();
-        res.flash('success','Tạo tài khoản thành công!');
+        req.flash('success','Tạo tài khoản thành công!');
         res.redirect(`${configSystem.prefixAdmin}/accounts`);
     }catch(error){
-        res.dange('danger','Lỗi không tạo được tài khoản!');
+        req.flash('danger','Lỗi không tạo được tài khoản!');
         res.redirect('back');
     }
     
@@ -71,7 +71,7 @@ module.exports.edit =async (req,res) => {
             roles : roles
         })
     } catch (error) {
-        res.flash('danger','Lỗi đường dẫn không tồn tại!');
+        req.flash('danger','Lỗi đường dẫn không tồn tại!');
         res.redirect('back');
     }
 }
@@ -90,7 +90,7 @@ module.exports.editPatch = async (req,res) => {
             deleted : false
         })
         if (existEmail){
-            res.flash('warning','Email này đã tồn tại!');
+            req.flash('warning','Email này đã tồn tại!');
             res.redirect('back');
             return;
         }
@@ -100,15 +100,15 @@ module.exports.editPatch = async (req,res) => {
             deleted : false
         })
         if (existPhone){
-            res.flash('warning','Số điện thoại này đã tồn tại!');
+            req.flash('warning','Số điện thoại này đã tồn tại!');
             res.redirect('back');
             return;
         }
         await Account.updateOne({_id : id},req.body);
-        res.flash('success','Chỉnh sửa tài khoản thành công!');
+        req.flash('success','Chỉnh sửa tài khoản thành công!');
         res.redirect(`${configSystem.prefixAdmin}/accounts`);
     } catch (error) {
-        res.flash('danger','Chỉnh sửa không thành công!');
+        req.flash('danger','Chỉnh sửa không thành công!');
         res.redirect('back');
     }
 }
@@ -118,10 +118,10 @@ module.exports.delete = async (req,res) =>{
     try {
         const id = req.params.id;
         await Account.updateOne({ _id : id }, {deleted : true});
-        res.flash('success','Xóa tài khoản thành công!')
+        req.flash('success','Xóa tài khoản thành công!')
         res.redirect(`${configSystem.prefixAdmin}/accounts`);
     } catch (error) {
-        res.flash('danger','Xóa tài khoản không thành công!')
+        req.flash('danger','Xóa tài khoản không thành công!')
         res.redirect('back');
     }
 }
@@ -139,7 +139,7 @@ module.exports.detail = async (req,res) => {
             roles : roles
         })
     } catch (error) {
-        res.flash('danger','Lỗi truy cập!');
+        req.flash('danger','Lỗi truy cập!');
         res.redirect('back');
     }
 }

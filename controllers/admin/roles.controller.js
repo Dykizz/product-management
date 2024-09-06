@@ -40,11 +40,11 @@ module.exports.editPatch = async (req, res) => {
     try {
         const id = req.params.id;
         await Roles.updateOne({ _id: id }, req.body);
-        res.flash('success', 'Cập nhật thông tin thành công!');
+        req.flash('success', 'Cập nhật thông tin thành công!');
         res.redirect(`${configSystem.prefixAdmin}/roles`);
 
     } catch (error) {
-        res.flash('danger', 'Lỗi chỉnh sửa. Vui lòng kiểm tra lại!')
+        req.flash('danger', 'Lỗi chỉnh sửa. Vui lòng kiểm tra lại!')
         res.redirect('back');
     }
 }
@@ -54,10 +54,10 @@ module.exports.delete = async (req, res) => {
     try {
         const id = req.params.id;
         await Roles.updateOne({ _id: id }, { deleted: true, deleteAt: new Date() });
-        res.flash('success', 'Xóa thông tin thành công!');
+        req.flash('success', 'Xóa thông tin thành công!');
         res.redirect(`${configSystem.prefixAdmin}/roles`);
     } catch (error) {
-        res.flash('danger', 'Xóa thông tin không thành công!');
+        req.flash('danger', 'Xóa thông tin không thành công!');
         res.redirect('back');
     }
 }
@@ -74,16 +74,16 @@ module.exports.createPost = async (req, res) => {
     try {
         const id = req.params.id;
         if (req.body.title == "") {
-            res.flash('waring', 'Hãy nhập tên danh mục!');
+            req.flash('waring', 'Hãy nhập tên danh mục!');
             res.redirect('back');
             return;
         }
         const role = new Roles(req.body);
         role.save();
-        res.flash('success', 'Tạo danh mục thành công!');
+        req.flash('success', 'Tạo danh mục thành công!');
         res.redirect(`${configSystem.prefixAdmin}/roles`);
     } catch (error) {
-        res.flash('danger', 'Tạo danh mục không thành công!');
+        req.flash('danger', 'Tạo danh mục không thành công!');
         res.redirect('back');
     }
 }
@@ -106,10 +106,10 @@ module.exports.permissionPatch = async (req, res) => {
         for (const item of arr) {
             await Roles.updateOne({ _id: item.id }, { permissions: item.permissions });
         }
-        res.flash('success','Cập nhật phân quyền thành công!');
+        req.flash('success','Cập nhật phân quyền thành công!');
     } catch (error) {
         console.log(error);
-        res.flash('danger','Cập nhật phân quyền không thành công!');
+        req.flash('danger','Cập nhật phân quyền không thành công!');
     }
     res.redirect('back');
 
