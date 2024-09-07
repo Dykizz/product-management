@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
-const methodOverride = require('method-override')
-const bodyParser = require('body-parser')
-const session = require('express-session')
+const methodOverride = require('method-override');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 require('dotenv').config();
 
 const database = require('./config/database');
@@ -20,8 +21,9 @@ app.use(express.static(`${__dirname}/public`));
 /* New Route to the TinyMCE Node module */
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
+app.use(cookieParser());
 app.use(methodOverride('_method'));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     secret : 'JDIW7BSBD9QU3QZ',
     cookie : {maxAge : 1000}

@@ -28,8 +28,10 @@ if (record){
         // Duyệt qua các quyền
         permissions.forEach(item =>{
             const row = tablePermisson.querySelector(`[data-name="${item}"]`);
-            const inputs = row.querySelectorAll("input");
-            inputs[index].checked = true; 
+            if (row){
+                const inputs = row.querySelectorAll("input");
+                inputs[index].checked = true; 
+            }
         })
     })
 }
@@ -41,9 +43,8 @@ if (record){
 
 // Submit Permission
 const tablePermisson = document.querySelector("[table-permission]");
-
 if (tablePermisson) {
-    const buttonSubmit = document.querySelector("[submit-form]");
+    const buttonSubmit = document.querySelector("[submit-form]"); 
     buttonSubmit?.addEventListener('click', () => {
         let groupPermission = [];
         const rows = tablePermisson.querySelectorAll("[data-name]");

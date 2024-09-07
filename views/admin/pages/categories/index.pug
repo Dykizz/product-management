@@ -5,145 +5,154 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/notification.pug
 include ../../mixins/filter-sort.pug
-block main 
-    +notification(4000)   
-    h2 Danh mục sản phẩm
-    .card.mb-3 
-        .card-header Bộ lọc và tìm kiếm 
-        .card-body 
-            .row 
-                .col-6
-                    +filter-status(filterStatus)
-                .col-6 
-                    +form-search(keyword)
+block main
+    if role.permissions.includes('category_detail')
+        +notification(4000)   
+        h2 Danh mục sản phẩm
+        .card.mb-3 
+            .card-header Bộ lọc và tìm kiếm 
+            .card-body 
+                .row 
+                    .col-6
+                        +filter-status(filterStatus)
+                    .col-6 
+                        +form-search(keyword)
 
-    .card.mb-3 
-        .card-header Sắp xếp 
-        .card-body 
-            .row 
-                .col-6 
-                    +filter-sort([
-                        {
-                            label : "Vị trí tăng dần",
-                            value : "position-asc"
-                        },
-                        {
-                            label : "Vị trí giảm dần",
-                            value : "position-desc"
-                        },
-                        {
-                            label : "Tiêu đề A-Z",
-                            value : "title-asc"
-                        },
-                        {
-                            label : "Tiêu đề Z-A",
-                            value : "title-desc"
-                        }
-                    ])
-    .card.mb-3 
-        .card-header Danh sách 
-        .card-body 
-            .row 
-                .col-6
-                    +form-change-multi(
-                        `${prefixAdmin}/categories/change-multi?_method=PATCH`,
-                        [   
+        .card.mb-3 
+            .card-header Sắp xếp 
+            .card-body 
+                .row 
+                    .col-6 
+                        +filter-sort([
                             {
-                                value : 'active',
-                                label : 'Hoạt động'
+                                label : "Vị trí tăng dần",
+                                value : "position-asc"
                             },
                             {
-                                value : 'inactive',
-                                label : 'Dừng hoạt động'
+                                label : "Vị trí giảm dần",
+                                value : "position-desc"
                             },
                             {
-                                value : 'delete-all',
-                                label : 'Xóa tất cả'
+                                label : "Tiêu đề A-Z",
+                                value : "title-asc"
                             },
                             {
-                                value : 'change-position',
-                                label : 'Thay đổi vị trí'
+                                label : "Tiêu đề Z-A",
+                                value : "title-desc"
                             }
                         ])
-                .col-6 
-                    a(
-                        class="btn btn-outline-success"
-                        href =`${prefixAdmin}/categories/create`
-                    ) + Thêm danh mục
-            table(
-                    class="table table-hover table-sm "
-                    table-check-box
-                )
-                thead 
-                    tr 
-                        th 
-                            input(type="checkbox", name="checkall")
-                        th STT 
-                        th Hình ảnh 
-                        th Tiêu đề  
-                        th Vị trí
-                        th Trạng thái   
-                        th Hành động    
+        .card.mb-3 
+            .card-header Danh sách 
+            .card-body 
+                .row 
+                    if role.permissions.includes('category_edit')
+                        .col-6
+                            +form-change-multi(
+                                `${prefixAdmin}/categories/change-multi?_method=PATCH`,
+                                [   
+                                    {
+                                        value : 'active',
+                                        label : 'Hoạt động'
+                                    },
+                                    {
+                                        value : 'inactive',
+                                        label : 'Dừng hoạt động'
+                                    },
+                                    {
+                                        value : role.permissions.includes('category_delete') ? 'delete-all' : '',
+                                        label : 'Xóa tất cả'
+                                    },
+                                    {
+                                        value : 'change-position',
+                                        label : 'Thay đổi vị trí'
+                                    }
+                                ])
+                    if role.permissions.includes('category_create')
+                        .col-6 
+                            a(
+                                class="btn btn-outline-success mb-3"
+                                href =`${prefixAdmin}/categories/create`
+                            ) + Thêm danh mục
+                table(
+                        class="table table-hover table-sm "
+                        table-check-box
+                    )
+                    thead 
+                        tr.text-center 
+                            th 
+                                input(type="checkbox", name="checkall")
+                            th STT 
+                            th Hình ảnh 
+                            th Tiêu đề  
+                            th Vị trí
+                            th Trạng thái   
+                            th Hành động    
 
-                tbody   
-                    each item, index in categories
-                        tr  
-                            td 
-                                input(type="checkbox", name="id", value = item._id)
-                            td  #{index + 1}
-                            td  
-                                img(src= item.thumbnail, alt="sản phẩm", srcset="", width="100px" , height="auto")
-                            td  #{item.title}
-                            td 
-                                input(
-                                    type="number" 
-                                    name="position"
-                                    style ="width : 70px"
-                                    value = item.position
-                                    min = 1
-                                )
-                            td 
-                                if(item.status === "active")
-                                    button(
-                                        class="badge badge-success" 
-                                        status = item.status 
-                                        id = item._id
-                                        buttonChangeStatus
-                                    ) Hoạt động
-                                else 
-                                    button(
-                                        class="badge badge-danger" 
-                                        status = item.status
-                                        id = item._id
-                                        buttonChangeStatus
-                                    ) Dừng hoạt động 
-                            td 
-                                a(
-                                    class="btn btn-secondary btn-sm"
-                                    href = `${prefixAdmin}/categories/detail/${item._id}`
-                                ) Chi tiết
-                                a(
-                                    class="btn btn-warning btn-sm ml-1"
-                                    href =`${prefixAdmin}/categories/edit/${item._id}`
-                                ) Sửa
-                                button(
-                                    button-delete-item
-                                    class="btn btn-danger btn-sm ml-1"
-                                    data-id = item._id
-                                ) Xóa 
+                    tbody   
+                        each item, index in categories
+                            tr.text-center  
+                                td 
+                                    input(type="checkbox", name="id", value = item._id)
+                                td  #{index + 1}
+                                td  
+                                    img(src= item.thumbnail, alt="sản phẩm", srcset="", width="100px" , height="auto")
+                                td  #{item.title}
+                                td 
+                                    input(
+                                        type="number" 
+                                        name="position"
+                                        style ="width : 70px"
+                                        value = item.position
+                                        min = 1
+                                    )
+                                td 
+                                    if(item.status === "active")
+                                        button(
+                                            class="badge badge-success" 
+                                            status = item.status 
+                                            id = item._id
+                                            buttonChangeStatus
+                                        ) Hoạt động
+                                    else 
+                                        button(
+                                            class="badge badge-danger" 
+                                            status = item.status
+                                            id = item._id
+                                            buttonChangeStatus
+                                        ) Dừng hoạt động 
+                                td 
+                                    a(
+                                        class="btn btn-secondary btn-sm"
+                                        href = `${prefixAdmin}/categories/detail/${item._id}`
+                                    ) Chi tiết 
+                                    if role.permissions.includes('category_edit')
+                                        a(
+                                            class="btn btn-warning btn-sm ml-1"
+                                            href =`${prefixAdmin}/categories/edit/${item._id}`
+                                        ) Sửa
+                                    if role.permissions.includes('category_delete')
+                                        button(
+                                            button-delete-item
+                                            class="btn btn-danger btn-sm ml-1"
+                                            data-id = item._id
+                                        ) Xóa 
 
-            +pagination(totalPage,currentPage)         
-    form(
-        formChangeStatus
-        action="javascript:;"
-        method="post"
-        data-path = `${prefixAdmin}/categories/changeStatus`
-    ) 
-    form(
-        id ="formDeleteItem"
-        action="javascript:;"
-        method="post"
-        data-path = `${prefixAdmin}/categories/delete`
-    )
+                +pagination(totalPage,currentPage) 
+        if role.permissions.includes('category_edit')       
+            form(
+                formChangeStatus
+                action="javascript:;"
+                method="post"
+                data-path = `${prefixAdmin}/categories/changeStatus`
+            ) 
+        if role.permissions.includes('category_delete')
+            form(
+                id ="formDeleteItem"
+                action="javascript:;"
+                method="post"
+                data-path = `${prefixAdmin}/categories/delete`
+            )
 
-    script(src="/admin/js/categories.js") 
+        script(src="/admin/js/categories.js") 
+    else 
+        h2 Bạn không được quyền truy cập vào trang này!

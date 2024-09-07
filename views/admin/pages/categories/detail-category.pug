@@ -1,37 +1,40 @@
 extends ../../layouts/default.pug
 
 block main 
-    h2 Thông tin chi tiết danh mục
-    .card 
-        .card-header.d-flex.align-items-center 
-            h3.d-inline #{category.title} 
-            if category.status == "active"
-                span(class="badge badge-success ml-3") Hoạt động
-            else
-                span(class="badge badge-danger ml-3") Dừng hoạt động
-        .card-body
-            .form-group 
-                label Mô tả
-                div(class="form-control" readonly)  !{category.description}
-            
-            .form-group 
-                label  Vị trí
-                input(class="form-control" type="number"  readonly value=category.position)
-            .row 
-                .col-6 
-                    div(style = "display: block; width : 260px ; height : 260px; border-radius : 8px ; margin-left : auto ; margin-right : auto")
-                        img(
-                            style = "width : 100% ; height: 100%; object-fit: cover; " src=category.thumbnail)
-                .col-6.mt-3
-                    div
-                        label Ngày tạo :
-                        strong= `${category.timeCreate ? ' ' + category.timeCreate : "Không có thông tin!"}`
-                    div
-                        label Cập nhật lần cuối :
-                        strong=  `${category.timeUpdate ? ' ' + category.timeUpdate : "Không có thông tin!"}`
-            a(
-                class= "btn btn-warning btn-sm mt-3"
-                href =`${prefixAdmin}/categories/edit/${category._id}`
-            ) Sửa thông tin 
+    if role.permissions.includes('category_detail')
+        h2 Thông tin chi tiết danh mục
+        .card 
+            .card-header.d-flex.align-items-center 
+                h3.d-inline #{category.title} 
+                if category.status == "active"
+                    span(class="badge badge-success ml-3") Hoạt động
+                else
+                    span(class="badge badge-danger ml-3") Dừng hoạt động
+            .card-body
+                .form-group 
+                    label Mô tả
+                    div(class="form-control" readonly)  !{category.description}
+                
+                .form-group 
+                    label  Vị trí
+                    input(class="form-control" type="number"  readonly value=category.position)
+                .row 
+                    .col-6 
+                        div(style = "display: block; width : 260px ; height : 260px; border-radius : 8px ; margin-left : auto ; margin-right : auto")
+                            img(
+                                style = "width : 100% ; height: 100%; object-fit: cover; " src=category.thumbnail)
+                    .col-6.mt-3
+                        div
+                            label Ngày tạo :
+                            strong= `${category.timeCreate ? ' ' + category.timeCreate : "Không có thông tin!"}`
+                        div
+                            label Cập nhật lần cuối :
+                            strong=  `${category.timeUpdate ? ' ' + category.timeUpdate : "Không có thông tin!"}`
+                a(
+                    class= "btn btn-warning btn-sm mt-3"
+                    href =`${prefixAdmin}/categories/edit/${category._id}`
+                ) Sửa thông tin 
+    else 
+        h2 Bạn không được quyền truy cập vào trang này!
 
                 

@@ -1,84 +1,138 @@
 extends ../../layouts/default.pug
 include ../../mixins/notification.pug
 block main 
-    +notification(4000)
-    h2 Phân quyền
-    .card 
-        .card-header.d-flex.align-items-center 
-            div Danh sách
-        .card-body 
-            div(record=roles)
-            table(
-                table-permission
-                class= "table table-hover"
+    if role.permissions.includes('role_permission')
+        +notification(4000)
+        h2 Phân quyền
+        .card 
+            .card-header.d-flex.align-items-center 
+                div Danh sách
+            .card-body 
+                div(record=roles)
+                table(
+                    table-permission
+                    class= "table table-hover"
+                )
+                    thead 
+                        tr  
+                            a(
+                                submit-form
+                                class = "btn btn-outline-success mb-3"
+                            ) Cập nhật
+                        tr 
+                            th Tính năng 
+                            each item in roles 
+                                th.text-center #{item.title}
+                        tr(data-name="id" class ="d-none") 
+                            th 
+                            each item in roles
+                                th.text-center 
+                                    input( value=item._id)
+                    tbody   
+                        tr 
+                            td(colspan="3") 
+                                strong Danh mục sản phẩm    
+                        tr(data-name="category_detail")
+                            td Xem 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name="category_create") 
+                            td Thêm mới 
+                            each item in roles 
+                                td.text-center 
+                                    input(type="checkbox" )
+                        tr(data-name="category_edit") 
+                            td Chỉnh sửa 
+                            each item in roles 
+                                td.text-center     
+                                    input(type="checkbox")
+                        tr(data-name="category_delete") 
+                            td Xóa 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr 
+                            td(colspan="3") 
+                                strong Danh sách sản phẩm    
+                        tr(data-name="product_detail") 
+                            td Xem 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name='product-create') 
+                            td Thêm mới 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name='product_edit') 
+                            td Chỉnh sửa 
+                            each item in roles 
+                                td.text-center     
+                                    input(type="checkbox")
+                        tr(data-name='product_delete') 
+                            td Xóa 
+                            each item in roles 
+                                td.text-center  
+                                    input(type="checkbox")
+                        tr 
+                            td(colspan="3") 
+                                strong Tài khoản    
+                        tr(data-name="account_detail") 
+                            td Xem 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name='account_create') 
+                            td Thêm mới 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name='account_edit') 
+                            td Chỉnh sửa 
+                            each item in roles 
+                                td.text-center     
+                                    input(type="checkbox")
+                        tr(data-name='account_delete') 
+                            td Xóa 
+                            each item in roles 
+                                td.text-center  
+                                    input(type="checkbox")
+                        tr 
+                            td(colspan="3") 
+                                strong  Nhóm quyền    
+                        tr(data-name="role_detail") 
+                            td Xem 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name='role-create') 
+                            td Thêm mới 
+                            each item in roles 
+                                td.text-center
+                                    input(type="checkbox")
+                        tr(data-name='role_edit') 
+                            td Chỉnh sửa 
+                            each item in roles 
+                                td.text-center     
+                                    input(type="checkbox")
+                        tr(data-name='role_delete') 
+                            td Xóa 
+                            each item in roles 
+                                td.text-center  
+                                    input(type="checkbox")
+                        tr(data-name='role_permission') 
+                            td Phân quyền 
+                            each item in roles 
+                                td.text-center  
+                                    input(type="checkbox")
+        form(   
+                class="d-none"
+                id ="formPermissions"
+                action=`${prefixAdmin}/roles/permission?_method=PATCH`
+                method="post"      
             )
-                thead 
-                    tr  
-                        a(
-                            submit-form
-                            class = "btn btn-outline-success mb-3"
-                        ) Cập nhật
-                    tr 
-                        th Tính năng 
-                        each item in roles 
-                            th.text-center #{item.title}
-                    tr(data-name="id" class ="d-none") 
-                        th 
-                        each item in roles
-                            th.text-center 
-                                input( value=item._id)
-                tbody   
-                    tr 
-                        td(colspan="3") 
-                            strong Danh mục sản phẩm    
-                    tr(data-name="category_detail")
-                        td Xem 
-                        each item in roles 
-                            td.text-center
-                                input(type="checkbox")
-                    tr(data-name="category_create") 
-                        td Thêm mới 
-                        each item in roles 
-                            td.text-center 
-                                input(type="checkbox" )
-                    tr(data-name="category_edit") 
-                        td Chỉnh sửa 
-                        each item in roles 
-                            td.text-center     
-                                input(type="checkbox")
-                    tr(data-name="category_delete") 
-                        td Xóa 
-                        each item in roles 
-                            td.text-center
-                                input(type="checkbox")
-                    tr 
-                        td(colspan="3") 
-                            strong Danh sách sản phẩm    
-                    tr(data-name="product_detail") 
-                        td Xem 
-                        each item in roles 
-                            td.text-center
-                                input(type="checkbox")
-                    tr(data-name='product-create') 
-                        td Thêm mới 
-                        each item in roles 
-                            td.text-center
-                                input(type="checkbox")
-                    tr(data-name='product_edit') 
-                        td Chỉnh sửa 
-                        each item in roles 
-                            td.text-center     
-                                input(type="checkbox")
-                    tr(data-name='product_delete') 
-                        td Xóa 
-                        each item in roles 
-                            td.text-center  
-                                input(type="checkbox")
-    form(   
-            class="d-none"
-            id ="formPermissions"
-            action=`${prefixAdmin}/roles/permission?_method=PATCH`
-            method="post"      
-        )
-        input(name="groupPermission" type="text")
-    script(src="/admin/js/roles.js") 
+            input(name="groupPermission" type="text")
+        script(src="/admin/js/roles.js") 
+    else 
+        h2 Bạn không được quyền truy cập vào trang này!

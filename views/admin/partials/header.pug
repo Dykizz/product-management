@@ -4,5 +4,10 @@ header.header
             .col-3 
                 .inner-logo 
                     a(href=`${prefixAdmin}/dashboard`) ADMIN 
-
             .col-9
+                div(style ="display : flex; flex-direction : row-reverse")
+                    a(
+                        class="btn btn-danger" 
+                        href = `${prefixAdmin}/auth/logout`
+                        logout
+                    ) Đăng xuất

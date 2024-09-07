@@ -10,7 +10,8 @@ mixin form-change-multi(path,arrObjectValue_Label)
                     select(name="type" class="form-control")
                         option(value="" disable selected)  -- Chọn hành động --
                         each item in arrObjectValue_Label
-                            option(value= item.value) #{item.label}
+                            if item.value != ''
+                                option(value= item.value) #{item.label}
                     .input-group-append
                         button(type = "submit" class = "btn btn-primary") Áp dụng
                 .form-group

@@ -3,71 +3,74 @@ include ../../mixins/upload-file-preview.pug
 include ../../mixins/notification.pug
 include ../../mixins/select-tree.pug
 block main 
-    +notification(4000)
-    h1 Tạo danh mục
-    form(
-            action=`${prefixAdmin}/categories/create`
-            enctype="multipart/form-data"  
-            method="post"
-        ) 
-        .form-group
-            label(for="title") Tên danh mục
-            input(
-                class="form-control"
-                type="text"
-                id="title"
-                name="title"
-                required
-            )
-        .row 
-            .col-6
-                .form-group 
-                    label(for="parent_id") Danh mục cha 
-                    select.form-control(name="parent_id" id="parent_id")
-                        option(value="" ) --Chọn danh mục--
-                        +select-tree(categoriesTree,maxLevel)
-        .form-group
-            label(for="description") Mô tả sản phẩm
-            textarea(
-                class="form-control tinymce"
-                type="text"
-                id="description"
-                name="description"
-                rows="5"
-            )
-           
-        +upload-file-preview("thumbnail","thumbnail")
-        .row
-            .col-4.form-group 
-                p Trạng thái 
-                .d-flex.align-items-center
-                    .form-check.mr-3 
-                        input(
-                            class="form-check-input"
-                            type="radio"
-                            value="active"
-                            name="status"
-                            id="option1"
-                            checked
-                        )
-                        label(class="form-check-label" for="option1") Hoạt động
-                    .form-check.mr-3 
-                        input(
-                            class="form-check-input"
-                            type="radio"
-                            value="inactive"
-                            name="status"
-                            id="option2"
-                        )
-                        label(class="form-check-label" for="option2") Dừng hoạt động
-            .col-4.form-group 
-                label(for="position") Vị trí
+    if role.permissions.includes('category_create')
+        +notification(4000)
+        h1 Tạo danh mục
+        form(
+                action=`${prefixAdmin}/categories/create`
+                enctype="multipart/form-data"  
+                method="post"
+            ) 
+            .form-group
+                label(for="title") Tên danh mục
                 input(
                     class="form-control"
-                    type="number"
-                    id="position"
-                    name="position"
-                    min="0"
-                    placeholder="Tự động tăng"
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
                 )
-        button(type="submit" class="btn btn-primary") Tạo danh mục
+            .row 
+                .col-6
+                    .form-group 
+                        label(for="parent_id") Danh mục cha 
+                        select.form-control(name="parent_id" id="parent_id")
+                            option(value="" ) --Chọn danh mục--
+                            +select-tree(categoriesTree,maxLevel)
+            .form-group
+                label(for="description") Mô tả sản phẩm
+                textarea(
+                    class="form-control tinymce"
+                    type="text"
+                    id="description"
+                    name="description"
+                    rows="5"
+                )
+            
+            +upload-file-preview("thumbnail","thumbnail")
+            .row
+                .col-4.form-group 
+                    p Trạng thái 
+                    .d-flex.align-items-center
+                        .form-check.mr-3 
+                            input(
+                                class="form-check-input"
+                                type="radio"
+                                value="active"
+                                name="status"
+                                id="option1"
+                                checked
+                            )
+                            label(class="form-check-label" for="option1") Hoạt động
+                        .form-check.mr-3 
+                            input(
+                                class="form-check-input"
+                                type="radio"
+                                value="inactive"
+                                name="status"
+                                id="option2"
+                            )
+                            label(class="form-check-label" for="option2") Dừng hoạt động
+                .col-4.form-group 
+                    label(for="position") Vị trí
+                    input(
+                        class="form-control"
+                        type="number"
+                        id="position"
+                        name="position"
+                        min="0"
+                        placeholder="Tự động tăng"
+                    )
+            button(type="submit" class="btn btn-primary") Tạo danh mục
+    else    
+        h2 Bạn không được quyền truy cập vào trang này!

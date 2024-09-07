@@ -2,105 +2,108 @@ extends ../../layouts/default.pug
 include ../../mixins/upload-file-preview.pug
 include ../../mixins/notification.pug
 block main 
-    +notification(4000)
-    h1 Sửa sản phẩm 
-    form(
-            action=`${prefixAdmin}/products/edit/${product._id}?_method=PATCH`
-            enctype="multipart/form-data"  
-            method="post"
-        ) 
-        .form-group
-            label(for="title") Tên sản phẩm
-            input(
-                class="form-control"
-                type="text"
-                id="title"
-                name="title",
-                value = product.title
-                required
-            )
-        .form-group
-            label(for="description") Mô tả sản phẩm
-            textarea(
-                class="form-control tinymce"
-                type="text"
-                id="description"
-                name="description"
-                rows="5"
-            ) #{product.description}
-        .row 
-            .col-4
-                .form-group
-                    label(for="price") Giá ($)
-                    input(
-                        class="form-control"
-                        type="number"
-                        value= product.price
-                        id="price"
-                        name="price"
-                        step="0.01"
-                        min="0"
-                        required
-                    )
-            .col-4
-                .form-group
-                    label(for="discountPercentage") Giảm giá (%)
-                    input(
-                        class="form-control"
-                        type="number"
-                        id="discountPercentage"
-                        value = product.discountPercentage
-                        name="discountPercentage"
-                        step="0.01"
-                        min="0"
-                        
-                    )
-            .col-4
-                .form-group
-                    label(for="stock") Số lượng
-                    input(
-                        class="form-control"
-                        type="number"
-                        id="stock"
-                        name="stock"
-                        min="1"
-                        value=product.stock
-                        requied
-                    )
-        +upload-file-preview("thumbnail","thumbnail",product.thumbnail)
-        .row
-            .col-4.form-group 
-                p Trạng thái 
-                .d-flex.align-items-center
-                    .form-check.mr-3 
-                        input(
-                            class="form-check-input"
-                            type="radio"
-                            value="active"
-                            name="status"
-                            id="option1"
-                            checked = (product.status == "active" ? true : false)
-                        )
-                        label(class="form-check-label" for="option1") Hoạt động
-                    .form-check.mr-3 
-                        input(
-                            class="form-check-input"
-                            type="radio"
-                            value="inactive"
-                            name="status"
-                            id="option2"
-                            checked = (product.status == "inactive" ? true : false)
-                        )
-                        label(class="form-check-label" for="option2") Dừng hoạt động
-            .col-4.form-group 
-                label(for="position") Vị trí
+    if role.permissions.includes('product_detail')
+        +notification(4000)
+        h1 Sửa sản phẩm 
+        form(
+                action=`${prefixAdmin}/products/edit/${product._id}?_method=PATCH`
+                enctype="multipart/form-data"  
+                method="post"
+            ) 
+            .form-group
+                label(for="title") Tên sản phẩm
                 input(
                     class="form-control"
-                    type="number"
-                    id="position"
-                    name="position"
-                    min="0"
-                    value = product.position
-                    requied
+                    type="text"
+                    id="title"
+                    name="title",
+                    value = product.title
+                    required
                 )
-        button(type="submit" class="btn btn-primary") Sửa sản phẩm 
+            .form-group
+                label(for="description") Mô tả sản phẩm
+                textarea(
+                    class="form-control tinymce"
+                    type="text"
+                    id="description"
+                    name="description"
+                    rows="5"
+                ) #{product.description}
+            .row 
+                .col-4
+                    .form-group
+                        label(for="price") Giá ($)
+                        input(
+                            class="form-control"
+                            type="number"
+                            value= product.price
+                            id="price"
+                            name="price"
+                            step="0.01"
+                            min="0"
+                            required
+                        )
+                .col-4
+                    .form-group
+                        label(for="discountPercentage") Giảm giá (%)
+                        input(
+                            class="form-control"
+                            type="number"
+                            id="discountPercentage"
+                            value = product.discountPercentage
+                            name="discountPercentage"
+                            step="0.01"
+                            min="0"
+                            
+                        )
+                .col-4
+                    .form-group
+                        label(for="stock") Số lượng
+                        input(
+                            class="form-control"
+                            type="number"
+                            id="stock"
+                            name="stock"
+                            min="1"
+                            value=product.stock
+                            requied
+                        )
+            +upload-file-preview("thumbnail","thumbnail",product.thumbnail)
+            .row
+                .col-4.form-group 
+                    p Trạng thái 
+                    .d-flex.align-items-center
+                        .form-check.mr-3 
+                            input(
+                                class="form-check-input"
+                                type="radio"
+                                value="active"
+                                name="status"
+                                id="option1"
+                                checked = (product.status == "active" ? true : false)
+                            )
+                            label(class="form-check-label" for="option1") Hoạt động
+                        .form-check.mr-3 
+                            input(
+                                class="form-check-input"
+                                type="radio"
+                                value="inactive"
+                                name="status"
+                                id="option2"
+                                checked = (product.status == "inactive" ? true : false)
+                            )
+                            label(class="form-check-label" for="option2") Dừng hoạt động
+                .col-4.form-group 
+                    label(for="position") Vị trí
+                    input(
+                        class="form-control"
+                        type="number"
+                        id="position"
+                        name="position"
+                        min="0"
+                        value = product.position
+                        requied
+                    )
+            button(type="submit" class="btn btn-primary") Sửa sản phẩm 
+    else    
+        h2 Bạn không được quyền truy cập vào trang này!
