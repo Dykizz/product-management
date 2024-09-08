@@ -12,12 +12,22 @@ const productSchema = new mongoose.Schema(
         thumbnail: String,
         status: String,
         position: Number,
+        createBy : {
+            account_id : String,
+            createAt : {
+                type : Date,
+                default : Date.now
+            }
+        },
         deleted: {
             type : Boolean,
             default : false
         },
-        deleteAt : String
-    }, { timestamps: true }
+        deleteBy : {
+            account_id : String,
+            deleteAt : Date
+        }
+    }
 )
 const Product = mongoose.model("Product",productSchema,"products");
 

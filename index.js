@@ -4,6 +4,7 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const moment = require('moment');
 require('dotenv').config();
 
 const database = require('./config/database');
@@ -31,6 +32,7 @@ app.use(session({
 app.use(require('flash')());
 // App Locals Variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+app.locals.moment = moment;
 
 // Routers
 routeClient(app);

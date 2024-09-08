@@ -1,4 +1,5 @@
-const Product = require('../../models/product.model')
+const Product = require('../../models/product.model');
+const Account = require('../../models/account.model');
 const filterStatusHelper = require('../../helpers/filteStatusHelper');
 const searchHelper = require('../../helpers/searchHelper');
 const paginationHelper = require('../../helpers/paginationHelper')
@@ -30,6 +31,15 @@ module.exports.index = async (req, res) => {
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skipItems);
 
+    for (product of products) {
+        if (product.createBy){
+            const id = product.createBy.account_id;
+            const user = await Account.findOne({ _id : id },"fullName");
+            if (user){
+                product.createByUser = user.fullName ;
+            }
+        }
+    }
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
         products: products,
@@ -76,10 +86,10 @@ module.exports.changeMulti = async (req, res) => {
             req.flash('success', `Cập nhật trạng thái ${ids.length} sản phẩm thành công!`);
             break;
         case "delete-all":
-            const deleteAt = new Date();
+            const deleteBy = { account_id : res.locals.user._id , deleteAt : Date.now()}
             await Product.updateMany(
                 { _id: { $in: ids } },
-                { $set: { deleteAt: deleteAt.toLocaleString() } }
+                { $set: { deleted : true , deleteBy : deleteBy } }
             );
             req.flash('success', `Xóa ${ids.length} sản phẩm thành công!`);
             break;
@@ -100,7 +110,8 @@ module.exports.changeMulti = async (req, res) => {
 module.exports.deleteItem = async (req, res) => {
     const id = req.params.id;
     const time = new Date();
-    await Product.updateOne({ _id: id }, { deleted: true, deleteAt: time.toLocaleString() });
+    const deleteBy = { account_id : res.locals.user._id , deleteAt : Date.now()}
+    await Product.updateOne({ _id: id }, { deleted: true, deleteBy : deleteBy });
     req.flash('success', `Xóa sản phẩm thành công!`);
     res.redirect("back");
 
@@ -123,12 +134,15 @@ module.exports.createPost = async (req, res) => {
         } else {
             req.body.position = parseInt(req.body.position);
         }
+
+        req.body.createBy ={ account_id : res.locals.user._id } ;
         const prodcut = new Product(req.body);
         prodcut.save();
         req.flash('success', `Tạo mới sản phẩm thành công!`);
         res.redirect(`${configSystem.prefixAdmin}/products`);
 
     } catch (error) {
+        console.log(error);
         req.flash('danger', `Lỗi tạo sản phẩm!`);
         res.redirect("back");
     }
