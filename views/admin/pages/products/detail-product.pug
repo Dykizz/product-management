@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/formatTime.pug
 block main 
     if role.permissions.includes('product_detail')
         h2 Thông tin chi tiết sản phẩm
@@ -38,11 +38,24 @@ block main
                                 style = "width : 100% ; height: 100%; object-fit: cover; " src=product.thumbnail)
                     .col-6.mt-3
                         div
-                            label Ngày tạo :
-                            strong  #{product.timeCreate ? product.timeCreate : "Không có thông tin!"}
+                            label Ngày tạo : 
+                            if product.createBy.createAt
+                                strong
+                                    +formatDateHour(product.createBy.createAt) 
+                                span  bởi
+                                strong  #{product.createByUser}
+                                    
+                            else 
+                                strong Không có thông tin!
                         div
                             label Cập nhật lần cuối :
-                            strong  #{product.timeLastUpdate ? product.timeLastUpdate : "Không có thông tin!"}
+                            if product.updateBy.at(-1)
+                                strong
+                                    +formatDateHour(product.updateBy.at(-1).updateAt)
+                                span  bởi
+                                strong  #{product.updateByUser}
+                            else 
+                                strong Không có thông tin!
                 a(
                     class= "btn btn-warning btn-sm mt-3"
                     href =`${prefixAdmin}/products/edit/${product._id}`

@@ -6,6 +6,14 @@ mixin select-tree(tree = [])
             +select-tree(item.children)
 
 
+mixin select-treeEdit(tree = [], defaultValue = '')
+    each item in tree 
+        if item._id == defaultValue
+            option(value=item._id selected)= `${'-'.repeat(item.level * 2)} ${item.title}`
+        else
+            option(value=item._id)= `${'-'.repeat(item.level * 2)} ${item.title}`
+        if item.children && item.children.length > 0
+            +select-treeEdit(item.children, defaultValue)
 
 
 

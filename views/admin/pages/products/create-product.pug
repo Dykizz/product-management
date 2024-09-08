@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/upload-file-preview.pug
 include ../../mixins/notification.pug
+include ../../mixins/select-tree.pug
 block main 
     if role.permissions.includes('product_create')
         +notification(4000)
@@ -11,7 +12,7 @@ block main
                 method="post"
             ) 
             .form-group
-                label(for="title") Tên sản phẩm
+                label(for="title") Tên sản phẩm*
                 input(
                     class="form-control"
                     type="text"
@@ -19,6 +20,13 @@ block main
                     name="title"
                     required
                 )
+            .row 
+                .col-6
+                    .form-group 
+                        label(for="category_id") Danh mục* 
+                        select.form-control(name="category_id" id="category_id" required)
+                            option(value="" disable) --Chọn danh mục--
+                            +select-tree(categoriesTree)
             .form-group
                 label(for="description") Mô tả sản phẩm
                 textarea(
@@ -31,7 +39,7 @@ block main
             .row 
                 .col-4
                     .form-group
-                        label(for="price") Giá ($)
+                        label(for="price") Giá ($)*
                         input(
                             class="form-control"
                             type="number"

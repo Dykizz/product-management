@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema(
         title: String,
         description: String,
         price: Number,
+        category_id : String,
         discountPercentage: Number,
         stock: Number,
         slug: { type: String, slug: "title", unique: true },
@@ -14,10 +15,7 @@ const productSchema = new mongoose.Schema(
         position: Number,
         createBy : {
             account_id : String,
-            createAt : {
-                type : Date,
-                default : Date.now
-            }
+            createAt : Date
         },
         deleted: {
             type : Boolean,
@@ -26,7 +24,14 @@ const productSchema = new mongoose.Schema(
         deleteBy : {
             account_id : String,
             deleteAt : Date
-        }
+        },
+        updateBy : [
+            {
+                account_id : String,
+                updateAt : Date
+            }
+        ]
+
     }
 )
 const Product = mongoose.model("Product",productSchema,"products");

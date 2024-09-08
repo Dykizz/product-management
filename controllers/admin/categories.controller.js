@@ -100,10 +100,10 @@ module.exports.create = async (req,res) =>{
     let tree = createTree(categories); // Tạo cho mục select
     res.render('admin/pages/categories/create-category.pug',{
         pageTitle : "Tạo danh mục",
-        categoriesTree : tree,
+        categoriesTree : tree
     });
 }
-
+  
 // [POST] /admin/categories/create  
 module.exports.createPost = async (req,res) =>{
     try {

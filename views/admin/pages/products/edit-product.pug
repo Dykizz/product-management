@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/upload-file-preview.pug
 include ../../mixins/notification.pug
+include ../../mixins/select-tree.pug
 block main 
     if role.permissions.includes('product_detail')
         +notification(4000)
@@ -20,6 +21,13 @@ block main
                     value = product.title
                     required
                 )
+            .row 
+                .col-6
+                    .form-group 
+                        label(for="category_id") Danh mục* 
+                        select.form-control(name="category_id" id="category_id" required )
+                            option(value="" disable) --Chọn danh mục--
+                            +select-treeEdit(categoriesTree,product.category_id)
             .form-group
                 label(for="description") Mô tả sản phẩm
                 textarea(
