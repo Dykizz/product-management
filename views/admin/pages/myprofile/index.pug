@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+include ../../mixins/formatTime.pug 
+block main 
+    .account-detail
+        h2.mb-3 Thông tin cá nhân
+        .card 
+            .card-header Thông tin chi tiết tài khoản
+            .card-body
+                .inner-infor 
+                    .inner-img 
+                        img(src=account.avatar, alt="avatar")
+                    .inner-content
+                        .mb-3 Họ và tên :
+                            strong  #{account.fullName}
+                        .mb-3 Email :
+                            strong  #{account.email}
+                        .mb-3 Số điện thoại : 
+                            strong  #{account.phone}
+                        .mb-3 Trạng thái : 
+                            if account.status = "active"
+                                div(class="btn btn-success btn-sm") Hoạt động
+                            else 
+                                div(class="btn btn-danger btn-sm") Dừng hoạt động
+                        .mb-3 Quyền quản lý :     
+                            strong  #{roles.title}
+                        .mb-3 Thời gian tạo : 
+                            strong 
+                                +formatDateHour(account.createdAt)
+                        .mb-3 Cập nhật gần nhất : 
+                            strong 
+                                +formatDateHour(account.updatedAt)
+                a(
+                    href=`${prefixAdmin}/myprofile/edit`
+                    class="btn btn-warning"
+                ) Chỉnh sửa

@@ -5,12 +5,15 @@ const md5 = require('md5');
 // [GET] admin/accounts
 module.exports.index = async (req,res) => {
     try {
-        const accounts = await Account.find({deleted : false},"-password -token");
+        const id = res.locals.user._id;
+        console.log(id)
+        const accounts = await Account.find({deleted : false , _id : { $ne : id}},"-password -token");
         res.render('admin/pages/accounts/index',{
             pageTitle : 'Danh sách tài khoản',
             accounts : accounts
         });
     } catch (error) {
+        console.log(error);
         req.flash('danger','Lỗi truy cập!');
         res.redirect('back');
     }
@@ -36,7 +39,6 @@ module.exports.createPost = async (req,res) =>{
     try{
         const existEmail = await Account.findOne({email : req.body.email});
         if (!!existEmail){
-            console.log(existEmail)
             req.flash('warning','Email này đã tồn tại');
             res.redirect('back');
             return;
