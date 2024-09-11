@@ -1,7 +1,7 @@
 const express = require("express");
 const multer  = require('multer');// Thư viện upload file
 const router = express.Router(); 
-const uploadImage = require('../../middleware/uploadImage');
+const uploadImage = require('../../middleware/admin/uploadImage');
 const controller = require('../../controllers/admin/accounts.controller');
 const validate = require('../../validates/admin/account.validate');
 const storage = multer.memoryStorage();

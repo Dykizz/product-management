@@ -5,7 +5,7 @@ const rolesRouter = require('./roles.router');
 const accountsRouter = require('./accounts.router');
 const authRouter = require('./auth.router');
 const configSystem = require('../../config/system');
-const authRequire = require('../../middleware/auth.middleware');
+const authRequire = require('../../middleware/admin/auth.middleware');
 const myprofileRouter = require('./myprofile.router');
 module.exports = (app) => {
     const PATH_ADMIN = configSystem.prefixAdmin;
