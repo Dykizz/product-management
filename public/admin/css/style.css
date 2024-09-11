@@ -1,3 +1,7 @@
+body {
+    width: 100vw;
+    height: 100vh;
+}
 /* Header */
 .header{
     background: #202020;
@@ -15,6 +19,11 @@
 /* End Header */
 
 /* Body */
+.body {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 .body .sider{
     width: 150px;
     background: #323232;
@@ -30,6 +39,7 @@
     position: relative;
     left: 150px;
     width: calc(100% - 180px);
+    height: 100%;
 }
 
 /* End Body */
@@ -159,4 +169,74 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+/* End Account Detail */
+
+.body-animation{
+    all : unset;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: #fff;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+}
+.animation-text{
+    font-size: 30px;
+    font-weight: 600;
+    min-width: 288px;
+}
+.animation-text span{
+    position: relative;
+}
+.animation-text span::before{
+    content: 'Youtuber';
+    color: #ff7f50;
+    animation: words 20s infinite;
+    
+}
+/* after này đè lên before */
+.animation-text span::after{ 
+    content: '';
+    position: absolute;
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    background-color: #000000;
+    border-left: 2px solid #ff7f50;
+    right: -8px;
+    animation: cursor 0.8s infinite, typing 20s steps(14) infinite;
+}
+@keyframes cursor{
+    to{
+        border-left: 2px solid #2f3542;
+    }
+}
+@keyframes words{
+    0%,20%{
+        content: 'Youtuber';
+    }
+    21%,40%{
+        content: 'Blogger';
+    }
+    41%,60%{
+        content: 'Developer';
+    }
+    61%,80%{
+        content: 'Gamer';
+    }
+    81%,100%{
+        content: 'Designer';
+    }
+}
+@keyframes typing {
+    10%,15%,30%,35%,50%,55%,70%,75%,90%,95%{
+        width: 0;
+    }
+    5%,20%,25%,40%,45%,60%,65%,80%,85%{
+        width: calc(100% + 8px);
+    }
 }

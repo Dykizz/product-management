@@ -2,7 +2,6 @@ const Roles = require('../../models/roles.model');
 const configSystem = require('../../config/system');
 module.exports.index = async (req, res) => {
     const roles = await Roles.find({ deleted: false });
-    console.log(roles);
     res.render('admin/pages/roles.pug', {
         pageTitle: 'Nhóm quyền',
         roles: roles
