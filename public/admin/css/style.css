@@ -1,6 +1,7 @@
 body {
     width: 100vw;
     height: 100vh;
+    overflow-x: hidden;
 }
 /* Header */
 .header{
@@ -9,8 +10,11 @@ body {
     position: sticky;
     top: 0;
     z-index: 999;
+    height: 65px;
 }
-
+.header .inner-logo{
+    margin-left: 10px;
+}
 .header .inner-logo a{
     font-size: 24px;
     font-weight: 700;
@@ -30,15 +34,17 @@ body {
     color: #fff;
     height: calc(100vh - 56px);
     position: fixed;
-    top : 56px;
+    top : 65px;
     left: 0; 
 }
 
 .body .main{
-    margin: 15px;
+    margin: 0;
+    padding: 15px 15px 15px 30px;
     position: relative;
     left: 150px;
-    width: calc(100% - 180px);
+    top: 0;
+    width: calc(100% - 150px);
     height: 100%;
 }
 
