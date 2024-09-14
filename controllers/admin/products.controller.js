@@ -147,7 +147,7 @@ module.exports.createPost = async (req, res) => {
         } else {
             req.body.position = parseInt(req.body.position);
         }
-
+        req.body.featured = req.body.featured == "true";
         req.body.createBy = { account_id: res.locals.user._id, createAt: Date.now() };
         const prodcut = new Product(req.body);
         prodcut.save();
@@ -177,7 +177,7 @@ module.exports.edit = async (req, res) => {
 module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
     let updateData = {};
-
+    req.body.featured = req.body.featured == "true";
     // Danh sách các trường cần kiểm tra
     const fieldsToUpdate = ['title', 'description', 'price', 'stock', 'status', 'discountPercentage', 'position', 'thumbnail'];
 

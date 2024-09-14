@@ -7,9 +7,11 @@ block main
             .card-header.d-flex.align-items-center 
                 h3.d-inline #{product.title} 
                 if product.status == "active"
-                    span(class="badge badge-success ml-3") Hoạt động
+                    span(class="badge badge-pill badge-success ml-3") Hoạt động
                 else
-                    span(class="badge badge-danger ml-3") Dừng hoạt động
+                    span(class="badge badge-pill badge-danger ml-3") Dừng hoạt động 
+                if product.featured 
+                    span(class="badge badge-pill badge-info ml-3") Nổi bật
             .card-body
                 .form-group 
                     label Mô tả

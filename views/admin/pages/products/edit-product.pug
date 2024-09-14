@@ -102,6 +102,29 @@ block main
                             )
                             label(class="form-check-label" for="option2") Dừng hoạt động
                 .col-4.form-group 
+                    p Sản phẩm nổi bật 
+                    .d-flex.align-items-center
+                        .form-check.mr-3 
+                            input(
+                                class="form-check-input"
+                                type="radio"
+                                value= true
+                                name="featured"
+                                id="option1"
+                                checked = product.featured 
+                            )
+                            label(class="form-check-label" for="option1") Có
+                        .form-check.mr-3 
+                            input(
+                                class="form-check-input"
+                                type="radio"
+                                value= false
+                                name="featured"
+                                id="option2"
+                                checked = !product.featured
+                            )
+                            label(class="form-check-label" for="option2") Không
+                .col-4.form-group 
                     label(for="position") Vị trí
                     input(
                         class="form-control"

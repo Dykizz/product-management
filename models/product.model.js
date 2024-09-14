@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema(
         thumbnail: String,
         status: String,
         position: Number,
+        featured : {
+            type : Boolean,
+            default : false
+        },
         createBy : {
             account_id : String,
             createAt : Date
