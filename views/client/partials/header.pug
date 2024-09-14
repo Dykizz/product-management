@@ -1,15 +1,15 @@
-header.header 
-    .container 
-        .row.align-items-center
-            .col-3 
-                .inner-logo 
-                    a(href="/") 
-                        img(src="/images/logo.jpg" , alt="Logo") 
+include ../mixins/sub-menu.pug
 
-            .col-9
-                .inner-menu 
-                    ul 
-                        li 
-                            a(href="/")  Trang chủ
-                        li 
-                            a(href="/products")  Sản phẩm 
+header
+.header
+    .container        
+        .inner-logo 
+            img(src="/images/logo.jpg" , alt="Logo") 
+
+        .inner-menu 
+            ul.dropdown 
+                li 
+                    a(href="/")  Trang chủ
+                li
+                    a(href="/products") Sản phẩm 
+                    +sub-menu(categoryTree,"/product",1)

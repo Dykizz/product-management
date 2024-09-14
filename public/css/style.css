@@ -1,29 +1,102 @@
 /* Header */
+* {
+    box-sizing: border-box;
+}
 
-.header{
+.header {
+    background-color: black;
     position: sticky;
     top: 0;
-    border-bottom: 2px solid #ddd;
-    background: white;
-    padding: 10px 0;
     z-index: 999;
-}
-.header .inner-logo img{
-    max-height: 50px;
-    max-width: 100%;
-}
-.header .inner-menu > ul {
-    list-style: none;
     padding: 0;
+    height: 80px;
+}
+.header .inner-logo{
+    height: 80px;
     margin: 0;
+}
+.header .inner-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.header .container{
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    justify-content: space-between;
 }
-.header .inner-menu > ul > li {
-    margin-left: 20px;
+.header .inner-menu{
+    height:  80px;
+    min-width: 250px;
 }
+.header .dropdown{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.header .dropdown li {
+    background: black;
+}
+.header .dropdown li:hover{
+    background: skyblue;
+}
+.header .dropdown > li:hover .dropdown1{
+    display: flex;
+}
+.header .dropdown li a{
+    display: block;
+    width: 150px;
+    color:  white;
+    padding: 10px 0;
+    font-size: 1.2rem;
+    text-decoration: none;
+    text-align: center;
+}
+.header .dropdown >li{
+    position: relative;
+}
+.header .dropdown >li:hover >a{
+    color: rgb(0, 170, 255);
+}
+.header .dropdown > li > a{
+    padding: 25px 0;
+}
+.dropdown1 {
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style-type: none;
+    display: none;
+    flex-direction: column;
+}
+.dropdown1 li {
+    position: relative;
+    border-top: 1px solid #ddd;
+}
+.dropdown2 {
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 100%;
+    list-style-type: none;
+    display: none;
+    flex-direction: column;
+}
+.dropdown2 > li:nth-child(n + 2) {
+    border-right: 1px solid #21a943;
+}
+.dropdown1 li:hover > .dropdown2{
+    display: flex;
+}
+.dropdown1 > li .dropdown2 li:hover> .dropdown2{
+    display: flex;
+}
+
+
 /* End Header */
 /* Body */
 
@@ -31,53 +104,60 @@
 .body {
     margin-top: 30px;
     position: relative;
-    
+
 }
 
 /* End Body */
 
 /* Footer */
-.footer{
+.footer {
     position: relative;
     color: #fff;
     background: #333;
     text-align: center;
     padding: 10px;
 }
+
 /* End Footer */
 
 /* Product Item */
-.product-item{
+.product-item {
     position: relative;
     border: 2px solid #ddd;
     border-radius: 8px;
     height: 350px;
     overflow: hidden;
 }
-.product-item .inner-image{
+
+.product-item .inner-image {
     width: 100%;
     height: 60%;
 }
-.product-item .inner-image img{
+
+.product-item .inner-image img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.product-item .inner-content{
-    padding: 10px ;
+
+.product-item .inner-content {
+    padding: 10px;
 }
-.product-item .inner-content .inner-price-new{
+
+.product-item .inner-content .inner-price-new {
     color: green;
     font-weight: 500;
     font-size: large;
 }
-.product-item .inner-content .inner-price-old{
+
+.product-item .inner-content .inner-price-old {
     color: red;
     text-decoration: line-through;
     font-weight: 500;
     font-size: large;
 }
-.product-item .inner-content .inner-discount{
+
+.product-item .inner-content .inner-discount {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -86,23 +166,31 @@
     text-align: center;
     width: 70px;
 }
+
 /* End Product Item */
 /* Show Alert  */
 [show-alert] {
-    transform: translateX(100%); /* Đặt div ra khỏi màn hình về phía bên phải */
-    transition: transform 0.5s ease-in-out; /* Hiệu ứng chuyển đổi kéo dài 1 giây */
-    opacity: 0; /* Đặt độ mờ ban đầu */
+    transform: translateX(100%);
+    /* Đặt div ra khỏi màn hình về phía bên phải */
+    transition: transform 0.5s ease-in-out;
+    /* Hiệu ứng chuyển đổi kéo dài 1 giây */
+    opacity: 0;
+    /* Đặt độ mờ ban đầu */
     position: fixed;
     top: 80px;
     right: 15px;
     z-index: 999;
-    
+
 }
-[show-alert].show{
-    transform: translateX(0); /* Di chuyển div về vị trí ban đầu */
-    opacity: 1; /* Hiển thị div */
+
+[show-alert].show {
+    transform: translateX(0);
+    /* Di chuyển div về vị trí ban đầu */
+    opacity: 1;
+    /* Hiển thị div */
 }
-[show-alert] .button-close{
+
+[show-alert] .button-close {
     position: absolute;
     top: 4px;
     right: 4px;
@@ -118,18 +206,22 @@
     background: white;
     color: black;
 }
-[show-alert] .button-close:hover{
+
+[show-alert] .button-close:hover {
     cursor: pointer;
 }
+
 [show-alert].alert-hidden {
     animation-name: alert-hidden;
     animation-duration: 0.5s;
     animation-fill-mode: both;
 }
+
 @keyframes alert-hidden {
     from {
         right: 15px;
     }
+
     to {
         right: -100%;
         display: none;
@@ -137,3 +229,24 @@
 }
 
 /* End Show Alert */
+/* 
+.parent-list{
+    position: relative;
+}
+.parent-list li {
+    position: relative;
+    display: none;
+}
+.parent-list > li{
+    position: relative;
+    display: block;
+}
+.nested-list{
+    position: absolute;
+    top: 0;
+    right: 100%;
+}
+.parent-list li:hover a > ul{
+    display: block;
+} */
+
