@@ -1,0 +1,6 @@
+include product-item
+mixin products-grid(products)
+    .row 
+        each item in products
+            .col-4.mb-3 
+                +product-item(item)
