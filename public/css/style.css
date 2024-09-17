@@ -250,3 +250,49 @@
 
 /* End Box Head */
 
+/* Detail product */
+.detail-product {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #ddd;
+}
+.detail-product .infor-product{
+    display: flex;
+}
+.detail-product .inner-img{
+    width: 40%;
+    aspect-ratio: 4/3;
+}
+.detail-product .inner-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.detail-product .inner-content{
+    flex: 1;
+    margin-left: 25px;
+    font-size: 18px;
+    font-weight: 500;
+
+}
+.detail-product .title{
+    font-size: 30px;
+    font-weight: 600;
+}
+.detail-product .price-new{
+    color: green;
+    font-size: 28px;
+    font-weight: 700;
+}
+.detail-product .price-old{
+    color: red;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: line-through;
+}
+.detail-product .price-discount .price{
+    background: red;
+    color: white;
+    padding: 3px 5px;
+    border-radius: 4px;
+    margin-left: 5px;
+}

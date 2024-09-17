@@ -1,27 +1,30 @@
 extends ../../layouts/default.pug
 
 block main 
-    h2 Thông tin chi tiết sản phẩm
-    .card.mt-4.mb-4
-        .card-header.d-flex.align-items-center 
-            h3 #{product.title} 
-        .card-body
-            .form-group 
-                label Mô tả
-                textarea(class="form-control" readonly) #{product.description} 
-                p.mt-3  Giá gốc:
-                    strong  #{product.price}$
-                p Giảm giá : 
-                    strong  #{product.discountPercentage}%
-                p Giá hiện tại :
-                    strong  #{product.priceNew}$
-                p Số lượng : 
-                    strong  #{product.stock}   
-            .row 
-                .col-6 
-                    p Hình ảnh sản phẩm
-                    img(
-                        style = "width : 90% ; height : auto ; margin-left : auto ; margin-right : auto ; display : block ; border-radius : 8px" src=product.thumbnail)
-                
+    .container
+        .detail-product 
+            .infor-product  
+                .inner-img 
+                    img(src=product.thumbnail) 
+                .inner-content 
+                    .title.mb-3 #{product.title}
+                    if (product.category)
+                        .category.mb-3 Danh mục : 
+                            a(href=`/products/${product.category.slug}`) #{product.category.title}
+                    .mb-3 
+                        span.price-old #{product.price}$
+                        span   --->  
+                        span.price-new #{(product.price*(100 - product.discountPercentage)/100).toFixed(2)}$
+                    .price-discount.mb-3 Giảm tới
+                        span.price #{(product.price*product.discountPercentage/100).toFixed(2)}$
+                    .stock.mb-3 Còn lại #{product.stock} sản phẩm
+                    form(class="form-group" action=`/products/add-cart/${product._id}`, method="post") 
+                        input(class="form-control mb-3" type="number" value = 1 min=1 max=product.stock)
+                        button(type="submit" class="btn btn-success form-control") Thêm vào giỏ hàng
+            
+        .description-product 
+            h3.mt-3(style ="color: green") Mô tả sản phẩm
+            div !{product.description}
+
 
                 

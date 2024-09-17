@@ -118,7 +118,7 @@ module.exports.createPost = async (req,res) =>{
         res.flash('success','Tạo mới danh mục thành công!');
         res.redirect(`${configSystem.prefixAdmin}/categories`);
     } catch (error) {
-        res.flash('danger','Lỗi trong việc tạo danh mục. Vui lòng kiểm tra lại!');
+        req.flash('danger','Lỗi trong việc tạo danh mục. Vui lòng kiểm tra lại!');
         res.redirect('back');
     }
 }
