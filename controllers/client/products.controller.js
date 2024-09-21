@@ -19,13 +19,21 @@ module.exports.index = async (req, res) => {
 module.exports.detail = async (req, res) => {
     try {
         const slug = req.params.slug;
+        if(slug == "undefined"){
+            req.flash('danger','Sản phẩm này chưa có slug!')
+            res.redirect('back');
+            console.log("ji")
+            return;
+        }
         let product = await Product.findOne({
             status: "active",
             deleted: false,
             slug: slug
         }); 
         if (!product) {
-            req.redirect('back');
+            req.flash('danger','Không tồn tại sản phẩm này!')
+            res.redirect('back');
+
             return;
         }
         const category = await Categories.findOne({_id : product.category_id });

@@ -25,6 +25,10 @@
     align-items: center;
     justify-content: space-between;
 }
+.header .inner-search{
+    width: 350px;
+    margin: 0 25px;
+}
 .header .inner-menu{
     height:  80px;
     min-width: 250px;
@@ -134,6 +138,7 @@
 .product-item .inner-image {
     width: 100%;
     height: 60%;
+    overflow: hidden;
 }
 
 .product-item .inner-image img {
@@ -141,11 +146,16 @@
     height: 100%;
     object-fit: contain;
 }
+.product-item .inner-image img:hover{
+    transform: scale(1.1);
 
+}
 .product-item .inner-content {
     padding: 10px;
 }
-
+.product-item .inner-content a:hover{
+    text-decoration: none;
+}
 .product-item .inner-content .inner-price-new {
     color: green;
     font-weight: 500;

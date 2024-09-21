@@ -1,0 +1,16 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+include ../../mixins/products-grid.pug
+include ../../mixins/box-head.pug
+block main 
+    +notification(4000)
+    .container 
+        .my-3   
+            .row 
+                .col-12 
+                    +box-head(pageTitle)
+            if products.length > 0
+                +products-grid(products)
+            else 
+                h2 Không thấy kết quả tìm kiếm phù hợp! 
+

@@ -5,6 +5,23 @@ header
     .container        
         .inner-logo 
             img(src="/images/logo.jpg" , alt="Logo") 
+        .inner-search
+            form(action="/search", method="get" id="formSearch")
+                .input-group 
+                    input(
+                        type="text" 
+                        value= keyword || ''
+                        placeholder = "Nhập từ khóa..." 
+                        name = "keyword" 
+                        class="form-control"
+                        autoComplete = "off"
+                        require 
+                    )
+                    .input-group-append 
+                        button(
+                            class="btn btn-primary" 
+                            type="submit"
+                        ) Tìm
 
         .inner-menu 
             ul.dropdown 
@@ -12,4 +29,4 @@ header
                     a(href="/")  Trang chủ
                 li
                     a(href="/products") Sản phẩm 
-                    +sub-menu(categoryTree,"/products/category",1)
+                    +sub-menu(categoryTree,"/products/category",1) 
