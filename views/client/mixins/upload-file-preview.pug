@@ -1,0 +1,17 @@
+mixin upload-file-preview(id,name,srcImage )
+    div(class="form-group" upload-image)
+        label(for= id) Ảnh đại diện
+        input(
+            class="form-control-file"
+            accept="image/*"
+            type="file"
+            id= id
+            name= id
+            upload-image-input
+        )
+        div(class=("inner-image-preview " +  (srcImage ? "" : "hidden" ) ))
+            span(class="button-close") x
+            img(
+                class="image-preview" 
+                src= srcImage 
+                upload-image-preview)
