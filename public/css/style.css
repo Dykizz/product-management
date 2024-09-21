@@ -64,6 +64,7 @@
     position: relative;
 }
 .header .user .dropdown-user{
+    z-index: 999;
     position: absolute;
     top: 80%;
     left: 0;
@@ -143,9 +144,9 @@
     color: blue;
 }
 .header .inner-cart{
+    position: relative;
     cursor: pointer;
     color: white;
-    
     height: 40px;
     padding: 10px;
     border-radius: 5px;
@@ -156,7 +157,6 @@
 .header .inner-cart span{
     width: 65px;
     font-size: medium;
-
 }
 .header .inner-cart:hover{
     background-color: rgb(215, 248, 250);
@@ -166,6 +166,19 @@
     width: 25px;
     height: 25px;
 }
+.header .inner-cart .quantity-product{
+    position: absolute;
+    top: -5px;
+    left: 25px;
+    aspect-ratio: 1/1;
+    padding: 2px;
+    background-color: red;
+    color: white;
+    font-size: x-small;
+    border-radius: 50%;
+    text-align: center;
+}
+
 .header .dropdown{
     display: flex;
     align-items: center;
