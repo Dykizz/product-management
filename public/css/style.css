@@ -56,13 +56,51 @@
 }
 .header .user{
     cursor: pointer;
-    height: 60px;
     display: flex;
     font-size: 20px;
     font-weight: 600;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
+.header .user .dropdown-user{
+    position: absolute;
+    top: 80%;
+    left: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    flex-direction: column;
+}
+.header .user:hover .dropdown-user{
+    display: flex;
+}
+.header .user .dropdown-user li {
+    background-color: #ddd;
+    text-wrap: nowrap;
+    padding: 5px 10px;
+    font-size: medium;
+}
+.header .user .dropdown-user li:hover a{
+    background-color: white;
+    color: #21a943;
+    text-decoration: none;
+    background: transparent;
+}
+.header .user .avarta{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.header .user .avarta img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .header .user .logo-user{
     justify-content: center;
     display: flex;
@@ -72,10 +110,12 @@
     width: 40px;
     height: 40px;
 }
+
 .header .user:hover .logo-user{
     background: rgb(121, 233, 250);
     color: white;
 }
+
 .header .user:hover span{
     color:  blue;
 }
@@ -407,3 +447,69 @@
     border-radius: 4px;
     margin-left: 5px;
 }
+/* End Detail Product */
+
+/* Form Login  */
+.form{
+    margin-top: 10%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    padding: 20px 15px;
+}
+
+.form .header-form{
+    font-weight: 700;
+    font-size: 27px;
+}
+
+/* End Form Login */
+/* Upload Image Preview */
+.hidden {
+    display: none;
+}
+.inner-image-preview{
+    position: relative;
+    margin-top: 15px;
+    width: 100px;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.inner-image-preview .button-close{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    opacity: 60%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+}
+.inner-image-preview .button-close:hover{
+    cursor: pointer;
+}
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.inner-image-preview .image-preview[src =""] {
+    display: none;
+}
+
+/* End Upload Image Preview */

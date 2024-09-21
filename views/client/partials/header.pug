@@ -14,15 +14,26 @@ header
                         li
                             a(href="/products") Sản phẩm 
                             +sub-menu(categoryTree,"/products/category",1) 
-                .user.d-none
-                    .logo-user
-                        i(class="fa-solid fa-user")
-                    span.ml-2 Tôi
-                ul.login-out 
-                    li 
-                        a(href="#") Đăng nhập    
-                    li  
-                        a(href="#") Đăng kí
+                if account 
+                    .user
+                        if (account.thumbnail) 
+                            .avarta
+                                img(src=account.thumbnail alt="avatar")
+                        else
+                            .logo-user
+                                i(class="fa-solid fa-user")
+                        span.ml-2 #{account.username}
+                        ul.dropdown-user 
+                            li 
+                                a(href="#") Thông tin về tôi 
+                            li 
+                                a(href="/auth/logout") Đăng xuất
+                else
+                    ul.login-out 
+                        li 
+                            a(href="/auth/login") Đăng nhập    
+                        li  
+                            a(href="/auth/register") Đăng kí
 
             div(class="search-cart")
                 .inner-search
