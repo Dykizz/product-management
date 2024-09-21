@@ -5,28 +5,46 @@ header
     .container        
         .inner-logo 
             img(src="/images/logo.jpg" , alt="Logo") 
-        .inner-search
-            form(action="/search", method="get" id="formSearch")
-                .input-group 
-                    input(
-                        type="text" 
-                        value= keyword || ''
-                        placeholder = "Nhập từ khóa..." 
-                        name = "keyword" 
-                        class="form-control"
-                        autoComplete = "off"
-                        require 
-                    )
-                    .input-group-append 
-                        button(
-                            class="btn btn-primary" 
-                            type="submit"
-                        ) Tìm
+        div(class="nav")
+            div(class="menu-user")
+                .inner-menu 
+                    ul.dropdown 
+                        li 
+                            a(href="/")  Trang chủ
+                        li
+                            a(href="/products") Sản phẩm 
+                            +sub-menu(categoryTree,"/products/category",1) 
+                .user.d-none
+                    .logo-user
+                        i(class="fa-solid fa-user")
+                    span.ml-2 Tôi
+                ul.login-out 
+                    li 
+                        a(href="#") Đăng nhập    
+                    li  
+                        a(href="#") Đăng kí
 
-        .inner-menu 
-            ul.dropdown 
-                li 
-                    a(href="/")  Trang chủ
-                li
-                    a(href="/products") Sản phẩm 
-                    +sub-menu(categoryTree,"/products/category",1) 
+            div(class="search-cart")
+                .inner-search
+                    form(action="/search", method="get" id="formSearch")
+                        .input-group 
+                            input(
+                                type="text" 
+                                value= keyword || ''
+                                placeholder = "Nhập từ khóa..." 
+                                name = "keyword" 
+                                class="form-control"
+                                autoComplete = "off"
+                                require 
+                            )
+                            .input-group-append 
+                                button(
+                                    class="btn btn-primary" 
+                                    type="submit"
+                                ) 
+                                    i(class="fa-solid fa-magnifying-glass")
+                .inner-cart 
+                    i(class="fa-solid fa-cart-shopping")
+                    
+
+        
