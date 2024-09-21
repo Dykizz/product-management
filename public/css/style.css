@@ -105,7 +105,7 @@
 .header .inner-cart{
     cursor: pointer;
     color: white;
-    width: 40px;
+    
     height: 40px;
     padding: 10px;
     border-radius: 5px;
@@ -113,8 +113,13 @@
     justify-content: center;
     align-items: center;
 }
+.header .inner-cart span{
+    width: 65px;
+    font-size: medium;
+
+}
 .header .inner-cart:hover{
-    background-color: antiquewhite;
+    background-color: rgb(215, 248, 250);
     color:  rgb(0, 170, 255);
 }
 .header .inner-cart svg{
