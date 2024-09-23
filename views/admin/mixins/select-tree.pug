@@ -6,6 +6,8 @@ mixin select-tree(tree = [])
             +select-tree(item.children)
 
 
+
+//- Dùng để hiện thị cây và chỉ ra nhánh đang được chọn
 mixin select-treeEdit(tree = [], defaultValue = '')
     each item in tree 
         if item._id == defaultValue

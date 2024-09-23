@@ -18,11 +18,19 @@ block main
                         span.price-new #{(product.price*(100 - product.discountPercentage)/100).toFixed(2)}$
                     .price-discount.mb-3 Giảm tới
                         span.price #{(product.price*product.discountPercentage/100).toFixed(2)}$
-                    .stock.mb-3 Còn lại #{product.stock} sản phẩm
-                    form(class="form-group" action='/cart/add-product' method="post") 
-                        input(class="d-none" type="text" name="productId" value = product._id)
-                        input(class="form-control mb-3" type="number" name="stock" value =stockInCart min=1 max=product.stock)
-                        button(type="submit" class="btn btn-success form-control" ) 
+                    if (product.stock > 0)
+                        .stock.mb-3 Còn lại #{product.stock} sản phẩm
+                        form(class="form-group" action='/cart/add-product' method="post") 
+                            //- Dùng để gửi id của sản phẩm lên
+                            input(class="d-none" type="text" name="productId" value = product._id)
+                            //-
+                            input(class="form-control mb-3" type="number" name="stock" value =stockInCart min=1 max=product.stock)
+                            button(type="submit" class="btn btn-success form-control" ) 
+                                i(class="fa-solid fa-cart-plus")
+                                span  Thêm vào giỏ hàng
+                    else 
+                        .stock.mb-3(style = "color : red") Hết hàng!
+                        button(type="submit" class="btn btn-success form-control" disabled) 
                             i(class="fa-solid fa-cart-plus")
                             span  Thêm vào giỏ hàng
             
