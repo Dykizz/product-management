@@ -5,9 +5,11 @@ module.exports.index = async (req,res,next) =>{
         const token = req.cookies.token;
         if (token){
             const account = await ClientAccount.findOne({token : token},"_id username thumbnail");
-            const cart = await Cart.findOne({userId : account._id.toString()});
+            if (account) {
+                const cart = await Cart.findOne({userId : account._id.toString()});
+                res.locals.cart = cart;
+            }
             res.locals.account = account;
-            res.locals.cart = cart;
         }
     }catch(error){
         console.log(error);

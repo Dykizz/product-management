@@ -1,14 +1,11 @@
 const Cart = require('../../models/cart.model');
-const ClientAccount = require('../../models/client-account.model');
 const Product = require('../../models/product.model');
 
 module.exports.addProduct = async (req, res) => {
     try{
-        const { productId, stock } = req.body;
-        
-        // Lấy user từ token trong cookies
-        const user = await ClientAccount.findOne({ token: req.cookies.token });
-        if (!user) {
+        const { productId, quantity } = req.body;
+        const { account , cart } = res.locals;
+        if (!account) {
             req.flash('warning','Hãy đăng nhập để thực hiện thao tác này!')
             return res.redirect('back');
         }
@@ -21,17 +18,16 @@ module.exports.addProduct = async (req, res) => {
         }
 
         // Kiểm tra số lượng có hợp lệ không
-        if (stock > product.stock) {
+        if (quantity > product.stock) {
             req.flash('danger', 'Số lượng sản phẩm không hợp lệ!');
             return res.redirect('back');
         }
-        // Tìm giỏ hàng của user
-        let cart = await Cart.findOne({userId : user._id });
+        
         if (!cart) {
             // Nếu không có giỏ hàng, tạo giỏ hàng mới
             const newCart = new Cart({
-                userId: user._id,
-                products: [{ productId: productId , stock: stock }]
+                userId: account._id,
+                products: [{ productId: productId , quantity: quantity }]
             });
             await newCart.save();
         } else {
@@ -39,10 +35,10 @@ module.exports.addProduct = async (req, res) => {
             let productInCart = cart.products.find(obj => obj.productId === productId);
             if (productInCart) {
                 // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng
-                productInCart.stock = stock;
+                productInCart.quantity = quantity;
             } else {
                 // Nếu sản phẩm chưa có trong giỏ hàng, thêm sản phẩm mới
-                cart.products.push({ productId: product._id, stock: stock });
+                cart.products.push({ productId: product._id, quantity: quantity });
             }
             // Lưu lại giỏ hàng
             await cart.save();
@@ -58,16 +54,11 @@ module.exports.addProduct = async (req, res) => {
 
 module.exports.deleteProduct = async (req, res) => {
     const { productId } = req.body;
-    
-    // Tìm user dựa vào token từ cookies
-    const user = await ClientAccount.findOne({ token: req.cookies.token });
+    const { account , cart } = res.locals;
 
-    if (!user) {
+    if (!account) {
         return res.redirect('back');
     }
-
-    // Tìm giỏ hàng của user
-    let cart = await Cart.findOne({ userId: user._id });
 
     if (!cart) {
         req.flash('danger', 'Giỏ hàng không tồn tại!');
