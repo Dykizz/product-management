@@ -232,6 +232,13 @@
     display: none;
     flex-direction: column;
 }
+.dropdown1 >li:hover > a {
+    color: #333 !important;
+}
+.dropdown2 >li:hover > a {
+    color: #333 !important;
+}
+
 .dropdown1 li {
     position: relative;
     border-top: 1px solid #ddd;
