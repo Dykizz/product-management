@@ -11,20 +11,22 @@ block main
                     .title.mb-3 #{product.title}
                     if (product.category)
                         .category.mb-3 Danh mục : 
-                            a(href=`/products/${product.category.slug}`) #{product.category.title}
+                            a(href=`/products/category/${product.category.slug}`) #{product.category.title}
                     .mb-3 
                         span.price-old #{product.price}$
-                        span   --->  
+                        span(style = "font-size : 30px")   &rarr; 
                         span.price-new #{(product.price*(100 - product.discountPercentage)/100).toFixed(2)}$
                     .price-discount.mb-3 Giảm tới
                         span.price #{(product.price*product.discountPercentage/100).toFixed(2)}$
+                    if (stockInCart.status) 
+                        div.mb-3(style ="color : green; font-size : 14px") Sản phẩm này đã có trong giỏ hàng!
                     if (product.stock > 0)
                         .stock.mb-3 Còn lại #{product.stock} sản phẩm
                         form(class="form-group" action='/cart/add-product' method="post") 
                             //- Dùng để gửi id của sản phẩm lên
                             input(class="d-none" type="text" name="productId" value = product._id)
                             //-
-                            input(class="form-control mb-3" type="number" name="stock" value =stockInCart min=1 max=product.stock)
+                            input(class="form-control mb-3" type="number" name="quantity" value =stockInCart.quantity min=1 max=product.stock)
                             button(type="submit" class="btn btn-success form-control" ) 
                                 i(class="fa-solid fa-cart-plus")
                                 span  Thêm vào giỏ hàng
