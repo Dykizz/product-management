@@ -35,17 +35,23 @@ module.exports.detail = async (req, res) => {
             return res.redirect('back');
         }
         const category = await Categories.findOne({_id : product.category_id });
-        let stock = 1;
+        let stockInCart = {
+            status : false,
+            quantity : 1
+        };
         if (res.locals.cart){
             res.locals.cart.products.forEach(ob => {
-                if (ob.productId == product._id.toString()) stock = ob.stock;
+                if (ob.productId == product._id.toString()){
+                    stockInCart.status = true;
+                    stockInCart.quantity = ob.quantity;
+                } 
             })
         }
         product.category = category;
         res.render('client/pages/products/detail', {
             pageTitle: "Chi tiết sản phẩm",
             product: product,
-            stockInCart : stock
+            stockInCart : stockInCart
         })
 
     } catch (error) {
