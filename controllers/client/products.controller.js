@@ -32,15 +32,20 @@ module.exports.detail = async (req, res) => {
         }); 
         if (!product) {
             req.flash('danger','Không tồn tại sản phẩm này!')
-            res.redirect('back');
-
-            return;
+            return res.redirect('back');
         }
         const category = await Categories.findOne({_id : product.category_id });
+        let stock = 1;
+        if (res.locals.cart){
+            res.locals.cart.products.forEach(ob => {
+                if (ob.productId == product._id.toString()) stock = ob.stock;
+            })
+        }
         product.category = category;
         res.render('client/pages/products/detail', {
             pageTitle: "Chi tiết sản phẩm",
-            product: product
+            product: product,
+            stockInCart : stock
         })
 
     } catch (error) {

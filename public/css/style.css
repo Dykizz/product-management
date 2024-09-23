@@ -168,8 +168,9 @@
 }
 .header .inner-cart .quantity-product{
     position: absolute;
-    top: -5px;
+    top: -3px;
     left: 25px;
+    width: 18px;
     aspect-ratio: 1/1;
     padding: 2px;
     background-color: red;

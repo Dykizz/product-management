@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/notification.pug
 block main 
+    +notification(4000)
     .container
         .detail-product 
             .infor-product  
@@ -18,9 +19,12 @@ block main
                     .price-discount.mb-3 Giảm tới
                         span.price #{(product.price*product.discountPercentage/100).toFixed(2)}$
                     .stock.mb-3 Còn lại #{product.stock} sản phẩm
-                    form(class="form-group" action=`/products/add-cart/${product._id}`, method="post") 
-                        input(class="form-control mb-3" type="number" value = 1 min=1 max=product.stock)
-                        button(type="submit" class="btn btn-success form-control") Thêm vào giỏ hàng
+                    form(class="form-group" action='/cart/add-product' method="post") 
+                        input(class="d-none" type="text" name="productId" value = product._id)
+                        input(class="form-control mb-3" type="number" name="stock" value =stockInCart min=1 max=product.stock)
+                        button(type="submit" class="btn btn-success form-control" ) 
+                            i(class="fa-solid fa-cart-plus")
+                            span  Thêm vào giỏ hàng
             
         .description-product 
             h3.mt-3(style ="color: green") Mô tả sản phẩm
