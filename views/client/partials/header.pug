@@ -5,7 +5,7 @@ header
     .container        
         .inner-logo
             a(href="/") 
-                img(src="/images/logo.jpg" , alt="Logo") 
+                h1 PT Shop
         div(class="nav")
             div(class="menu-user")
                 .inner-menu 
@@ -55,7 +55,7 @@ header
                                     type="submit"
                                 ) 
                                     i(class="fa-solid fa-magnifying-glass")
-                .inner-cart 
+                a(href="/cart" class = "inner-cart") 
                     i(class="fa-solid fa-cart-shopping")
                     span.ml-2 Giỏ hàng
                     .quantity-product #{cart ?  cart.products.length : 0}
