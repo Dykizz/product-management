@@ -1,8 +1,10 @@
 extends ../../layouts/default.pug
 include ../../mixins/notification.pug
+include ../../mixins/go-back.pug
 block main 
     +notification(4000)
     .container
+        +go-back()
         .detail-product 
             .infor-product  
                 .inner-img 

@@ -1,11 +1,13 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/notification.pug
+include ../../mixins/go-back.pug
 
 block main 
     +notification(4000)
     .container 
         +box-head("Giỏ hàng")
+        +go-back()
         button(class="btn btn-primary mb-3" btnSave) Lưu thay đổi
         table(table-check-box).table.table-bordered.table-hover.text-center.mb-3.table-cart
             thead.table-success 
@@ -41,12 +43,14 @@ block main
                                 i(class="fa-solid fa-trash" style="color : red") 
                                 span  Xoá
 
-        .text-right.mb-3(total-payment) Tổng thanh toán 0$
+        .text-right.mb-3(total-payment style = "font-weight : 500")  Tổng thanh toán 0$
         .text-right
             .btn.btn-success Thanh toán
     
     form(action="javascript:;" method="post" id="formSaveCart" class="d-none") 
         input(type="text" name ="data" value=''  )
+    
+    script(src="/js/cart.js") 
 
     
     

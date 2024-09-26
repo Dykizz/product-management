@@ -7,7 +7,10 @@ const cartSchema = new mongoose.Schema(
             {
                 productId : String,
                 quantity : Number,
-                chose : Boolean
+                chose : {
+                    type : Boolean,
+                    default : true
+                }
             }
         ]
     }, { timestamps: true }

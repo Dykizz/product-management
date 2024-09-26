@@ -36,7 +36,7 @@ module.exports.addProduct = async (req, res) => {
             req.flash('danger', 'Sản phẩm này không tồn tại!');
             return res.redirect('back');
         }
-
+ 
         // Kiểm tra số lượng có hợp lệ không
         if (quantity > product.stock) {
             req.flash('danger', 'Số lượng sản phẩm không hợp lệ!');
