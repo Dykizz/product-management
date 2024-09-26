@@ -1,0 +1,55 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/notification.pug
+
+block main 
+    +notification(4000)
+    .container 
+        +box-head("Giỏ hàng")
+        button(class="btn btn-primary mb-3" btnSave) Lưu thay đổi
+        table(table-check-box).table.table-bordered.table-hover.text-center.mb-3.table-cart
+            thead.table-success 
+                th 
+                    input(type="checkbox", name="checkall" checked = choseAll)
+                th STT 
+                th Ảnh
+                th Tên sản phẩm 
+                th Giá 
+                th Số lượng
+                th Tổng tiền
+                th Hành động 
+            tbody 
+                for ob , index in cart.products
+                    tr  
+                        td 
+                            input(type="checkbox", name="id", checked = ob.chose , id = ob.productId)
+                        td(position) #{index + 1}
+                        td 
+                            img(src=ob.product.thumbnail, alt=ob.product.title style = "width : auto ; height : 90px ; object-fit : cover")
+                        td 
+                            b #{ob.product.title}
+                        th #{ob.product.priceNew}$
+                        th
+                            .counter 
+                                button.btnDown -
+                                input(type ="number" value = ob.quantity min = 0 max = ob.product.stock inputmode="numeric" name="quantity" )
+                                button.btnUp +
+                                span /#{ob.product.stock}
+                        th(totalMoney price-new = ob.product.priceNew) #{ob.product.priceNew*ob.quantity}$
+                        th 
+                            button.btn.btn-secondary(btnDelete clicked = false )
+                                i(class="fa-solid fa-trash" style="color : red") 
+                                span  Xoá
+
+        .text-right.mb-3(total-payment) Tổng thanh toán 0$
+        .text-right
+            .btn.btn-success Thanh toán
+    
+    form(action="javascript:;" method="post" id="formSaveCart" class="d-none") 
+        input(type="text" name ="data" value=''  )
+
+    
+    
+        
+
+                
