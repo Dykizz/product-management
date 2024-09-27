@@ -29,7 +29,8 @@ block main
                         td 
                             img(src=ob.product.thumbnail, alt=ob.product.title style = "width : auto ; height : 90px ; object-fit : cover")
                         td 
-                            b #{ob.product.title}
+                            a(href= `/products/${ob.product.slug}` style="text-decoration: none") 
+                                strong #{ob.product.title}
                         th #{ob.product.priceNew}$
                         th
                             .counter 
@@ -45,7 +46,8 @@ block main
 
         .text-right.mb-3(total-payment style = "font-weight : 500")  Tổng thanh toán 0$
         .text-right
-            .btn.btn-success Thanh toán
+            .btn.btn-success 
+                a(href="/checkout" style="text-decoration: none ; color : white") Thanh toán
     
     form(action="javascript:;" method="post" id="formSaveCart" class="d-none") 
         input(type="text" name ="data" value=''  )
