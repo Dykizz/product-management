@@ -33,7 +33,7 @@ counters.forEach((counter, index) => {
             value = minValue;
         }
         const priceNew = parseFloat(totalMoneys[index].getAttribute('price-new'));
-        totalMoneys[index].innerHTML = (priceNew * value).toFixed(2, 10) + "$";
+        totalMoneys[index].innerHTML = (priceNew * value).toFixed(2) + "$";
         calcPay();
     });
 });
