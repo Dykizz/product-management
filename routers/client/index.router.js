@@ -3,7 +3,7 @@ const clientaccountMiddleware = require('../../middleware/client/clientaccount.m
 const productsRouters = require('./products.router');
 const homeRouters = require('./home.router');
 const searchRouters = require('./search.router');
-const authRouters = require('./auth.router');
+const userRouters = require('./user.router');
 const cartRouters = require('./cart.router');
 const checkoutRouter = require('./checkout.router');
 module.exports = (app) =>{
@@ -16,7 +16,7 @@ module.exports = (app) =>{
     app.use('/',homeRouters);
     app.use('/products', productsRouters);
     app.use('/search',searchRouters);
-    app.use('/auth',authRouters);
+    app.use('/user',userRouters);
     app.use('/cart',cartRouters);
     app.use('/checkout',checkoutRouter);
 } 
