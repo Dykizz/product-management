@@ -1,18 +1,28 @@
 const Categories = require("../../models/categories.model");
-const Product = require("../../models/product.model")
+const Product = require("../../models/product.model");
+const searchHelper = require('../../helpers/searchHelper');
+const paginationHelper = require('../../helpers/paginationHelper');
 // [GET] /products
 module.exports.index = async (req, res) => {
-    const products = await Product.find({
-        status: "active",
-        deleted: false
-    }).sort({ position: "desc" });
-    const newProduct = products.map(item => {
+    let find = {
+        status : "active",
+        deleted : false
+    }
+    const objectPagination = await paginationHelper(Product, find, req.query,12);
+    const products = await Product.find(find)
+        .sort({ position: -1 })
+        .limit(objectPagination.limitItems)
+        .skip(objectPagination.skipItems);
+        
+    const newProducts = products.map(item => {
         item.priceNew = Math.floor(item.price * (100 - item.discountPercentage) / 100);
         return item;
     });
     res.render('client/pages/products/index', {
         pageTitle: "Sản phẩm",
-        products: newProduct
+        products: newProducts,
+        totalPage: objectPagination.totalPage,
+        currentPage: objectPagination.currentPage
     })
 }
 // [GET] /products/:slug
@@ -81,11 +91,21 @@ module.exports.category = async (req,res) => {
             }
             indexStart = n;
         }
+        let find = {
+            deleted : false, 
+            category_id : { $in : IdCategories }
+        }
+        const objectPagination = await paginationHelper(Product, find, req.query,12);
         const products = await Product.find({deleted : false, category_id : { $in : IdCategories }})
-            .sort({ position : -1});
+            .sort({ position : -1})
+            .limit(objectPagination.limitItems)
+            .skip(objectPagination.skipItems);
+
         res.render('client/pages/products/category',{
             pageTitle : category.title,
-            products : products
+            products : products,
+            totalPage: objectPagination.totalPage,
+            currentPage: objectPagination.currentPage
         })
         
     } catch (error){

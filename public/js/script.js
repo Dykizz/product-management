@@ -55,3 +55,16 @@ if (btnGoBack){
     })
 }
 // End Go Back
+//Pagination
+const buttonPages = document.querySelectorAll("[direction-page]");
+if (buttonPages.length > 0) {
+    let url = new URL(window.location.href);
+    buttonPages.forEach(button => {
+        button.addEventListener("click", () => {
+            const directionPage = parseInt(button.getAttribute("direction-page"));
+            url.searchParams.set("page", directionPage);
+            window.location.href = url;
+        })
+    })
+}
+// End Pagination

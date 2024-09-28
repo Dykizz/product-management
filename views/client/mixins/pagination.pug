@@ -1,6 +1,6 @@
 mixin pagination(totalPage,currentPage)
     nav
-        ul(class="pagination" id="buttons-page")  
+        ul(class="pagination" id="buttons-page" style="display: flex ; justify-content: center")  
             li.page-item 
                 if (currentPage > 1)
                     button(class="page-link" direction-page = currentPage - 1) Trang trước
