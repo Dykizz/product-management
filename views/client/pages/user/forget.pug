@@ -1,0 +1,13 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+block main   
+    .container  
+        +notification(4000)
+        form(action=`/user/forget`, method="post" class="form") 
+            h2.header-form Lấy lại mật khẩu 
+            .row
+                .col-12.form-group 
+                    label(for="email" ) Email
+                    input(type="email" id="email" name="email" class="form-control" required)
+                .col-12.mb-3.mt-2
+                    button(class="btn btn-primary" style="width : 100%" type="submit") Gửi email xác nhận 

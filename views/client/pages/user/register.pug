@@ -4,17 +4,20 @@ include ../../mixins/upload-file-preview.pug
 block main   
     .container  
         +notification(4000)
-        form(action=`/auth/register` enctype="multipart/form-data" method="post" class="form") 
+        form(action=`/user/register` enctype="multipart/form-data" method="post" class="form") 
             h2.header-form Đăng kí
             .row
                 .col-12.form-group 
-                    label(for="username") Tài khoản
-                    input(type="username" id="email" name="username" class="form-control" required)
+                    label(for="email") Email đăng ký*
+                    input(type="email" id="email" name="email" class="form-control" required)
                 .col-12.form-group 
-                    label(for="password") Mật khẩu
+                    label(for="username") Tên tài khoản*
+                    input(type="text" id="username" name="username" class="form-control" required)
+                .col-12.form-group 
+                    label(for="password") Mật khẩu*
                     input(type="password" id="password" name="password" class="form-control" required)
                 .col-12.form-group 
-                    label(for="password")  Nhập lại mật khẩu
+                    label(for="password")  Nhập lại mật khẩu*
                     input(type="password" id="password" name="repassword" class="form-control" required)
                 .col-12.form-group 
                     +upload-file-preview("thumbnail")

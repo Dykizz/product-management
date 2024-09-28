@@ -9,7 +9,7 @@ const configSystem = require('../../config/system');
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
     let find = {
-        deleted: false
+        deleted: false 
     }
     let sort = {};
     if (req.query.keySort) {

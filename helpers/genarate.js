@@ -6,3 +6,12 @@ module.exports.randomToken = (length) => {
     }
     return token;
 }
+
+module.exports.randomOTP = (length = 7) =>{
+    const keys = "0123456789";
+    let otp = "";
+    for (let i = 0; i < length; i++) {
+        otp += keys[Math.floor(Math.random() * keys.length)];
+    }
+    return otp;
+}

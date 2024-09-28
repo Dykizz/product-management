@@ -1,0 +1,17 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+block main   
+    .container  
+        +notification(4000)
+        form(action=`/user/forget/comfirm-otp`, method="post" class="form") 
+            h2.header-form Xác nhận OTP 
+            .row
+                .col-12.form-group 
+                    label(for="email" ) Email
+                    input(type="email" id="email" name="email" class="form-control" value = email readonly required)
+                .col-12.form-group 
+                    label(for="otp") Mã OTP
+                    input(type = "text" id ="otp" name = "otp" class="form-control")
+                    .mt-2(style ="color : red ; font-size : 14px") Lưu ý : Mã OTP chỉ có hiệu lực trong 3 phút tính từ khi gửi email xác nhận!
+                .col-12.mb-3.mt-2
+                    button(class="btn btn-primary" style="width : 100%" type="submit") Xác nhận OTP

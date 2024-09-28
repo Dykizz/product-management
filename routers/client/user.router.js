@@ -11,11 +11,19 @@ router.post('/login',controller.loginPost);
 
 router.get('/logout',controller.logout);
 
-router.get('/register',controller.register)
+router.get('/register',controller.register);
 
 router.post('/register',
     upload.single('thumbnail'),
     uploadImage,
     controller.registerPost
-)
+);
+
+router.get('/forget',controller.forget);
+
+router.post('/forget',controller.forgetPost);
+
+router.get('/forget/comfirm-otp',controller.comfirmOTP);
+
+router.post('/forget/comfirm-otp',controller.comfirmOTP_POST);
 module.exports = router;

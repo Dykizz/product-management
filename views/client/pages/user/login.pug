@@ -3,12 +3,12 @@ include ../../mixins/notification.pug
 block main   
     .container  
         +notification(4000)
-        form(action=`/auth/login`, method="post" class="form") 
+        form(action=`/user/login`, method="post" class="form") 
             h2.header-form Đăng nhập 
             .row
                 .col-12.form-group 
-                    label(for="username") Tài khoản
-                    input(type="text" id="username" name="username" class="form-control" required)
+                    label(for="email" ) Email
+                    input(type="email" id="email" name="email" class="form-control" required)
                 .col-12.form-group 
                     label(for="password") Mật khẩu
                     input(type="password" id="password" name="password" class="form-control" required)
@@ -16,4 +16,4 @@ block main
                     button(class="btn btn-primary" style="width : 100%" type="submit") Đăng nhập    
                 .col-12.mb-3(style="display : flex ; justify-content : space-between") 
                     a(href="/user/register") Đăng kí tài khoản?
-                    a(href="/user/login/forget") Quên mật khẩu?
+                    a(href="/user/forget") Quên mật khẩu?

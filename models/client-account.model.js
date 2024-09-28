@@ -2,6 +2,7 @@ const { default: mongoose } = require("mongoose");
 const generate = require('../helpers/genarate');
 const accountSchema = new mongoose.Schema(
     {
+        email : String,
         username : String,
         password : String,
         token : {
@@ -11,6 +12,10 @@ const accountSchema = new mongoose.Schema(
         thumbnail : {
             type : String,
             default : ''
+        },
+        status : {
+            type : String,
+            default : "active"
         }
     }, { timestamps: true }
 )
