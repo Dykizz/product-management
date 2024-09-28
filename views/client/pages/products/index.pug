@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/notification.pug
 include ../../mixins/products-grid.pug
+include ../../mixins/pagination.pug
 block main 
     +notification(4000)
     .container
@@ -10,4 +11,5 @@ block main
                 .col-12 
                     +box-head("Danh sách sản phẩm")
             +products-grid(products)
+            +pagination(totalPage,currentPage)
             
