@@ -1,0 +1,67 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/go-back.pug
+include ../../mixins/formatTime.pug
+block main 
+    .container 
+        +box-head("Đặt hàng thành công!")
+        +go-back()
+        .alert.alert-success 
+            | Chúc mừng bạn đã đặt hàng thành công! Chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất.
+        .mb-3 Đơn hàng được ghi nhận lúc :
+            strong 
+                +formatDateHour(order.createdAt)
+        h3 Thông tin cá nhân
+        table.table.table-bordered 
+            tbody 
+                tr 
+                    td Họ tên   
+                    td 
+                        strong #{order.infor.fullName}
+                tr 
+                    td Số điện thoại    
+                    td 
+                        strong #{order.infor.phone}
+                tr 
+                    td Địa chỉ  
+                    td 
+                        strong #{order.infor.address} 
+        h3 Thông tin đơn hàng   
+        table.table.table-bordered.text-center.table-hover
+            thead.table-success 
+                th STT 
+                th Ảnh 
+                th Tên sản phẩm 
+                th Giá  
+                th Số lượng 
+                th Tổng tiền
+            tbody   
+                for product,index in order.products 
+                    tr 
+                        td 
+                            b #{index + 1} 
+                        td 
+                            img(
+                                src=product.thumbnail 
+                                alt=product.title 
+                                style = "width : auto ; height : 90px ; object-fit : cover")
+                        td 
+                            b #{product.title} 
+                        td 
+                            b #{product.priceNew.toFixed(2)}$
+                        td 
+                            b #{product.quantity}
+                        td 
+                            b #{product.total.toFixed(2)}$
+        .text-right 
+            strong(style = "font-size : 18px") Tổng đơn hàng : #{order.totalPrice.toFixed(2)}$
+                        
+                         
+
+    
+
+    
+    
+        
+
+                

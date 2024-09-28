@@ -24,13 +24,13 @@ block main
                             img(src= ob.product.thumbnail, alt= ob.product.title style = "width : auto ; height : 90px ; object-fit : cover")
                         td 
                             b #{ob.product.title}
-                        th #{ob.product.priceNew}$
+                        th #{ob.priceNew.toFixed(2)}$
                         th #{ob.quantity}
-                        th #{ob.product.priceNew*ob.quantity}$
+                        th #{ob.total.toFixed(2)}$
         
         .card
             .card-header 
-                h3 Thông tin vận chuyển 
+                h3 Thông tin cá nhân 
             .card-body
                 form(action="/checkout/order", method="post" class="card mb-3" id="formInfor" style ="border : none")
                     .form-group 
@@ -42,7 +42,7 @@ block main
                     .form-group 
                         label(for="address")  Địa chỉ*
                         textarea(name="address" id="address" class="form-control" required)  
-                    .text-right.mb-3(total-payment style = "font-weight : 500")  Tổng thanh toán: #{totalPrice}$
+                    .text-right.mb-3(total-payment style = "font-weight : 500")  Tổng thanh toán: #{totalPrice.toFixed(2)}$
                     .text-right
                     button(class="btn btn-success" type="submit")  Đặt hàng
 

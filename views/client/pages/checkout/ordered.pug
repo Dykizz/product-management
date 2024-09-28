@@ -1,0 +1,56 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/notification.pug
+include ../../mixins/go-back.pug
+include ../../mixins/formatTime.pug
+block main 
+    +notification(4000)
+    .container 
+        +box-head("Lịch sử đơn hàng")
+        +go-back()
+        if list.length > 0
+            div 
+                for item,index in list 
+                    .card.mb-3 
+                        .card-body 
+                            p(class="d-inline" style="font-weight : 500 ; font-size : 18px") Thời gian đặt hàng :
+                                +formatDateHour(item.createdAt)
+                            p(style="font-weight : 500 ; font-size : 18px") Thông tin cá nhân :
+                            ul 
+                                li Tên người nhận : 
+                                    strong #{item.infor.fullName}
+                                li Số điện thoại : 
+                                    strong #{item.infor.phone}
+                                li Địa chỉ : 
+                                    textarea(style="display : block" class="form-control mt-2" readonly) #{item.infor.address}
+                            p(style="font-weight : 500 ; font-size : 18px") Các sản phẩm
+                            table.table.table-bordered.table-hover.text-center.mb-3
+                                thead.table-success 
+                                    th STT 
+                                    th Ảnh
+                                    th Tên sản phẩm 
+                                    th Giá 
+                                    th Số lượng
+                                    th Tổng tiền
+                                tbody 
+                                    for ob , index in item.products
+                                        tr  
+                                            td  #{index + 1}
+                                            td 
+                                                img(src= ob.product.thumbnail, alt= ob.product.title style = "width : auto ; height : 90px ; object-fit : cover")
+                                            td 
+                                                b #{ob.product.title}
+                                            th #{ob.priceNew.toFixed(2)}$
+                                            th #{ob.quantity}
+                                            th #{(ob.priceNew*ob.quantity).toFixed(2)}$
+        else 
+            h4 Lịch sử đơn hàng trống!
+                         
+
+    
+
+    
+    
+        
+
+                
