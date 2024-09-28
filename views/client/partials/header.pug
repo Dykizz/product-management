@@ -26,9 +26,17 @@ header
                         span.ml-2 #{account.username}
                         ul.dropdown-user 
                             li 
-                                a(href="#") Thông tin về tôi 
+                                a(href="#") 
+                                    i(class="fa-regular fa-user")
+                                    |  Thông tin về tôi 
                             li 
-                                a(href="/auth/logout") Đăng xuất
+                                a(href="/checkout/list-ordered")
+                                    i(class="fa-solid fa-list-check")
+                                    |   Các đơn đã đặt
+                            li 
+                                a(href="/auth/logout") 
+                                    i(class="fa-solid fa-right-from-bracket") 
+                                    |  Đăng xuất
                 else
                     ul.login-out 
                         li 
