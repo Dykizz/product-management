@@ -21,9 +21,13 @@ router.post('/register',
 
 router.get('/forget',controller.forget);
 
-router.post('/forget',controller.forgetPost);
+router.post('/forget',controller.forget_POST);
 
 router.get('/forget/comfirm-otp',controller.comfirmOTP);
 
 router.post('/forget/comfirm-otp',controller.comfirmOTP_POST);
+
+router.get('/reset-password',controller.resetPassword);
+
+router.post('/reset-password',controller.resetPassword_POST);
 module.exports = router;
