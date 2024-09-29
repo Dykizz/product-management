@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+include ../../mixins/form-search.pug
+include ../../mixins/notification.pug
+include ../../mixins/formatTime.pug
+include ../../mixins/upload-file-preview.pug
+
+block main 
+    if role.permissions.includes('product_detail')
+        +notification()   
+        h2 Cài đặt chung
+        form(action=`${prefixAdmin}/setting/general?_method=PATCH`, method="post", enctype="multipart/form-data") 
+            .form-group 
+                label(for="name_web") Tên trang web 
+                input(type="text" id="name_web" name="name_web" 
+                    value=(setting && setting.name_web ? setting.name_web : '') 
+                    class="form-control" required) 
+            .row
+                .form-group.col-6
+                    label(for="phone") Số điện thoại
+                    input(type="text" id="phone" name="phone" 
+                        value=(setting && setting.phone ? setting.phone : '') 
+                        class="form-control" required)
+                .form-group.col-6 
+                    label(for="email") Email liên hệ
+                    input(type="email" id="email" name="email_contact" 
+                        value=(setting && setting.email_contact ? setting.email_contact : '') 
+                        class="form-control" required)
+            .form-group 
+                label(for="logo") Logo 
+                +upload-file-preview("logo","logo", setting && setting.logo ? setting.logo : '')
+            .form-group 
+                label(for="address") Địa chỉ (nhúng iframe) 
+                input(type="text" id="address" name="address" 
+                    value=(setting && setting.address ? setting.address : '') 
+                    class="form-control" required)
+            .showIframe.d-none
+            .form-group 
+                label(for="copyright") Copyright 
+                input(type="text" id="copyright" name="copyright" 
+                    value=(setting && setting.copyright ? setting.copyright : '') 
+                    class="form-control" required)
+            if setting && setting.userUpdated
+                .mb-3(style="font-size: 14px; color: green") 
+                    | Cập nhật lần cuối bởi : 
+                    strong #{setting.userUpdated}
+                    |  lúc
+                    +formatDateHour(setting.updateAt)
+            button(class="btn btn-primary") Cập nhật
+    script(src="/admin/js/setting-general.js") 

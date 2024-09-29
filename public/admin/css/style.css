@@ -1,5 +1,5 @@
 body {
-    width: 100vw;
+    width: 99vw;
     height: 100vh;
     overflow-x: hidden;
 }
@@ -40,7 +40,7 @@ body {
 
 .body .main{
     margin: 0;
-    padding: 15px 15px 15px 30px;
+    padding: 15px 30px;
     position: relative;
     left: 150px;
     top: 0;
@@ -246,3 +246,11 @@ body {
         width: calc(100% + 8px);
     }
 }
+
+/* Show Iframe  */
+.showIframe iframe{
+    width: 400px;
+    height: 300px;
+}
+
+/* End Show iframe */
