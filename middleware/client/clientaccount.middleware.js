@@ -8,8 +8,8 @@ module.exports.index = async (req,res,next) =>{
             if (account) {
                 const cart = await Cart.findOne({userId : account._id.toString()});
                 res.locals.cart = cart;
+                res.locals.account = account;
             }
-            res.locals.account = account;
         }
     }catch(error){
         console.log(error);

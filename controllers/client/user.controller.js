@@ -1,7 +1,8 @@
 const ClientAccount = require('../../models/client-account.model');
-const ForgetAccount = require('../../models/forget-account.model')
+const ForgetAccount = require('../../models/forget-account.model');
+const sendEmailHelper = require('../../helpers/sendEmail');
 const md5 = require('md5');
-const { use } = require('../../routers/client/user.router');
+
 
 
 // [GET] user/login
@@ -87,7 +88,7 @@ module.exports.forget = (req,res) => {
 }
 
 // [POST] user/forget
-module.exports.forgetPost = async (req,res) =>{
+module.exports.forget_POST = async (req,res) =>{
     const { email } = req.body;
     if (!email){
         req.flash('dangger','Bạn chưa điền email!');
@@ -107,6 +108,11 @@ module.exports.forgetPost = async (req,res) =>{
     }
     const expireTime = new Date(Date.now() + 180 * 1000); 
     const obforget = new ForgetAccount({email : email , expireAt : expireTime});
+    const subject = 'Mã OTP xác minh lấy lại mật khẩu';
+    const html = `Mã OTP xác minh lấy lại mật khẩu là : <strong>${obforget.otp}</strong>.
+        <p>Thời gian mã OTP có hiệu lực là <b>3 phút</b>. Lưu ý quý khách không được để lộ mã OTP cho bất kì ai.</p>
+    `;
+    sendEmailHelper.sendEmail(email,subject,html);
 
     await obforget.save();
     res.redirect(`/user/forget/comfirm-otp?email=${email}`);
@@ -128,6 +134,7 @@ module.exports.comfirmOTP_POST = async (req,res) => {
     const { email, otp } = req.body;
 
     const account = await ForgetAccount.findOne({email : email });
+
     if (!account){
         req.flash('danger','Mã OTP đã hết hiệu lực!');
         res.redirect('/user/forget');
@@ -139,9 +146,44 @@ module.exports.comfirmOTP_POST = async (req,res) => {
 
     const user = await ClientAccount.findOne({email : email},"token");
 
-    res.cookie("tokenUser",user.token);
+    res.cookie("token",user.token);
 
-    res.redirect('/user/reset');
+    res.redirect('/user/reset-password');
 
+}
 
+// [GET] /user/reset-password
+module.exports.resetPassword = (req,res) => {
+    res.render('client/pages/user/reset-password.pug',{
+        pageTitle : "Đổi mật khẩu"
+    })
+}
+
+// [POST] /user/reset-password  
+module.exports.resetPassword_POST = async (req,res) => {
+    const { password , repassword } = req.body;
+    const { token } = res.locals;
+
+    if (!password){
+        req.flash('danger','Bạn chưa điền mật khẩu!');
+        return res.redirect('back');
+    }
+
+    if (!repassword){
+        req.flash('danger','Bạn chưa điền phần xác nhận mật khẩu!');
+        return res.redirect('back');
+    }
+
+    if (password != repassword){
+        req.flash('danger','Mật khẩu xác nhận không trùng khớp!');
+        return res.redirect('back');
+    }
+    try {
+        await ClientAccount.updateOne({token : token}, {password : md5(password)});
+    } catch (error) {
+        req.flash('danger','Lỗi không thay đổi mật khẩu!');
+        return res.redirect('back');
+    }
+    req.flash('success','Bạn đã đổi mật khẩu thành công!');
+    return res.redirect('/');
 }
