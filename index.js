@@ -37,6 +37,9 @@ app.locals.moment = moment;
 // Routers
 routeClient(app);
 routeAdmin(app);
+app.get('*',(_,res) => {
+    res.render('client/pages/ERROR404/index.pug')
+  })
 
 app.listen(port, ()=>{
     console.log(`Example app listening on port ${port}`)
