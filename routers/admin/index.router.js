@@ -16,6 +16,9 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + '/roles', authRequire.requireAuth, rolesRouter);
     app.use(PATH_ADMIN + '/accounts', authRequire.requireAuth, accountsRouter);
     app.use(PATH_ADMIN + '/auth', authRouter);
-    app.use(PATH_ADMIN + '/myprofile',authRequire.requireAuth, myprofileRouter);
-    app.use(PATH_ADMIN + '/setting',authRequire.requireAuth,settingRouter);
+    app.use(PATH_ADMIN + '/myprofile', authRequire.requireAuth, myprofileRouter);
+    app.use(PATH_ADMIN + '/setting', authRequire.requireAuth, settingRouter);
+    app.get('*', (req, res) => {
+        res.render('admin/pages/ERROR404/index.pug')
+    })
 }

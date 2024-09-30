@@ -19,4 +19,7 @@ module.exports = (app) =>{
     app.use('/user',userRouters);
     app.use('/cart',cartRouters);
     app.use('/checkout',checkoutRouter);
+    app.get('*',(_,res) => {
+      res.render('client/pages/ERROR404/index.pug')
+    })
 } 
