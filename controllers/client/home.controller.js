@@ -14,7 +14,7 @@ module.exports.index = async (req,res) => {
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skipItems);
     res.render('client/pages/home/index',{
-        pageTitle : "Trang chủ",
+        pageTitle : res.locals.setting.name_web,
         products : featuredProducts,
         totalPage: objectPagination.totalPage,
         currentPage: objectPagination.currentPage
