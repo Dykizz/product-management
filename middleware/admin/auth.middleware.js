@@ -10,7 +10,8 @@ module.exports.requireAuth = async (req,res,next) => {
     if (!account){
         return res.redirect(`${configSystem.prefixAdmin}/auth/login`);
     }
-    const role = await Roles.findOne({ _id : account.role_id }).select("title permissions");
+    const role = await Roles.findOne({ _id : account.role_id , deleted : false }).select("title permissions");
+    
     res.locals.user = account;
     res.locals.role = role;
     next();

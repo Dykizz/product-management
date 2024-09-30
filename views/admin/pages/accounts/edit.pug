@@ -2,7 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/notification.pug 
 include ../../mixins/upload-file-preview.pug
 block main
-    if role.permissions.includes('account_edit')
+    if roles.permissions.includes('account_edit')
         +notification(4000)
         h2.mb-3 Chỉnh sửa tài khoản 
         form(

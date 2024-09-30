@@ -3,7 +3,7 @@ const configSystem = require('../../config/system');
 module.exports.index = async (req, res) => {
     const roles = await Roles.find({ deleted: false });
     res.render('admin/pages/roles.pug', {
-        pageTitle: 'Nhóm quyền',
+        pageTitle: 'Nhóm quyền', 
         roles: roles
     });
 }
@@ -11,10 +11,8 @@ module.exports.index = async (req, res) => {
 module.exports.detail = async (req, res) => {
     try {
         const id = req.params.id;
-        const role = await Roles.findOne({ _id: id });
         res.render('admin/pages/roles/detail.pug', {
             pageTitle: 'Chi tiết nhóm quyền',
-            role: role
         });
     } catch (error) {
         res.redirect('back');
@@ -25,10 +23,8 @@ module.exports.detail = async (req, res) => {
 module.exports.edit = async (req, res) => {
     try {
         const id = req.params.id;
-        const role = await Roles.findOne({ _id: id });
         res.render('admin/pages/roles/edit.pug', {
             pageTitle: 'Chỉnh sửa nhóm quyền',
-            role: role
         });
     } catch (error) {
         res.redirect('back');

@@ -1,16 +1,12 @@
 const Account = require('../../models/account.model');
-const Role = require('../../models/roles.model');
-
 
 module.exports.index = async (req,res) => {
     
     const id = res.locals.user._id;
     const account = await Account.findOne({ _id : id},"-password");
-    const roles = await Role.findOne({ _id : account.role_id});
     res.render('admin/pages/myprofile/index.pug',{
         pageTitle : "My Profile",
         account : account,
-        roles : roles
     })
 }
 

@@ -6,7 +6,6 @@ const md5 = require('md5');
 module.exports.index = async (req,res) => {
     try {
         const id = res.locals.user._id;
-        console.log(id)
         const accounts = await Account.find({deleted : false , _id : { $ne : id}},"-password -token");
         res.render('admin/pages/accounts/index',{
             pageTitle : 'Danh sách tài khoản',
@@ -23,10 +22,8 @@ module.exports.index = async (req,res) => {
 // [GET] admin/accounts/create
 module.exports.create = async (req,res) => {
     try {
-        const roles = await Roles.find({deleted : false});
         res.render('admin/pages/accounts/create.pug',{
             pageTitle : 'Tạo tài khoản',
-            roles : roles
         });
     } catch (error) {
         req.flash('danger','Lỗi truy cập!');
@@ -64,13 +61,11 @@ module.exports.createPost = async (req,res) =>{
 // [GET] admin/accounts/edit:id 
 module.exports.edit =async (req,res) => {
     try {
-        const id = req.params.id;
-        const account = await Account.findOne({_id : id});
-        const roles = await Roles.find({deleted : false});
+        const id = req.params.id; 
+        const account = await Account.findOne({_id : id});  
         res.render('admin/pages/accounts/edit',{
             pageTitle: 'Chỉnh sửa tài khoản',
-            account : account,
-            roles : roles
+            account : account
         })
     } catch (error) {
         req.flash('danger','Lỗi đường dẫn không tồn tại!');
@@ -133,12 +128,10 @@ module.exports.detail = async (req,res) => {
     try {
         const id = req.params.id;
         const account = await Account.findOne({_id : id });
-        const roles = await Roles.findOne({_id : account.role_id });
         if (account.createdAt) account.timeCreate = account.createdAt.toLocaleString();
         res.render('admin/pages/accounts/detail',{
             pageTitle : 'Chi tiết tài khoản',
             account : account ,
-            roles : roles
         })
     } catch (error) {
         req.flash('danger','Lỗi truy cập!');

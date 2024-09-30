@@ -1,15 +1,43 @@
 const express = require('express');
 const router = express.Router();
 
-const controller = require('../../controllers/admin/roles.controller')
-router.get('/',controller.index);
-router.get('/detail/:id',controller.detail);
-router.get('/edit/:id',controller.edit);
-router.patch('/edit/:id',controller.editPatch);
-router.delete('/delete/:id',controller.delete);
-router.get('/create',controller.create);
-router.post('/create',controller.createPost);
-router.get('/permission',controller.permission);
+const checkRole = require('../../middleware/admin/checkRole.js');
+const controller = require('../../controllers/admin/roles.controller');
 
-router.patch('/permission',controller.permissionPatch);
+router.get('/',
+    checkRole('role_detail'),
+    controller.index);
+
+router.get('/detail/:id',
+    checkRole('role_detail'),
+    controller.detail);
+
+router.get('/edit/:id',
+    checkRole('role_edit'),
+    controller.edit);
+
+router.patch('/edit/:id',
+    checkRole('role_edit'),
+    controller.editPatch);
+
+router.delete('/delete/:id',
+    checkRole('role_delete'),
+    controller.delete);
+
+router.get('/create',
+    checkRole('role_create'),
+    controller.create);
+
+router.post('/create',
+    checkRole('role_create'),
+    controller.createPost);
+
+router.get('/permission',
+    checkRole('role_permission'),
+    controller.permission);
+
+router.patch('/permission',
+    checkRole('role_permission'),
+    controller.permissionPatch);
+
 module.exports = router;

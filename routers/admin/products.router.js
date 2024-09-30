@@ -1,7 +1,7 @@
 const express = require("express");
 const multer  = require('multer');// Thư viện upload file
 const router = express.Router(); 
-
+const checkRole = require('../../middleware/admin/checkRole.js');
 const controller = require('../../controllers/admin/products.controller')
 const validate = require('../../validates/admin/product.validate');
 const uploadImage = require('../../middleware/admin/uploadImage');
@@ -19,18 +19,26 @@ const upload = multer({ storage : storage});
 //End Upload
 
 router.post('/create',
+    checkRole('product_create'),
     upload.single('thumbnail'),
     validate.createPost,
     uploadImage,
     controller.createPost);
 
-router.get('/edit/:id',controller.edit);
+router.get('/edit/:id',
+    checkRole('product_edit'),
+    controller.edit);
+
 router.patch('/edit/:id',
+    checkRole('product_edit'),
     upload.single('thumbnail'),
     validate.createPost,
     uploadImage,
     controller.editPatch
 );
-router.get('/detail/:id',controller.detail);
+
+router.get('/detail/:id',
+    checkRole('product_detail'),
+    controller.detail);
 
 module.exports = router;
