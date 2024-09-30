@@ -576,3 +576,25 @@
     width: 20%;
 }
 /* End counter */
+
+/* Section-end  */
+.section-end{
+    background-color: #f2f0f0;
+    width: 100%;
+    height: 300px;
+}
+.section-end .container{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.section-end .title{
+    font-size: large;
+    font-weight: 500;
+}
+.section-end .address-us iframe {
+    height: 250px;
+    width: auto;
+    margin-top: 10px;
+}
+/* End Section-end */
