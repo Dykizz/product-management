@@ -47,7 +47,7 @@ block main
                         label(for="role_id") Phân quyền 
                         select(class='form-control' name="role_id" required)
                             option(value="" disable) --Chọn quyền--
-                            each role in roles 
+                            each role in roles  
                                 option(value=role._id ) #{role.title} 
                 .col-6
                     label Trạng thái

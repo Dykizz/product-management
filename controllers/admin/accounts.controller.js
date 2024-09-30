@@ -22,8 +22,10 @@ module.exports.index = async (req,res) => {
 // [GET] admin/accounts/create
 module.exports.create = async (req,res) => {
     try {
+        const roles = await Roles.find({deleted : false});
         res.render('admin/pages/accounts/create.pug',{
             pageTitle : 'Tạo tài khoản',
+            roles : roles
         });
     } catch (error) {
         req.flash('danger','Lỗi truy cập!');
