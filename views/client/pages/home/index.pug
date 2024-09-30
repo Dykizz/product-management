@@ -9,4 +9,19 @@ block main
         +box-head("Danh sách sản phẩm nổi bật")
         +products-grid(products)
         +pagination(totalPage,currentPage)
+    section(class = "section-end")
+        .container  
+            ul(class = "contact-us") 
+                span(class="title") Liên hệ về chúng tôi
+                li Số điện thoại : 
+                    strong #{setting.phone}
+                li Email : 
+                    strong #{setting.email_contact}
+            .text-center 
+                span(class="title") Địa chỉ làm việc
+                .address-us(value =setting.address ) 
+                
+
+    script(src="/js/home.js") 
+            
 
