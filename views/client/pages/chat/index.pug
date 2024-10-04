@@ -1,0 +1,24 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/notification.pug
+include ../../mixins/go-back.pug
+
+append head
+    link(rel="stylesheet", href="/css/chat.css")
+
+block main 
+    +notification(4000)
+    .container 
+        +box-head("Chat")
+        .frame-mess
+            ul.messages 
+                li(class="friend")
+                    .mess-item Hi
+                li(class="self") 
+                    .mess-item Chào bạn skjjjjjjjjjjjjjj sbskj dsdv dvd dgd dvdvd
+            form(action="", method="get" class="chat-form") 
+                input(type="text" class="chat-mess" placeholder = "Aa")
+                button(type="submit" class="send-mess") 
+                    i(class="fa-regular fa-paper-plane")
+    script(src="/socket.io/socket.io.js") 
+    script(src="/js/chat.js") 
