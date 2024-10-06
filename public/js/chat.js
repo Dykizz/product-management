@@ -1,3 +1,6 @@
+import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
+
+
 const socket = io();
 
 const chatForm = document.querySelector('.chat-form');
@@ -25,3 +28,20 @@ socket.on('SERVER_RETURN_MESS',(data) => {
     messages.appendChild(chatItem);
     messages.scrollTop = messages.scrollHeight; // Cho thanh cuộn trượt xuống mỗi khi nhắn
 })
+
+const buttonIcon = document.querySelector('.btn-icon')
+if (buttonIcon){
+  const tooltip = document.querySelector('.tooltip')
+  Popper.createPopper(buttonIcon, tooltip)
+  document.querySelector('.btn-icon').onclick = () => {
+    tooltip.classList.toggle('shown');
+  }
+}
+
+const emojiPicker = document.querySelector("emoji-picker");
+if (emojiPicker){
+    emojiPicker.addEventListener("emoji-click",(event)=> {
+        const icon = event.detail.unicode;
+        chatMess.value += icon;
+    });
+}

@@ -68,3 +68,16 @@
     color: blue;
 }
 
+.tooltip {
+    visibility: hidden;
+}
+.tooltip.shown{
+    visibility: visible;
+    opacity: 1;
+}
+.btn-icon {
+    font-size: 20px; 
+}
+.btn-icon:hover{
+    color: blue;
+}
