@@ -11,11 +11,16 @@ block main
     .container 
         +box-head("Chat")
         .frame-mess
-            ul.messages 
-                li(class="friend")
-                    .mess-item Hi
-                li(class="self") 
-                    .mess-item Chào bạn skjjjjjjjjjjjjjj sbskj dsdv dvd dgd dvdvd
+            ul.messages
+                for mess of chats 
+                    if mess.user_id != user_id
+                        li
+                            strong #{mess.fullName}
+                        li(class="friend")
+                            .mess-item #{mess.content}
+                    else 
+                        li(class="self") 
+                            .mess-item #{mess.content}
             form(action="", method="get" class="chat-form") 
                 input(type="text" class="chat-mess" placeholder = "Aa")
                 button(type="submit" class="send-mess") 

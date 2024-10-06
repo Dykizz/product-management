@@ -18,7 +18,7 @@ const routeAdmin = require('./routers/admin/index.router');
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-global.io = io;
+global._io = io;
 const port = process.env.PORT ;
 
 
