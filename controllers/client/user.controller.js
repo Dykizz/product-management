@@ -26,6 +26,7 @@ module.exports.loginPost = async (req,res) => {
     }
     else{
         res.cookie('token',account.token);
+        res.cookie('userID',account._id.toString());
         req.flash('success','Đăng nhập tài khoản thành công!');
         res.redirect('/');
     }

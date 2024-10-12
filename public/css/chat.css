@@ -1,6 +1,6 @@
 .frame-mess{
-    width: 70%;
-    height: 400px;
+    width: 75%;
+    height: auto;
     border: 2px solid #ddd;
     margin-left: auto;
     margin-right: auto;
@@ -9,7 +9,7 @@
 .messages{
     list-style-type: none;
     width: 100%;
-    height: 85%;
+    height: 350px;
     overflow-y: auto;
     overflow-x: hidden;
     margin: 0;
@@ -36,10 +36,30 @@
     margin: 0;
     padding: 5px 10px;
     border-radius: 10px;
-    max-width: 250px;
+    max-width: 300px;
     white-space: pre-wrap;
     overflow-wrap: break-word;
+}
+.messages li .image-item {
+    background: rgb(165, 185, 182);
+    margin: 0;
+    padding: 5px ;
+    border-radius: 10px;
+    max-width: 270px;
+    height: auto;
+}
+.messages li .image-item img {
+    width: 75px;
+    height: auto;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 5px;
+}
 
+.messages .chat-notifi {
+    font-style: italic;
+    font-size: small;
+    color: red;
 }
 
 .chat-form{
@@ -75,9 +95,68 @@
     visibility: visible;
     opacity: 1;
 }
+.btn.btn-icon{
+    padding: 5px 7px;
+}
 .btn-icon {
     font-size: 20px; 
+    margin : 0;
 }
 .btn-icon:hover{
     color: blue;
+}
+
+.user-send-typing{
+    font-size: small;
+}
+
+.typing-indicator {
+    height: 20px;
+    width: 15%;
+    min-width: 25px;
+    max-width: 45px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 4px;
+    padding: 10px 5px 0;
+    background: transparent;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.typing-indicator.show {
+    opacity: 1;
+}
+
+.typing-indicator.show span {
+    animation: typing 1.2s ease-out infinite;
+}
+
+.typing-indicator.show span:nth-child(1) { animation-delay: .4s; }
+.typing-indicator.show span:nth-child(2) { animation-delay: .8s; }
+.typing-indicator.show span:nth-child(3) { animation-delay: 1.2s; }
+
+@keyframes typing {
+    0%, 100% { margin-bottom: 0; opacity: 0.1; }
+    25% { margin-bottom: 3px; opacity: 0.5; }
+    50% { margin-bottom: 7px; opacity: 1; }
+    75% { margin-bottom: 3px; opacity: 0.5; }
+}
+
+/* Custom File Container */
+.custom-file-container .label-container{
+    display: none;
+}
+.custom-file-container .input-container{
+    display: none;
+}
+.custom-file-container .image-preview{
+    border-radius: 0;
+    height: auto;
+    background-size: contain;
+}
+.custom-file-container .image-preview .image-preview-item {
+    width: 85px;
 }

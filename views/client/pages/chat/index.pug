@@ -16,19 +16,35 @@ block main
                     if mess.user_id != user_id
                         li
                             strong #{mess.fullName}
-                        li(class="friend")
-                            .mess-item #{mess.content}
+                        if mess.content
+                            li(class="friend")
+                                .mess-item #{mess.content}
+                        if mess.images.length > 0
+                            li(class="friend")
+                                .image-item
+                                    for imageUrl in mess.images
+                                        img(src=imageUrl, alt="Hình ảnh")
                     else 
-                        li(class="self") 
-                            .mess-item #{mess.content}
-            form(action="", method="get" class="chat-form") 
+                        if mess.content
+                            li(class="self") 
+                                .mess-item #{mess.content}
+                        if mess.images.length > 0
+                            li(class="self")
+                                .image-item
+                                    for imageUrl in mess.images
+                                        img(src=imageUrl, alt="Hình ảnh")
+
+                
+            div(class="custom-file-container" data-upload-id="upload-image")
+            form(action="javascript:void(0);", method="get" class="chat-form") 
                 input(type="text" class="chat-mess" placeholder = "Aa")
-                span(class ="btn btn-icon") 
+                label(for="file-upload-with-preview-upload-image" class ="btn btn-icon")
+                    i(class="fa-regular fa-image")
+                span(class ="btn btn-icon icon-emoji") 
                     i(class="fa-regular fa-face-smile")
                     div(class="tooltip" role ="tooltip")
                         emoji-picker
-                button(type="submit" class="send-mess") 
+                button(class="btn btn-icon" type="submit" class="send-mess") 
                     i(class="fa-regular fa-paper-plane")
-
-    script(src="/socket.io/socket.io.js") 
+    script(src="/socket.io/socket.io.js")
     script(type="module" src="/js/chat.js") 
