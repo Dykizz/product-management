@@ -21,6 +21,12 @@ const scrollToBottom = () => {
 };
 scrollToBottom();
 
+//Để có thể view hình ảnh
+if (messages) {
+    const gallery = new Viewer(messages);
+}
+
+
 // Thông báo tin nhắn đang được tải (khi gửi hình)
 const loadingNotification = document.createElement('li');
 loadingNotification.classList.add('self');
@@ -58,6 +64,7 @@ const addMessItems = (data,type) => {
         imagesHTML += '</div>';
         chatItemImages.innerHTML = imagesHTML;
         fragment.appendChild(chatItemImages);
+        const view = new Viewer(chatItemImages);
     }
     
     messages.appendChild(fragment);
@@ -180,5 +187,13 @@ socket.on('SERVER_RETURN_TYPING', (data) => {
 socket.on('SERVER_RETURN_STOP_TYPING', (data) => {
     deleteUserTyping(data);
 });
+
+// const viewer = new Viewer(document.getElementById('image'), {
+//     inline: true,
+//     viewed() {
+//       viewer.zoomTo(1);
+//     },
+//   });
+
 
 
