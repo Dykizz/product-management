@@ -1,0 +1,12 @@
+.btn-friends(id = account._id.toString())
+    button(class="btn ") 
+        a(href="/users/not-friend") Danh sách người dùng
+    button(class="btn ") 
+        .quantity(quantity-friends) #{friendsLength} 
+        a(href="/users/friends") Danh sách bạn bè
+    button(class="btn ") 
+        .quantity(quantity-send) #{sendFriendLength} 
+        a(href="/users/send-friend") Lời mời đã gửi
+    button(class="btn ") 
+        .quantity(quantity-request) #{requestFriendLength}
+        a(href="/users/request-friend") Lời mời kết bạn

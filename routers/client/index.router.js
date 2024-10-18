@@ -7,6 +7,7 @@ const userRouters = require('./user.router');
 const cartRouters = require('./cart.router');
 const checkoutRouter = require('./checkout.router');
 const chatRouter = require('./chatRouter');
+const usersRouter = require('./users.router');
 module.exports = (app) =>{
     app.use((req, res, next) => {
         res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
@@ -20,5 +21,6 @@ module.exports = (app) =>{
     app.use('/user',userRouters);
     app.use('/cart',cartRouters);
     app.use('/checkout',checkoutRouter);
-    app.use('/chat',chatRouter)
+    app.use('/chat',chatRouter);
+    app.use('/users',usersRouter);
 } 

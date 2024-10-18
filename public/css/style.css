@@ -283,10 +283,10 @@
 
 
 .body {
-    min-height: calc(100vh - 110px);
+    min-height: calc(100vh - 145px);
     margin-top: 30px;
     position: relative;
-
+    width: 100%;
 }
 
 /* End Body */
@@ -598,3 +598,165 @@
     margin-top: 10px;
 }
 /* End Section-end */
+
+/* Users */
+.body .container {
+    height: auto
+}
+.btn-friends{
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    background: #ece8e8;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.btn-friends button .quantity {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: red;
+    color: white;
+    font-weight: 500;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+}
+
+.btn-friends button {
+    margin: 8px;
+    background: #7feb9a;
+    transition: all 0.4s;
+    position: relative;
+}
+.btn-friends button:hover{
+    background: #21a943;
+}
+.btn-friends a{
+    color: white;
+    font-weight: 600;
+    transition: all 0.4s;
+}
+.btn-friends a:hover {
+    text-decoration: none;
+    color: black;
+}
+.inner-card-user{
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column; */
+}
+.card-user{
+    position: relative;
+    margin: 15px ;
+    /* max-width: 320px;
+    min-width: 260px; */
+    min-width: 350px;
+    height: 120px;
+    display: flex;
+    background: #ddd;
+    border-radius: 8px;
+    padding: 10px;
+}
+.card-user.add-friend button[btn-add-friend]{
+    display: none;
+}
+.card-user button[btn-cancel-friend]{
+    display: none;
+}
+.card-user.add-friend button[btn-cancel-friend]{
+    display: block;
+}
+
+.card-user.unfriend button[btn-unfriend]{
+    display: none;
+}
+/* Request Friend */
+.card-user.friend .btn1{
+    display: none;
+}
+
+.card-user.not-friend .btn2 {
+    display: none;
+}
+
+/* End Request Friend */
+
+/* Friend */
+.card-user .avarta {
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+.card-user .avarta img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.card-user .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.card-user .infor{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.card-user .infor p {
+    font-weight: 500;
+    font-size: larger;
+}
+.card-user .btns{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.card-user .btns button {
+    margin: 8px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+/* End Friend */
+
+/* Socket Login Logout */
+.card-user[online="true"]::before{
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgb(97, 225, 97);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+.card-user[online="false"]::before{
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #f1a1a1;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+/* End Socket Login Logout */

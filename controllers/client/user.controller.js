@@ -25,6 +25,10 @@ module.exports.loginPost = async (req,res) => {
         res.redirect('back');
     }
     else{
+        _io.emit("SERVER_RETURN_ONLINE",{
+            userID : account._id.toString() 
+        });
+        await ClientAccount.updateOne({_id : account._id}, { $set : {online : true }});
         res.cookie('token',account.token);
         res.cookie('userID',account._id.toString());
         req.flash('success','Đăng nhập tài khoản thành công!');
@@ -32,7 +36,12 @@ module.exports.loginPost = async (req,res) => {
     }
 }
 // [GET] /user/logout
-module.exports.logout = (req,res) => {
+module.exports.logout = async (req,res) => {
+    const id = res.locals.account._id;
+    _io.emit("SERVER_RETURN_OFFLINE", {
+        userID: id.toString()
+    });
+    await ClientAccount.updateOne({_id : id}, { $set : {online : false }});
     res.clearCookie('token');
     req.flash('success','Đăng xuất tài khoản thành công!');
     res.redirect('/');

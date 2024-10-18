@@ -48,9 +48,5 @@ module.exports = async (res) => {
                 user_id : user_id
             });
         })
-
-        socket.on('disconnect', () => {
-            console.log("User disconnected");
-        });
     });
 }

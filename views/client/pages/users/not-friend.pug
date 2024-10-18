@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+block main 
+    +notification(4000)
+    include ../../partials/friend-buttons.pug
+    .container
+        .inner-card-user
+            for user in users
+                .card-user
+                    .avarta
+                        img(src=user.thumbnail || (user.gender == "male" ? "/images/avarta-man.png" : "/images/avarta-woman.svg") alt="Avarta")
+                    .content 
+                        .infor 
+                            p #{user.username}
+                        .btns 
+                            button(class ="btn btn-primary" btn-add-friend = user._id) 
+                                i(class="fa-solid fa-user-plus")
+                                |  Kết bạn
+                            button(class ="btn btn-primary" btn-cancel-friend = user._id ) Hủy
+    script(src="/socket.io/socket.io.js")
+    script(src="/js/users.js") 

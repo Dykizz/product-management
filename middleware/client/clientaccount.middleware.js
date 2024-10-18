@@ -7,7 +7,7 @@ module.exports.index = async (req,res,next) =>{
         const setting = await SettingGeneral.findOne({});
         res.locals.setting = setting;
         if (token){
-            const account = await ClientAccount.findOne({token : token},"_id username thumbnail");
+            const account = await ClientAccount.findOne({token : token},"_id username thumbnail friends requestFriend sendFriend");
             if (account) {
                 const cart = await Cart.findOne({userId : account._id.toString()});
                 res.locals.cart = cart;
