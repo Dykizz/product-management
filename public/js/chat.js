@@ -153,7 +153,7 @@ const handleTypingTimeout = () => {
     clearTimeout(typingTimeout);
     typingTimeout = setTimeout(() => {
         socket.emit('CLIENT_SEND_STOP_TYPING', {});
-    }, 1500);
+    }, 500);
 };
 
 // Sự kiện chọn emoji

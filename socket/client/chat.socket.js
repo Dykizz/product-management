@@ -1,11 +1,12 @@
 const Chat = require('../../models/chat.model');
 const uploadToCloudDinary = require('../../helpers/uploadToCloudDinary');
 
-module.exports = async (res) => {
+module.exports = async (req,res) => {
     const user_id = res.locals.account._id.toString();
     const username = res.locals.account.username;
-   
+    const room_chat_id = req.params.id;
     _io.once("connection", (socket) => {
+        socket.join(room_chat_id);
         socket.on('CLIENT_SEND_MESS', async data => {
             if (data.images.length > 0){
                 socket.emit("SERVER_LOADING_MESS");
@@ -17,6 +18,7 @@ module.exports = async (res) => {
             }
             
             const chat = new Chat({
+                room_chat_id : room_chat_id,
                 user_id: user_id,
                 content: data.message,
                 images: data.images
@@ -29,22 +31,23 @@ module.exports = async (res) => {
             { ...data, 
                 username : username, 
                 type: 'friend' };
-            socket.broadcast.emit('SERVER_RETURN_MESS', broadcastData);
+            
+            socket.broadcast.to(room_chat_id).emit('SERVER_RETURN_MESS', broadcastData);
 
-            // _io.emit('SERVER_RETURN_MESS',data);
+
             await chat.save();
             
         });
 
         socket.on('CLIENT_SEND_TYPING', data => {
-            socket.broadcast.emit('SERVER_RETURN_TYPING',{
+            socket.broadcast.to(room_chat_id).emit('SERVER_RETURN_TYPING',{
                 user_id : user_id,
                 fullName : res.locals.account.username
             })
         });
 
         socket.on('CLIENT_SEND_STOP_TYPING', data => {
-            socket.broadcast.emit('SERVER_RETURN_STOP_TYPING',{
+            socket.broadcast.to(room_chat_id).emit('SERVER_RETURN_STOP_TYPING',{
                 user_id : user_id
             });
         })

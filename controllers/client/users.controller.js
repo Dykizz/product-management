@@ -1,9 +1,10 @@
 const ClientAccount = require('../../models/client-account.model');
+const RoomChat = require('../../models/room-chat.model');
 const usersSocket = require('../../socket/client/users.socket');
 
 
 module.exports.notFriend = async (req, res) => {
-    await usersSocket(res);
+    await usersSocket(req,res);
     const userID = res.locals.account._id;
     const myUser = await ClientAccount.findOne({_id : userID });
     // const friends = myUser.friends.map(ob => ob.user_id);
@@ -28,7 +29,7 @@ module.exports.notFriend = async (req, res) => {
 }
 
 module.exports.sendFriend = async (req, res) => {
-    await usersSocket(res);
+    await usersSocket(req,res);
     const userID = res.locals.account._id;
     const myUser = await ClientAccount.findOne({_id : userID });
     // const sendFriend = myUser.sendFriend;
@@ -48,7 +49,7 @@ module.exports.sendFriend = async (req, res) => {
 }
 
 module.exports.requestFriend = async (req,res) => {
-    await usersSocket(res);
+    await usersSocket(req,res);
     const userID = res.locals.account._id;
     const myUser = await ClientAccount.findOne({_id : userID },"-password");
     const requestFriends = await ClientAccount.find({
@@ -66,16 +67,20 @@ module.exports.requestFriend = async (req,res) => {
 }
 
 module.exports.friends = async (req,res) => {
-    await usersSocket(res);
+    await usersSocket(req,res);
     const userID = res.locals.account._id;
     const myUser = await ClientAccount.findOne({_id : userID });
-    // const friends = myUser.friends.map(ob => ob.user_id);
     const listFriend = await ClientAccount.find({
         _id : { $in : myUser.friends?.map(ob => ob.user_id) },
         deleted : false,
         status : "active"
     });
-    console.log(listFriend)
+    // Thêm room_id
+    myUser.friends.forEach((data,index) => {
+        listFriend[index].room_chat_id = data.room_chat_id;
+    });
+    
+
     res.render('client/pages/users/friends.pug',{
         pageTitle : "Danh sách bạn bè",
         users : listFriend,
