@@ -734,6 +734,14 @@
     text-align: center;
     padding-bottom: 30px;
 }
+.card-user .btns button a{
+    margin: 0;
+    color: white;
+    margin-left: 5px;
+}
+.card-user .btns button a:hover{
+    text-decoration: none;
+}
 /* End Friend */
 
 /* Socket Login Logout */

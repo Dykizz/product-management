@@ -17,9 +17,9 @@ block main
                                 i(class="fa-solid fa-user-plus")
                                 |  Kết bạn
                         .btns.btn2 
-                            a(href = `/chat/${user.room_chat_id}` class ="btn btn-primary" btn-chat-friend = user._id) 
-                                i(class="fa-solid fa-user-plus")
-                                |  Nhắn tin
+                            button(class ="btn btn-primary" btn-chat-friend = user._id) 
+                                i(class="fa-solid fa-user-plus")     
+                                a(href = `/chat/${user.room_chat_id}`) Nhắn tin
                             button(class ="btn btn-primary" btn-unfriend = user._id ) Hủy kết bạn
     script(src="/socket.io/socket.io.js")
     script(src="/js/users.js") 
