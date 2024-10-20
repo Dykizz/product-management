@@ -1,0 +1,20 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+block main 
+    +notification(4000)
+    include ../../partials/friend-buttons.pug
+    .container
+        h3.text-center.mt-3 Danh sách phòng chat
+            button(class="btn btn-outline-success ml-4")
+                a(href="/users/create-room-chat")  Tạo phòng
+        .inner-card-user
+            for room in roomsChat 
+                .card-user.friend
+                    .avarta
+                        img(src=room.avarta, alt="image")
+                    .content    
+                        .infor #{room.title}
+                        .btns
+                            button(class ="btn btn-primary" ) 
+                                i(class="fa-solid fa-user-plus")     
+                                a(href = `/chat/${room._id}`) Nhắn tin

@@ -1,0 +1,20 @@
+extends ../../layouts/default.pug
+include ../../mixins/notification.pug
+include ../../mixins/upload-file-preview.pug
+block main 
+    +notification(4000)
+    .container
+        h3.text-center Tạo phòng chat 
+        .card 
+            form(action="/users/create-room-chat", enctype="multipart/form-data" , method="post").card-body 
+                .form-group 
+                    label(for="title") Tên nhóm
+                    input(class ="form-control" type="text" name = "title" required)
+                +upload-file-preview("avarta","avarta")
+                .form-group     
+                    div Danh sách thành viên
+                    for user in friends 
+                        div
+                            input(type="checkbox" id =`user${user._id}` name="members" value = user._id)
+                            label(for=`user${user._id}` class="ml-2")  #{user.username}
+                button(class="btn btn-primary" type="submit") Xác nhận tạo

@@ -1,4 +1,6 @@
-
+a:hover{
+    text-decoration: none;
+}
 /* Header */
 * {
     box-sizing: border-box;
@@ -604,7 +606,7 @@
     height: auto
 }
 .btn-friends{
-    max-width: 700px;
+    max-width: 830px;
     margin-left: auto;
     margin-right: auto;
     height: auto;

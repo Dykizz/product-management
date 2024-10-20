@@ -11,6 +11,7 @@ block main
     .container 
         +box-head("Chat")
         .frame-mess
+            .mess-header #{title}
             ul.messages
                 for mess of chats 
                     if mess.user_id != user_id

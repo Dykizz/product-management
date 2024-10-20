@@ -6,6 +6,13 @@
     margin-right: auto;
     padding: 0;
 }
+.frame-mess .mess-header {
+    padding: 10px 15px;
+    height: auto;
+    background: rgb(44, 137, 236);
+    font-weight: 600;
+    font-size: 20px;
+}
 .messages{
     list-style-type: none;
     width: 100%;
